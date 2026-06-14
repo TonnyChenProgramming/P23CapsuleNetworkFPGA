@@ -1,0 +1,72 @@
+===============================================================================
+Version:    v++ v2022.1 (64-bit)
+Build:      SW Build 3524075 on 2022-04-13-17:42:45
+Copyright:  Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Created:    Fri Jun 12 21:12:00 2026
+===============================================================================
+
+-------------------------------------------------------------------------------
+Design Name:             digitcaps_accel
+Target Device:           xilinx.com:xd:xilinx_zcu102_base_202210_1:202210.1
+Target Clock:            150.000000MHz
+Total number of kernels: 1
+-------------------------------------------------------------------------------
+
+Kernel Summary
+Kernel Name      Type  Target              OpenCL Library   Compute Units
+---------------  ----  ------------------  ---------------  -------------
+digitcaps_accel  c     fpga0:OCL_REGION_0  digitcaps_accel  1
+
+
+-------------------------------------------------------------------------------
+OpenCL Binary:     digitcaps_accel
+Kernels mapped to: clc_region
+
+Timing Information (MHz)
+Compute Unit       Kernel Name      Module Name                                                 Target Frequency  Estimated Frequency
+-----------------  ---------------  ----------------------------------------------------------  ----------------  -------------------
+digitcaps_accel_1  digitcaps_accel  digitcaps_accel_Pipeline_1                                  300.300293        411.015198
+digitcaps_accel_1  digitcaps_accel  apply_weights_Pipeline_VITIS_LOOP_108_1_VITIS_LOOP_110_2    300.300293        411.015198
+digitcaps_accel_1  digitcaps_accel  apply_weights                                               300.300293        411.015198
+digitcaps_accel_1  digitcaps_accel  softmax                                                     300.300293        300.029999
+digitcaps_accel_1  digitcaps_accel  digitcaps_accel_Pipeline_VITIS_LOOP_229_3                   300.300293        422.832977
+digitcaps_accel_1  digitcaps_accel  squash_Pipeline_VITIS_LOOP_268_2                            300.300293        422.832977
+digitcaps_accel_1  digitcaps_accel  squash_Pipeline_VITIS_LOOP_276_3                            300.300293        422.832977
+digitcaps_accel_1  digitcaps_accel  squash                                                      300.300293        333.000336
+digitcaps_accel_1  digitcaps_accel  digitcaps_accel_Pipeline_VITIS_LOOP_286_1_VITIS_LOOP_289_2  300.300293        422.832977
+digitcaps_accel_1  digitcaps_accel  digitcaps_accel_Pipeline_VITIS_LOOP_303_1                   300.300293        461.041962
+digitcaps_accel_1  digitcaps_accel  digitcaps_accel_Pipeline_5                                  300.300293        411.015198
+digitcaps_accel_1  digitcaps_accel  digitcaps_accel                                             300.300293        300.029999
+
+Latency Information
+Compute Unit       Kernel Name      Module Name                                                 Start Interval   Best (cycles)  Avg (cycles)  Worst (cycles)  Best (absolute)  Avg (absolute)  Worst (absolute)
+-----------------  ---------------  ----------------------------------------------------------  ---------------  -------------  ------------  --------------  ---------------  --------------  ----------------
+digitcaps_accel_1  digitcaps_accel  digitcaps_accel_Pipeline_1                                  9219             9219           9219          9219            30.727 us        30.727 us       30.727 us
+digitcaps_accel_1  digitcaps_accel  apply_weights_Pipeline_VITIS_LOOP_108_1_VITIS_LOOP_110_2    92170            92170          92170         92170           0.307 ms         0.307 ms        0.307 ms
+digitcaps_accel_1  digitcaps_accel  apply_weights                                               92241            92241          92241         92241           0.307 ms         0.307 ms        0.307 ms
+digitcaps_accel_1  digitcaps_accel  softmax                                                     7038             7038           7038          7038            23.458 us        23.458 us       23.458 us
+digitcaps_accel_1  digitcaps_accel  digitcaps_accel_Pipeline_VITIS_LOOP_229_3                   1174             1174           1174          1174            3.913 us         3.913 us        3.913 us
+digitcaps_accel_1  digitcaps_accel  squash_Pipeline_VITIS_LOOP_268_2                            36               36             36            36              0.120 us         0.120 us        0.120 us
+digitcaps_accel_1  digitcaps_accel  squash_Pipeline_VITIS_LOOP_276_3                            21               21             21            21              69.993 ns        69.993 ns       69.993 ns
+digitcaps_accel_1  digitcaps_accel  squash                                                      1961             1961           1961          1961            6.536 us         6.536 us        6.536 us
+digitcaps_accel_1  digitcaps_accel  digitcaps_accel_Pipeline_VITIS_LOOP_286_1_VITIS_LOOP_289_2  11533            11533          11533         11533           38.439 us        38.439 us       38.439 us
+digitcaps_accel_1  digitcaps_accel  digitcaps_accel_Pipeline_VITIS_LOOP_303_1                   23043            23043          23043         23043           76.802 us        76.802 us       76.802 us
+digitcaps_accel_1  digitcaps_accel  digitcaps_accel_Pipeline_5                                  163              163            163           163             0.543 us         0.543 us        0.543 us
+digitcaps_accel_1  digitcaps_accel  digitcaps_accel                                             693742 ~ 797479  693741         745611        797478          2.312 ms         2.485 ms        2.658 ms
+
+Area Information
+Compute Unit       Kernel Name      Module Name                                                 FF      LUT     DSP  BRAM  URAM
+-----------------  ---------------  ----------------------------------------------------------  ------  ------  ---  ----  ----
+digitcaps_accel_1  digitcaps_accel  digitcaps_accel_Pipeline_1                                  1043    118     0    0     0
+digitcaps_accel_1  digitcaps_accel  apply_weights_Pipeline_VITIS_LOOP_108_1_VITIS_LOOP_110_2    27420   9968    0    0     0
+digitcaps_accel_1  digitcaps_accel  apply_weights                                               27551   10630   0    0     0
+digitcaps_accel_1  digitcaps_accel  softmax                                                     76968   74939   0    0     0
+digitcaps_accel_1  digitcaps_accel  digitcaps_accel_Pipeline_VITIS_LOOP_229_3                   943     812     0    0     0
+digitcaps_accel_1  digitcaps_accel  squash_Pipeline_VITIS_LOOP_268_2                            125     180     0    0     0
+digitcaps_accel_1  digitcaps_accel  squash_Pipeline_VITIS_LOOP_276_3                            198     107     0    0     0
+digitcaps_accel_1  digitcaps_accel  squash                                                      2593    3740    0    0     0
+digitcaps_accel_1  digitcaps_accel  digitcaps_accel_Pipeline_VITIS_LOOP_286_1_VITIS_LOOP_289_2  2609    1441    0    0     0
+digitcaps_accel_1  digitcaps_accel  digitcaps_accel_Pipeline_VITIS_LOOP_303_1                   249     400     0    0     0
+digitcaps_accel_1  digitcaps_accel  digitcaps_accel_Pipeline_5                                  528     568     0    0     0
+digitcaps_accel_1  digitcaps_accel  digitcaps_accel                                             122131  125418  0    352   0
+-------------------------------------------------------------------------------

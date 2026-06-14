@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+
+<html>
+<!-- Styles -->
+<style>
+    #chartdiv {
+      width: 100%;
+      height: 1000px;
+    }
+</style>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>OPTraceViewer</title>
+  <script src="https://www.amcharts.com/lib/3/amcharts.js">
+  </script>
+  <script src="https://www.amcharts.com/lib/3/serial.js">
+  </script>
+  <script src="https://www.amcharts.com/lib/3/gantt.js">
+  </script>
+  <script src="https://www.amcharts.com/lib/3/themes/light.js">
+  </script>
+  <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js">
+  </script>
+  <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all"/>
+
+  <form name="userInputForm" action="javascript:userInputFormCallback()">
+    <fieldset>
+    <legend>Graph Filters:</legend>
+    <table style="width:100%">
+      <col width="50"></col>
+      <col width="20"></col>
+      <col width="60"></col>
+      <tr>
+        <td style="text-align: center"; colspan="3"><input type="number" name="userDurationFilterSecInput" id="userDurationFilterSecInput" value="2" min="0" max="6000" step="1"> sec</td>
+        <td>Filter out run durations lower than this value</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td style="text-align: center"><input type="checkbox" name="userGroupPidSortSelected" id="userGroupPidSortSelected"></td>
+        <td>Group sort by process ID</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td bgcolor="#0099ff"></td>
+        <td style="text-align: center"><input type="checkbox" name="userRollupSelected" id="userRollupSelected"></td>
+        <td>Show rollup entries</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td bgcolor="#8dc49f"></td>
+        <td style="text-align: center"><input type="checkbox" name="userIndividualEntrySelected" id="userIndividualEntrySelected"></td>
+        <td>Show individual entries</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td bgcolor="#cd82ad"></td>
+        <td style="text-align: center"><input type="checkbox" name="userCheckpointEntrySelected" id="userCheckpointEntrySelected"></td>
+        <td>Show checkpoints entry</td>
+      </tr>
+       <tr>
+        <td></td>
+        <td bgcolor="#b9783f"></td>
+        <td style="text-align: center"><input type="checkbox" name="userReportEntrySelected" id="userReportEntrySelected"></td>
+        <td>Show report entry</td>
+      </tr>
+
+    </table>
+    <br>
+    <input name="Submit" type="submit" value="Update Graph">
+    </fieldset>
+  </form> 
+
+  <div id="chartdiv">
+  </div>
+
+  <script>
+  </script>
+
+</head>
+
+
+<body>
+<table id="myDynamicTable" cellpadding="2" cellspacing="2" border="1" onclick="tester()">
+  <tr>
+  <td>Task</td>
+  <td>Start</td>
+  <td>Duration</td>
+  </tr>
+</table>
+<script>
+  // Default User Selected variables
+  var m_secondFilter = 1;
+  var m_groupPidSort = true;
+  var m_showRollup = true;
+  var m_showIndividualEntry = false;
+  var m_showCheckpointEntry = false;
+  var m_showReportEntry = false;
+
+  function SetDefaultUserValues()
+  {
+    document.getElementById("userDurationFilterSecInput").value = m_secondFilter;
+    document.getElementById("userGroupPidSortSelected").checked = m_groupPidSort;
+    document.getElementById("userRollupSelected").checked = m_showRollup;
+    document.getElementById("userIndividualEntrySelected").checked = m_showIndividualEntry;
+    document.getElementById("userCheckpointEntrySelected").checked = m_showCheckpointEntry;
+    document.getElementById("userReportEntrySelected").checked = m_showReportEntry;
+  }
+
+  window.onload = function(){
+    SetDefaultUserValues();
+  }
+
+
+
+
+  // Header
+  var header = "Keyword|pid|Entry|SrcFile|Catagory|TimeStampMSec|Action|Task|Tags|Misc";
+                         
+  // Insert Raw Data Here
+  // Note: Do not change the following signature. 
+  var csvData =    [
+      "[OPTRACE]|63882|10|run|cpp|1781236066361|START|OCL_LINK|",
+      "[OPTRACE]|63882|11|setupBinaryForLink|cpp|1781236066362|START|Create Binary|",
+      "[OPTRACE]|63882|12||cpp|1781236066362|END|Create Binary|",
+      "[OPTRACE]|63882|13|setupBinaryForLink|cpp|1781236066362|START|Extract Kernels|",
+      "[OPTRACE]|63882|14||cpp|1781236066489|END|Extract Kernels|",
+      "[OPTRACE]|63882|15|launchStep_|cpp|1781236066531|START|Launch Step: system_link|",
+      "[OPTRACE]|63882|16||cpp|1781236073282|END|Launch Step: system_link|",
+      "[OPTRACE]|63882|17|launchStep_|cpp|1781236073283|START|Launch Step: cf2sw|",
+      "[OPTRACE]|63882|18||cpp|1781236074889|END|Launch Step: cf2sw|",
+      "[OPTRACE]|63882|19|launchStep_|cpp|1781236074889|START|Launch Step: rtd2_system_diagram|",
+      "[OPTRACE]|63882|1|main|cpp|1781236054705|START|v++|ROLLUP_0",
+      "[OPTRACE]|63882|20||cpp|1781236075002|END|Launch Step: rtd2_system_diagram|",
+      "[OPTRACE]|63882|21|launchStep_|cpp|1781236075003|START|Launch Step: vpl|",
+      "[OPTRACE]|63882|2|run|cpp|1781236054705|START|Validate Kernels|",
+      "[OPTRACE]|63882|3||cpp|1781236054892|END|Validate Kernels|",
+      "[OPTRACE]|63882|4|prepareProject|cpp|1781236054902|START|Create Solution|",
+      "[OPTRACE]|63882|5||cpp|1781236066146|END|Create Solution|",
+      "[OPTRACE]|63882|630||cpp|1781238139502|END|Launch Step: vpl|",
+      "[OPTRACE]|63882|631|launchStep_|cpp|1781238139502|START|Launch Step: rtdgen|",
+      "[OPTRACE]|63882|632|launchCf2sw_|cpp|1781238139504|START|Launch cf2sw|",
+      "[OPTRACE]|63882|633||cpp|1781238140997|END|Launch cf2sw|",
+      "[OPTRACE]|63882|634|writeSystemDiagram|cpp|1781238140997|START|writeSystemDiagram|",
+      "[OPTRACE]|63882|635||cpp|1781238141000|END|writeSystemDiagram|",
+      "[OPTRACE]|63882|636|writeAutomationSummary|cpp|1781238141000|START|writeAutomationSummary|",
+      "[OPTRACE]|63882|637||cpp|1781238141002|END|writeAutomationSummary|",
+      "[OPTRACE]|63882|638||cpp|1781238141002|END|Launch Step: rtdgen|",
+      "[OPTRACE]|63882|639|launchStep_|cpp|1781238141003|START|Launch Step: xclbinutil|",
+      "[OPTRACE]|63882|640||cpp|1781238141708|END|Launch Step: xclbinutil|",
+      "[OPTRACE]|63882|641|launchStep_|cpp|1781238141709|START|Launch Step: xclbinutilinfo|",
+      "[OPTRACE]|63882|642||cpp|1781238142477|END|Launch Step: xclbinutilinfo|",
+      "[OPTRACE]|63882|643|launchStep_|cpp|1781238142477|START|Launch Step: generate_sc_driver|",
+      "[OPTRACE]|63882|644||cpp|1781238142479|END|Launch Step: generate_sc_driver|",
+      "[OPTRACE]|63882|645||cpp|1781238142481|END|OCL_LINK|",
+      "[OPTRACE]|63882|646||cpp|1781238142750|END|v++|",
+      "[OPTRACE]|63882|6|prepareProject|cpp|1781236066147|START|Add Device|",
+      "[OPTRACE]|63882|7|addDevice|cpp|1781236066147|START|Find & Load Device|",
+      "[OPTRACE]|63882|8||cpp|1781236066165|END|Find & Load Device|",
+      "[OPTRACE]|63882|9||cpp|1781236066351|END|Add Device|",
+      "[OPTRACE]|64249|22|main|cpp|1781236075767|START|vpl|",
+      "[OPTRACE]|64249|23|runPlatformLinker|cpp|1781236075779|START|runPlatformLinker|",
+      "[OPTRACE]|64249|24|setupBinaryForLink|cpp|1781236075779|START|Create Solution|",
+      "[OPTRACE]|64249|25||cpp|1781236075783|END|Create Solution|",
+      "[OPTRACE]|64249|26|setupBinaryForLink|cpp|1781236075783|START|Add platform|",
+      "[OPTRACE]|64249|27||cpp|1781236075981|END|Add platform|",
+      "[OPTRACE]|64249|28|setupBinaryForLink|cpp|1781236075982|START|Create Binary|",
+      "[OPTRACE]|64249|29||cpp|1781236075982|END|Create Binary|",
+      "[OPTRACE]|64249|30|setupBinaryForLink|cpp|1781236075982|START|Create Kernels|",
+      "[OPTRACE]|64249|31||cpp|1781236075987|END|Create Kernels|",
+      "[OPTRACE]|64249|32|runPlatformLinker|cpp|1781236076002|START|Process Kernels|",
+      "[OPTRACE]|64249|33|runPlatformLinker|cpp|1781236076002|START|Set Board Repo Paths and Connections|",
+      "[OPTRACE]|64249|34||cpp|1781236076003|END|Set Board Repo Paths and Connections|",
+      "[OPTRACE]|64249|35|runPlatformLinker|cpp|1781236076003|START|Process Kernel Profiles|",
+      "[OPTRACE]|64249|36||cpp|1781236076003|END|Process Kernel Profiles|",
+      "[OPTRACE]|64249|37|runPlatformLinker|cpp|1781236076003|START|Process Trace Memory|",
+      "[OPTRACE]|64249|38||cpp|1781236076003|END|Process Trace Memory|",
+      "[OPTRACE]|64249|39||cpp|1781236076003|END|Process Kernels|",
+      "[OPTRACE]|64249|40|runPlatformLinker|cpp|1781236076003|START|Process Kernel Debug|",
+      "[OPTRACE]|64249|41||cpp|1781236076004|END|Process Kernel Debug|",
+      "[OPTRACE]|64249|42|runPlatformLinker|cpp|1781236076004|START|Set Kernel Debug|",
+      "[OPTRACE]|64249|43||cpp|1781236076004|END|Set Kernel Debug|",
+      "[OPTRACE]|64249|44|runPlatformLinker|cpp|1781236076004|START|Set Miscellaneous|",
+      "[OPTRACE]|64249|45||cpp|1781236076004|END|Set Miscellaneous|",
+      "[OPTRACE]|64249|46|run|cpp|1781236076004|START|Extract Platform|",
+      "[OPTRACE]|64249|47||cpp|1781236076181|END|Extract Platform|",
+      "[OPTRACE]|64249|626|runPlatformLinker|cpp|1781238139442|START|Generate Resource Availability Report|",
+      "[OPTRACE]|64249|627||cpp|1781238139442|END|Generate Resource Availability Report|",
+      "[OPTRACE]|64249|628||cpp|1781238139442|END|runPlatformLinker|",
+      "[OPTRACE]|64249|629||cpp|1781238139484|END|vpl|",
+      "[OPTRACE]|64331|48|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/vpl.tcl|vivado_impl|1781236080341|START|Implementation|ROLLUP_1",
+      "[OPTRACE]|64331|49|ipirun.tcl|vpl|1781236080359|START|ipirun|ROLLUP_0",
+      "[OPTRACE]|64331|50|ipirun.tcl|vpl|1781236080360|END|ipirun|",
+      "[OPTRACE]|64331|51|ipirun.tcl|vpl|1781236080371|START|Create project|",
+      "[OPTRACE]|64331|52|ipirun.tcl|vpl|1781236084074|END|Create project|",
+      "[OPTRACE]|64331|530|ipirun.tcl|vpl|1781237539636|END|Synthesis|",
+      "[OPTRACE]|64331|53|ipirun.tcl|vpl|1781236084075|START|Create IP caching environment|",
+      "[OPTRACE]|64331|54|ipirun.tcl|vpl|1781236084110|END|Create IP caching environment|",
+      "[OPTRACE]|64331|55|ipirun.tcl|vpl|1781236084111|START|Import/add dynamic BD|",
+      "[OPTRACE]|64331|56|ipirun.tcl|vpl|1781236084111|END|Import/add dynamic BD|",
+      "[OPTRACE]|64331|57|ipirun.tcl|vpl|1781236084112|START|Open BD and insert kernels|",
+      "[OPTRACE]|64331|58|ipirun.tcl|vpl|1781236088380|END|Open BD and insert kernels|",
+      "[OPTRACE]|64331|59|ipirun.tcl|vpl|1781236088381|START|Add debug/profiling support|",
+      "[OPTRACE]|64331|60|ipirun.tcl|vpl|1781236088392|END|Add debug/profiling support|",
+      "[OPTRACE]|64331|61|ipirun.tcl|vpl|1781236088392|START|IPI address assignments|",
+      "[OPTRACE]|64331|625|ipirun.tcl|vpl|1781238138536|END|Implementation|",
+      "[OPTRACE]|64331|62|ipirun.tcl|vpl|1781236088407|END|IPI address assignments|",
+      "[OPTRACE]|64331|63|ipirun.tcl|vpl|1781236088410|START|Save BD|",
+      "[OPTRACE]|64331|64|ipirun.tcl|vpl|1781236088455|END|Save BD|",
+      "[OPTRACE]|64331|65|ipirun.tcl|vpl|1781236088455|START|Create address map and debug IP profile files|",
+      "[OPTRACE]|64331|66|ipirun.tcl|vpl|1781236088459|END|Create address map and debug IP profile files|",
+      "[OPTRACE]|64331|67|ipirun.tcl|vpl|1781236088459|START|Collect BD interface connectivity and write automation summary report|",
+      "[OPTRACE]|64331|68|ipirun.tcl|vpl|1781236088465|END|Collect BD interface connectivity and write automation summary report|",
+      "[OPTRACE]|64331|69|ipirun.tcl|vpl|1781236088466|START|Generate output products|",
+      "[OPTRACE]|64331|70|ipirun.tcl|vpl|1781236111756|END|Generate output products|",
+      "[OPTRACE]|64331|71|ipirun.tcl|vpl|1781236111758|START|Source report_commands_tcl|",
+      "[OPTRACE]|64331|72|ipirun.tcl|vpl|1781236111782|END|Source report_commands_tcl|",
+      "[OPTRACE]|64331|73|ipirun.tcl|vpl|1781236111782|START|Source synth_props_tcl|",
+      "[OPTRACE]|64331|74|ipirun.tcl|vpl|1781236113374|END|Source synth_props_tcl|",
+      "[OPTRACE]|64331|75|ipirun.tcl|vpl|1781236113378|START|Source impl_props_tcl|",
+      "[OPTRACE]|64331|76|ipirun.tcl|vpl|1781236113420|END|Source impl_props_tcl|",
+      "[OPTRACE]|64331|77|ipirun.tcl|vpl|1781236113421|START|Synthesis|ROLLUP_1,SYNTH",
+      "[OPTRACE]|64615|78|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_ps_e_0_synth_1/vitis_design_ps_e_0.tcl|vivado_synth|1781236117642|START|vitis_design_ps_e_0_synth_1|ROLLUP_AUTO",
+      "[OPTRACE]|64615|79|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_ps_e_0_synth_1/vitis_design_ps_e_0.tcl|vivado_synth|1781236117642|START|Creating in-memory project|",
+      "[OPTRACE]|64615|80|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_ps_e_0_synth_1/vitis_design_ps_e_0.tcl|vivado_synth|1781236120137|END|Creating in-memory project|",
+      "[OPTRACE]|64615|81|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_ps_e_0_synth_1/vitis_design_ps_e_0.tcl|vivado_synth|1781236120137|START|Adding files|",
+      "[OPTRACE]|64615|82|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_ps_e_0_synth_1/vitis_design_ps_e_0.tcl|vivado_synth|1781236120664|END|Adding files|",
+      "[OPTRACE]|64615|83|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_ps_e_0_synth_1/vitis_design_ps_e_0.tcl|vivado_synth|1781236120664|START|Configure IP Cache|",
+      "[OPTRACE]|64615|84|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_ps_e_0_synth_1/vitis_design_ps_e_0.tcl|vivado_synth|1781236120667|END|Configure IP Cache|",
+      "[OPTRACE]|64615|85|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_ps_e_0_synth_1/vitis_design_ps_e_0.tcl|vivado_synth|1781236120667|START|synth_design|",
+      "[OPTRACE]|64615|86|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_ps_e_0_synth_1/vitis_design_ps_e_0.tcl|vivado_synth|1781236145042|END|synth_design|",
+      "[OPTRACE]|64615|87|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_ps_e_0_synth_1/vitis_design_ps_e_0.tcl|vivado_synth|1781236145042|START|Write IP Cache|",
+      "[OPTRACE]|64615|88|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_ps_e_0_synth_1/vitis_design_ps_e_0.tcl|vivado_synth|1781236145801|END|Write IP Cache|",
+      "[OPTRACE]|64615|89|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_ps_e_0_synth_1/vitis_design_ps_e_0.tcl|vivado_synth|1781236145803|START|write_checkpoint|CHECKPOINT",
+      "[OPTRACE]|64615|90|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_ps_e_0_synth_1/vitis_design_ps_e_0.tcl|vivado_synth|1781236146017|END|write_checkpoint|",
+      "[OPTRACE]|64615|91|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_ps_e_0_synth_1/vitis_design_ps_e_0.tcl|vivado_synth|1781236146017|START|synth reports|REPORT",
+      "[OPTRACE]|64615|92|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_ps_e_0_synth_1/vitis_design_ps_e_0.tcl|vivado_synth|1781236146127|END|synth reports|",
+      "[OPTRACE]|64615|93|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_ps_e_0_synth_1/vitis_design_ps_e_0.tcl|vivado_synth|1781236146646|END|vitis_design_ps_e_0_synth_1|",
+      "[OPTRACE]|64739|100|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_6_0_synth_1/vitis_design_proc_sys_reset_6_0.tcl|vivado_synth|1781236155693|END|Configure IP Cache|",
+      "[OPTRACE]|64739|101|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_6_0_synth_1/vitis_design_proc_sys_reset_6_0.tcl|vivado_synth|1781236155693|START|synth_design|",
+      "[OPTRACE]|64739|102|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_6_0_synth_1/vitis_design_proc_sys_reset_6_0.tcl|vivado_synth|1781236177733|END|synth_design|",
+      "[OPTRACE]|64739|103|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_6_0_synth_1/vitis_design_proc_sys_reset_6_0.tcl|vivado_synth|1781236177734|START|Write IP Cache|",
+      "[OPTRACE]|64739|104|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_6_0_synth_1/vitis_design_proc_sys_reset_6_0.tcl|vivado_synth|1781236178253|END|Write IP Cache|",
+      "[OPTRACE]|64739|105|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_6_0_synth_1/vitis_design_proc_sys_reset_6_0.tcl|vivado_synth|1781236178254|START|write_checkpoint|CHECKPOINT",
+      "[OPTRACE]|64739|106|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_6_0_synth_1/vitis_design_proc_sys_reset_6_0.tcl|vivado_synth|1781236178381|END|write_checkpoint|",
+      "[OPTRACE]|64739|107|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_6_0_synth_1/vitis_design_proc_sys_reset_6_0.tcl|vivado_synth|1781236178381|START|synth reports|REPORT",
+      "[OPTRACE]|64739|108|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_6_0_synth_1/vitis_design_proc_sys_reset_6_0.tcl|vivado_synth|1781236178478|END|synth reports|",
+      "[OPTRACE]|64739|109|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_6_0_synth_1/vitis_design_proc_sys_reset_6_0.tcl|vivado_synth|1781236178880|END|vitis_design_proc_sys_reset_6_0_synth_1|",
+      "[OPTRACE]|64739|94|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_6_0_synth_1/vitis_design_proc_sys_reset_6_0.tcl|vivado_synth|1781236152991|START|vitis_design_proc_sys_reset_6_0_synth_1|ROLLUP_AUTO",
+      "[OPTRACE]|64739|95|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_6_0_synth_1/vitis_design_proc_sys_reset_6_0.tcl|vivado_synth|1781236152992|START|Creating in-memory project|",
+      "[OPTRACE]|64739|96|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_6_0_synth_1/vitis_design_proc_sys_reset_6_0.tcl|vivado_synth|1781236155510|END|Creating in-memory project|",
+      "[OPTRACE]|64739|97|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_6_0_synth_1/vitis_design_proc_sys_reset_6_0.tcl|vivado_synth|1781236155511|START|Adding files|",
+      "[OPTRACE]|64739|98|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_6_0_synth_1/vitis_design_proc_sys_reset_6_0.tcl|vivado_synth|1781236155690|END|Adding files|",
+      "[OPTRACE]|64739|99|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_6_0_synth_1/vitis_design_proc_sys_reset_6_0.tcl|vivado_synth|1781236155691|START|Configure IP Cache|",
+      "[OPTRACE]|64856|110|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_5_0_synth_1/vitis_design_proc_sys_reset_5_0.tcl|vivado_synth|1781236185183|START|vitis_design_proc_sys_reset_5_0_synth_1|ROLLUP_AUTO",
+      "[OPTRACE]|64856|111|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_5_0_synth_1/vitis_design_proc_sys_reset_5_0.tcl|vivado_synth|1781236185183|START|Creating in-memory project|",
+      "[OPTRACE]|64856|112|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_5_0_synth_1/vitis_design_proc_sys_reset_5_0.tcl|vivado_synth|1781236187715|END|Creating in-memory project|",
+      "[OPTRACE]|64856|113|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_5_0_synth_1/vitis_design_proc_sys_reset_5_0.tcl|vivado_synth|1781236187715|START|Adding files|",
+      "[OPTRACE]|64856|114|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_5_0_synth_1/vitis_design_proc_sys_reset_5_0.tcl|vivado_synth|1781236187894|END|Adding files|",
+      "[OPTRACE]|64856|115|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_5_0_synth_1/vitis_design_proc_sys_reset_5_0.tcl|vivado_synth|1781236187895|START|Configure IP Cache|",
+      "[OPTRACE]|64856|116|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_5_0_synth_1/vitis_design_proc_sys_reset_5_0.tcl|vivado_synth|1781236187897|END|Configure IP Cache|",
+      "[OPTRACE]|64856|117|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_5_0_synth_1/vitis_design_proc_sys_reset_5_0.tcl|vivado_synth|1781236187897|START|synth_design|",
+      "[OPTRACE]|64856|118|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_5_0_synth_1/vitis_design_proc_sys_reset_5_0.tcl|vivado_synth|1781236209939|END|synth_design|",
+      "[OPTRACE]|64856|119|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_5_0_synth_1/vitis_design_proc_sys_reset_5_0.tcl|vivado_synth|1781236209939|START|Write IP Cache|",
+      "[OPTRACE]|64856|120|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_5_0_synth_1/vitis_design_proc_sys_reset_5_0.tcl|vivado_synth|1781236210459|END|Write IP Cache|",
+      "[OPTRACE]|64856|121|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_5_0_synth_1/vitis_design_proc_sys_reset_5_0.tcl|vivado_synth|1781236210459|START|write_checkpoint|CHECKPOINT",
+      "[OPTRACE]|64856|122|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_5_0_synth_1/vitis_design_proc_sys_reset_5_0.tcl|vivado_synth|1781236210584|END|write_checkpoint|",
+      "[OPTRACE]|64856|123|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_5_0_synth_1/vitis_design_proc_sys_reset_5_0.tcl|vivado_synth|1781236210584|START|synth reports|REPORT",
+      "[OPTRACE]|64856|124|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_5_0_synth_1/vitis_design_proc_sys_reset_5_0.tcl|vivado_synth|1781236210687|END|synth reports|",
+      "[OPTRACE]|64856|125|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_5_0_synth_1/vitis_design_proc_sys_reset_5_0.tcl|vivado_synth|1781236211079|END|vitis_design_proc_sys_reset_5_0_synth_1|",
+      "[OPTRACE]|64976|126|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_4_0_synth_1/vitis_design_proc_sys_reset_4_0.tcl|vivado_synth|1781236217373|START|vitis_design_proc_sys_reset_4_0_synth_1|ROLLUP_AUTO",
+      "[OPTRACE]|64976|127|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_4_0_synth_1/vitis_design_proc_sys_reset_4_0.tcl|vivado_synth|1781236217373|START|Creating in-memory project|",
+      "[OPTRACE]|64976|128|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_4_0_synth_1/vitis_design_proc_sys_reset_4_0.tcl|vivado_synth|1781236219877|END|Creating in-memory project|",
+      "[OPTRACE]|64976|129|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_4_0_synth_1/vitis_design_proc_sys_reset_4_0.tcl|vivado_synth|1781236219877|START|Adding files|",
+      "[OPTRACE]|64976|130|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_4_0_synth_1/vitis_design_proc_sys_reset_4_0.tcl|vivado_synth|1781236220058|END|Adding files|",
+      "[OPTRACE]|64976|131|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_4_0_synth_1/vitis_design_proc_sys_reset_4_0.tcl|vivado_synth|1781236220059|START|Configure IP Cache|",
+      "[OPTRACE]|64976|132|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_4_0_synth_1/vitis_design_proc_sys_reset_4_0.tcl|vivado_synth|1781236220061|END|Configure IP Cache|",
+      "[OPTRACE]|64976|133|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_4_0_synth_1/vitis_design_proc_sys_reset_4_0.tcl|vivado_synth|1781236220061|START|synth_design|",
+      "[OPTRACE]|64976|134|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_4_0_synth_1/vitis_design_proc_sys_reset_4_0.tcl|vivado_synth|1781236242053|END|synth_design|",
+      "[OPTRACE]|64976|135|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_4_0_synth_1/vitis_design_proc_sys_reset_4_0.tcl|vivado_synth|1781236242054|START|Write IP Cache|",
+      "[OPTRACE]|64976|136|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_4_0_synth_1/vitis_design_proc_sys_reset_4_0.tcl|vivado_synth|1781236242575|END|Write IP Cache|",
+      "[OPTRACE]|64976|137|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_4_0_synth_1/vitis_design_proc_sys_reset_4_0.tcl|vivado_synth|1781236242576|START|write_checkpoint|CHECKPOINT",
+      "[OPTRACE]|64976|138|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_4_0_synth_1/vitis_design_proc_sys_reset_4_0.tcl|vivado_synth|1781236242697|END|write_checkpoint|",
+      "[OPTRACE]|64976|139|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_4_0_synth_1/vitis_design_proc_sys_reset_4_0.tcl|vivado_synth|1781236242697|START|synth reports|REPORT",
+      "[OPTRACE]|64976|140|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_4_0_synth_1/vitis_design_proc_sys_reset_4_0.tcl|vivado_synth|1781236242799|END|synth reports|",
+      "[OPTRACE]|64976|141|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_4_0_synth_1/vitis_design_proc_sys_reset_4_0.tcl|vivado_synth|1781236243194|END|vitis_design_proc_sys_reset_4_0_synth_1|",
+      "[OPTRACE]|65093|142|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_3_0_synth_1/vitis_design_proc_sys_reset_3_0.tcl|vivado_synth|1781236249512|START|vitis_design_proc_sys_reset_3_0_synth_1|ROLLUP_AUTO",
+      "[OPTRACE]|65093|143|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_3_0_synth_1/vitis_design_proc_sys_reset_3_0.tcl|vivado_synth|1781236249513|START|Creating in-memory project|",
+      "[OPTRACE]|65093|144|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_3_0_synth_1/vitis_design_proc_sys_reset_3_0.tcl|vivado_synth|1781236252038|END|Creating in-memory project|",
+      "[OPTRACE]|65093|145|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_3_0_synth_1/vitis_design_proc_sys_reset_3_0.tcl|vivado_synth|1781236252038|START|Adding files|",
+      "[OPTRACE]|65093|146|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_3_0_synth_1/vitis_design_proc_sys_reset_3_0.tcl|vivado_synth|1781236252223|END|Adding files|",
+      "[OPTRACE]|65093|147|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_3_0_synth_1/vitis_design_proc_sys_reset_3_0.tcl|vivado_synth|1781236252224|START|Configure IP Cache|",
+      "[OPTRACE]|65093|148|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_3_0_synth_1/vitis_design_proc_sys_reset_3_0.tcl|vivado_synth|1781236252225|END|Configure IP Cache|",
+      "[OPTRACE]|65093|149|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_3_0_synth_1/vitis_design_proc_sys_reset_3_0.tcl|vivado_synth|1781236252225|START|synth_design|",
+      "[OPTRACE]|65093|150|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_3_0_synth_1/vitis_design_proc_sys_reset_3_0.tcl|vivado_synth|1781236274278|END|synth_design|",
+      "[OPTRACE]|65093|151|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_3_0_synth_1/vitis_design_proc_sys_reset_3_0.tcl|vivado_synth|1781236274279|START|Write IP Cache|",
+      "[OPTRACE]|65093|152|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_3_0_synth_1/vitis_design_proc_sys_reset_3_0.tcl|vivado_synth|1781236274800|END|Write IP Cache|",
+      "[OPTRACE]|65093|153|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_3_0_synth_1/vitis_design_proc_sys_reset_3_0.tcl|vivado_synth|1781236274801|START|write_checkpoint|CHECKPOINT",
+      "[OPTRACE]|65093|154|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_3_0_synth_1/vitis_design_proc_sys_reset_3_0.tcl|vivado_synth|1781236274921|END|write_checkpoint|",
+      "[OPTRACE]|65093|155|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_3_0_synth_1/vitis_design_proc_sys_reset_3_0.tcl|vivado_synth|1781236274921|START|synth reports|REPORT",
+      "[OPTRACE]|65093|156|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_3_0_synth_1/vitis_design_proc_sys_reset_3_0.tcl|vivado_synth|1781236275023|END|synth reports|",
+      "[OPTRACE]|65093|157|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_3_0_synth_1/vitis_design_proc_sys_reset_3_0.tcl|vivado_synth|1781236275408|END|vitis_design_proc_sys_reset_3_0_synth_1|",
+      "[OPTRACE]|65210|158|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_2_0_synth_1/vitis_design_proc_sys_reset_2_0.tcl|vivado_synth|1781236281677|START|vitis_design_proc_sys_reset_2_0_synth_1|ROLLUP_AUTO",
+      "[OPTRACE]|65210|159|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_2_0_synth_1/vitis_design_proc_sys_reset_2_0.tcl|vivado_synth|1781236281677|START|Creating in-memory project|",
+      "[OPTRACE]|65210|160|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_2_0_synth_1/vitis_design_proc_sys_reset_2_0.tcl|vivado_synth|1781236284169|END|Creating in-memory project|",
+      "[OPTRACE]|65210|161|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_2_0_synth_1/vitis_design_proc_sys_reset_2_0.tcl|vivado_synth|1781236284170|START|Adding files|",
+      "[OPTRACE]|65210|162|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_2_0_synth_1/vitis_design_proc_sys_reset_2_0.tcl|vivado_synth|1781236284348|END|Adding files|",
+      "[OPTRACE]|65210|163|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_2_0_synth_1/vitis_design_proc_sys_reset_2_0.tcl|vivado_synth|1781236284349|START|Configure IP Cache|",
+      "[OPTRACE]|65210|164|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_2_0_synth_1/vitis_design_proc_sys_reset_2_0.tcl|vivado_synth|1781236284350|END|Configure IP Cache|",
+      "[OPTRACE]|65210|165|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_2_0_synth_1/vitis_design_proc_sys_reset_2_0.tcl|vivado_synth|1781236284350|START|synth_design|",
+      "[OPTRACE]|65210|166|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_2_0_synth_1/vitis_design_proc_sys_reset_2_0.tcl|vivado_synth|1781236306396|END|synth_design|",
+      "[OPTRACE]|65210|167|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_2_0_synth_1/vitis_design_proc_sys_reset_2_0.tcl|vivado_synth|1781236306397|START|Write IP Cache|",
+      "[OPTRACE]|65210|168|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_2_0_synth_1/vitis_design_proc_sys_reset_2_0.tcl|vivado_synth|1781236306902|END|Write IP Cache|",
+      "[OPTRACE]|65210|169|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_2_0_synth_1/vitis_design_proc_sys_reset_2_0.tcl|vivado_synth|1781236306903|START|write_checkpoint|CHECKPOINT",
+      "[OPTRACE]|65210|170|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_2_0_synth_1/vitis_design_proc_sys_reset_2_0.tcl|vivado_synth|1781236307022|END|write_checkpoint|",
+      "[OPTRACE]|65210|171|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_2_0_synth_1/vitis_design_proc_sys_reset_2_0.tcl|vivado_synth|1781236307023|START|synth reports|REPORT",
+      "[OPTRACE]|65210|172|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_2_0_synth_1/vitis_design_proc_sys_reset_2_0.tcl|vivado_synth|1781236307130|END|synth reports|",
+      "[OPTRACE]|65210|173|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_2_0_synth_1/vitis_design_proc_sys_reset_2_0.tcl|vivado_synth|1781236307521|END|vitis_design_proc_sys_reset_2_0_synth_1|",
+      "[OPTRACE]|65327|174|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_1_0_synth_1/vitis_design_proc_sys_reset_1_0.tcl|vivado_synth|1781236313833|START|vitis_design_proc_sys_reset_1_0_synth_1|ROLLUP_AUTO",
+      "[OPTRACE]|65327|175|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_1_0_synth_1/vitis_design_proc_sys_reset_1_0.tcl|vivado_synth|1781236313833|START|Creating in-memory project|",
+      "[OPTRACE]|65327|176|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_1_0_synth_1/vitis_design_proc_sys_reset_1_0.tcl|vivado_synth|1781236316334|END|Creating in-memory project|",
+      "[OPTRACE]|65327|177|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_1_0_synth_1/vitis_design_proc_sys_reset_1_0.tcl|vivado_synth|1781236316335|START|Adding files|",
+      "[OPTRACE]|65327|178|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_1_0_synth_1/vitis_design_proc_sys_reset_1_0.tcl|vivado_synth|1781236316512|END|Adding files|",
+      "[OPTRACE]|65327|179|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_1_0_synth_1/vitis_design_proc_sys_reset_1_0.tcl|vivado_synth|1781236316513|START|Configure IP Cache|",
+      "[OPTRACE]|65327|180|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_1_0_synth_1/vitis_design_proc_sys_reset_1_0.tcl|vivado_synth|1781236316514|END|Configure IP Cache|",
+      "[OPTRACE]|65327|181|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_1_0_synth_1/vitis_design_proc_sys_reset_1_0.tcl|vivado_synth|1781236316514|START|synth_design|",
+      "[OPTRACE]|65327|182|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_1_0_synth_1/vitis_design_proc_sys_reset_1_0.tcl|vivado_synth|1781236338591|END|synth_design|",
+      "[OPTRACE]|65327|183|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_1_0_synth_1/vitis_design_proc_sys_reset_1_0.tcl|vivado_synth|1781236338592|START|Write IP Cache|",
+      "[OPTRACE]|65327|184|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_1_0_synth_1/vitis_design_proc_sys_reset_1_0.tcl|vivado_synth|1781236339107|END|Write IP Cache|",
+      "[OPTRACE]|65327|185|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_1_0_synth_1/vitis_design_proc_sys_reset_1_0.tcl|vivado_synth|1781236339107|START|write_checkpoint|CHECKPOINT",
+      "[OPTRACE]|65327|186|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_1_0_synth_1/vitis_design_proc_sys_reset_1_0.tcl|vivado_synth|1781236339229|END|write_checkpoint|",
+      "[OPTRACE]|65327|187|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_1_0_synth_1/vitis_design_proc_sys_reset_1_0.tcl|vivado_synth|1781236339229|START|synth reports|REPORT",
+      "[OPTRACE]|65327|188|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_1_0_synth_1/vitis_design_proc_sys_reset_1_0.tcl|vivado_synth|1781236339330|END|synth reports|",
+      "[OPTRACE]|65327|189|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_1_0_synth_1/vitis_design_proc_sys_reset_1_0.tcl|vivado_synth|1781236339721|END|vitis_design_proc_sys_reset_1_0_synth_1|",
+      "[OPTRACE]|65444|190|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_0_0_synth_1/vitis_design_proc_sys_reset_0_0.tcl|vivado_synth|1781236346018|START|vitis_design_proc_sys_reset_0_0_synth_1|ROLLUP_AUTO",
+      "[OPTRACE]|65444|191|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_0_0_synth_1/vitis_design_proc_sys_reset_0_0.tcl|vivado_synth|1781236346019|START|Creating in-memory project|",
+      "[OPTRACE]|65444|192|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_0_0_synth_1/vitis_design_proc_sys_reset_0_0.tcl|vivado_synth|1781236348531|END|Creating in-memory project|",
+      "[OPTRACE]|65444|193|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_0_0_synth_1/vitis_design_proc_sys_reset_0_0.tcl|vivado_synth|1781236348531|START|Adding files|",
+      "[OPTRACE]|65444|194|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_0_0_synth_1/vitis_design_proc_sys_reset_0_0.tcl|vivado_synth|1781236348708|END|Adding files|",
+      "[OPTRACE]|65444|195|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_0_0_synth_1/vitis_design_proc_sys_reset_0_0.tcl|vivado_synth|1781236348708|START|Configure IP Cache|",
+      "[OPTRACE]|65444|196|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_0_0_synth_1/vitis_design_proc_sys_reset_0_0.tcl|vivado_synth|1781236348710|END|Configure IP Cache|",
+      "[OPTRACE]|65444|197|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_0_0_synth_1/vitis_design_proc_sys_reset_0_0.tcl|vivado_synth|1781236348710|START|synth_design|",
+      "[OPTRACE]|65444|198|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_0_0_synth_1/vitis_design_proc_sys_reset_0_0.tcl|vivado_synth|1781236371833|END|synth_design|",
+      "[OPTRACE]|65444|199|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_0_0_synth_1/vitis_design_proc_sys_reset_0_0.tcl|vivado_synth|1781236371833|START|Write IP Cache|",
+      "[OPTRACE]|65444|200|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_0_0_synth_1/vitis_design_proc_sys_reset_0_0.tcl|vivado_synth|1781236372336|END|Write IP Cache|",
+      "[OPTRACE]|65444|201|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_0_0_synth_1/vitis_design_proc_sys_reset_0_0.tcl|vivado_synth|1781236372337|START|write_checkpoint|CHECKPOINT",
+      "[OPTRACE]|65444|202|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_0_0_synth_1/vitis_design_proc_sys_reset_0_0.tcl|vivado_synth|1781236372460|END|write_checkpoint|",
+      "[OPTRACE]|65444|203|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_0_0_synth_1/vitis_design_proc_sys_reset_0_0.tcl|vivado_synth|1781236372460|START|synth reports|REPORT",
+      "[OPTRACE]|65444|204|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_0_0_synth_1/vitis_design_proc_sys_reset_0_0.tcl|vivado_synth|1781236372566|END|synth reports|",
+      "[OPTRACE]|65444|205|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_proc_sys_reset_0_0_synth_1/vitis_design_proc_sys_reset_0_0.tcl|vivado_synth|1781236372952|END|vitis_design_proc_sys_reset_0_0_synth_1|",
+      "[OPTRACE]|65562|206|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_clk_wiz_0_0_synth_1/vitis_design_clk_wiz_0_0.tcl|vivado_synth|1781236379271|START|vitis_design_clk_wiz_0_0_synth_1|ROLLUP_AUTO",
+      "[OPTRACE]|65562|207|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_clk_wiz_0_0_synth_1/vitis_design_clk_wiz_0_0.tcl|vivado_synth|1781236379271|START|Creating in-memory project|",
+      "[OPTRACE]|65562|208|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_clk_wiz_0_0_synth_1/vitis_design_clk_wiz_0_0.tcl|vivado_synth|1781236381753|END|Creating in-memory project|",
+      "[OPTRACE]|65562|209|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_clk_wiz_0_0_synth_1/vitis_design_clk_wiz_0_0.tcl|vivado_synth|1781236381753|START|Adding files|",
+      "[OPTRACE]|65562|210|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_clk_wiz_0_0_synth_1/vitis_design_clk_wiz_0_0.tcl|vivado_synth|1781236381966|END|Adding files|",
+      "[OPTRACE]|65562|211|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_clk_wiz_0_0_synth_1/vitis_design_clk_wiz_0_0.tcl|vivado_synth|1781236381967|START|Configure IP Cache|",
+      "[OPTRACE]|65562|212|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_clk_wiz_0_0_synth_1/vitis_design_clk_wiz_0_0.tcl|vivado_synth|1781236381968|END|Configure IP Cache|",
+      "[OPTRACE]|65562|213|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_clk_wiz_0_0_synth_1/vitis_design_clk_wiz_0_0.tcl|vivado_synth|1781236381968|START|synth_design|",
+      "[OPTRACE]|65562|214|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_clk_wiz_0_0_synth_1/vitis_design_clk_wiz_0_0.tcl|vivado_synth|1781236403904|END|synth_design|",
+      "[OPTRACE]|65562|215|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_clk_wiz_0_0_synth_1/vitis_design_clk_wiz_0_0.tcl|vivado_synth|1781236403904|START|Write IP Cache|",
+      "[OPTRACE]|65562|216|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_clk_wiz_0_0_synth_1/vitis_design_clk_wiz_0_0.tcl|vivado_synth|1781236404410|END|Write IP Cache|",
+      "[OPTRACE]|65562|217|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_clk_wiz_0_0_synth_1/vitis_design_clk_wiz_0_0.tcl|vivado_synth|1781236404411|START|write_checkpoint|CHECKPOINT",
+      "[OPTRACE]|65562|218|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_clk_wiz_0_0_synth_1/vitis_design_clk_wiz_0_0.tcl|vivado_synth|1781236404524|END|write_checkpoint|",
+      "[OPTRACE]|65562|219|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_clk_wiz_0_0_synth_1/vitis_design_clk_wiz_0_0.tcl|vivado_synth|1781236404525|START|synth reports|REPORT",
+      "[OPTRACE]|65562|220|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_clk_wiz_0_0_synth_1/vitis_design_clk_wiz_0_0.tcl|vivado_synth|1781236404631|END|synth reports|",
+      "[OPTRACE]|65562|221|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_clk_wiz_0_0_synth_1/vitis_design_clk_wiz_0_0.tcl|vivado_synth|1781236405008|END|vitis_design_clk_wiz_0_0_synth_1|",
+      "[OPTRACE]|65680|222|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_vip_1_0_synth_1/vitis_design_axi_vip_1_0.tcl|vivado_synth|1781236411299|START|vitis_design_axi_vip_1_0_synth_1|ROLLUP_AUTO",
+      "[OPTRACE]|65680|223|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_vip_1_0_synth_1/vitis_design_axi_vip_1_0.tcl|vivado_synth|1781236411299|START|Creating in-memory project|",
+      "[OPTRACE]|65680|224|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_vip_1_0_synth_1/vitis_design_axi_vip_1_0.tcl|vivado_synth|1781236413767|END|Creating in-memory project|",
+      "[OPTRACE]|65680|225|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_vip_1_0_synth_1/vitis_design_axi_vip_1_0.tcl|vivado_synth|1781236413768|START|Adding files|",
+      "[OPTRACE]|65680|226|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_vip_1_0_synth_1/vitis_design_axi_vip_1_0.tcl|vivado_synth|1781236413962|END|Adding files|",
+      "[OPTRACE]|65680|227|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_vip_1_0_synth_1/vitis_design_axi_vip_1_0.tcl|vivado_synth|1781236413963|START|Configure IP Cache|",
+      "[OPTRACE]|65680|228|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_vip_1_0_synth_1/vitis_design_axi_vip_1_0.tcl|vivado_synth|1781236413965|END|Configure IP Cache|",
+      "[OPTRACE]|65680|229|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_vip_1_0_synth_1/vitis_design_axi_vip_1_0.tcl|vivado_synth|1781236413965|START|synth_design|",
+      "[OPTRACE]|65680|230|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_vip_1_0_synth_1/vitis_design_axi_vip_1_0.tcl|vivado_synth|1781236433938|END|synth_design|",
+      "[OPTRACE]|65680|231|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_vip_1_0_synth_1/vitis_design_axi_vip_1_0.tcl|vivado_synth|1781236433939|START|Write IP Cache|",
+      "[OPTRACE]|65680|232|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_vip_1_0_synth_1/vitis_design_axi_vip_1_0.tcl|vivado_synth|1781236434440|END|Write IP Cache|",
+      "[OPTRACE]|65680|233|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_vip_1_0_synth_1/vitis_design_axi_vip_1_0.tcl|vivado_synth|1781236434441|START|write_checkpoint|CHECKPOINT",
+      "[OPTRACE]|65680|234|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_vip_1_0_synth_1/vitis_design_axi_vip_1_0.tcl|vivado_synth|1781236434554|END|write_checkpoint|",
+      "[OPTRACE]|65680|235|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_vip_1_0_synth_1/vitis_design_axi_vip_1_0.tcl|vivado_synth|1781236434554|START|synth reports|REPORT",
+      "[OPTRACE]|65680|236|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_vip_1_0_synth_1/vitis_design_axi_vip_1_0.tcl|vivado_synth|1781236434661|END|synth reports|",
+      "[OPTRACE]|65680|237|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_vip_1_0_synth_1/vitis_design_axi_vip_1_0.tcl|vivado_synth|1781236435048|END|vitis_design_axi_vip_1_0_synth_1|",
+      "[OPTRACE]|65797|238|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_xbar_0_synth_1/vitis_design_xbar_0.tcl|vivado_synth|1781236441340|START|vitis_design_xbar_0_synth_1|ROLLUP_AUTO",
+      "[OPTRACE]|65797|239|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_xbar_0_synth_1/vitis_design_xbar_0.tcl|vivado_synth|1781236441340|START|Creating in-memory project|",
+      "[OPTRACE]|65797|240|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_xbar_0_synth_1/vitis_design_xbar_0.tcl|vivado_synth|1781236443863|END|Creating in-memory project|",
+      "[OPTRACE]|65797|241|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_xbar_0_synth_1/vitis_design_xbar_0.tcl|vivado_synth|1781236443864|START|Adding files|",
+      "[OPTRACE]|65797|242|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_xbar_0_synth_1/vitis_design_xbar_0.tcl|vivado_synth|1781236444229|END|Adding files|",
+      "[OPTRACE]|65797|243|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_xbar_0_synth_1/vitis_design_xbar_0.tcl|vivado_synth|1781236444230|START|Configure IP Cache|",
+      "[OPTRACE]|65797|244|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_xbar_0_synth_1/vitis_design_xbar_0.tcl|vivado_synth|1781236444258|END|Configure IP Cache|",
+      "[OPTRACE]|65797|245|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_xbar_0_synth_1/vitis_design_xbar_0.tcl|vivado_synth|1781236444259|START|synth_design|",
+      "[OPTRACE]|65797|246|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_xbar_0_synth_1/vitis_design_xbar_0.tcl|vivado_synth|1781236469795|END|synth_design|",
+      "[OPTRACE]|65797|247|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_xbar_0_synth_1/vitis_design_xbar_0.tcl|vivado_synth|1781236469795|START|Write IP Cache|",
+      "[OPTRACE]|65797|248|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_xbar_0_synth_1/vitis_design_xbar_0.tcl|vivado_synth|1781236470335|END|Write IP Cache|",
+      "[OPTRACE]|65797|249|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_xbar_0_synth_1/vitis_design_xbar_0.tcl|vivado_synth|1781236470336|START|write_checkpoint|CHECKPOINT",
+      "[OPTRACE]|65797|250|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_xbar_0_synth_1/vitis_design_xbar_0.tcl|vivado_synth|1781236470479|END|write_checkpoint|",
+      "[OPTRACE]|65797|251|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_xbar_0_synth_1/vitis_design_xbar_0.tcl|vivado_synth|1781236470479|START|synth reports|REPORT",
+      "[OPTRACE]|65797|252|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_xbar_0_synth_1/vitis_design_xbar_0.tcl|vivado_synth|1781236470586|END|synth reports|",
+      "[OPTRACE]|65797|253|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_xbar_0_synth_1/vitis_design_xbar_0.tcl|vivado_synth|1781236470992|END|vitis_design_xbar_0_synth_1|",
+      "[OPTRACE]|65915|254|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_intc_0_0_synth_1/vitis_design_axi_intc_0_0.tcl|vivado_synth|1781236477298|START|vitis_design_axi_intc_0_0_synth_1|ROLLUP_AUTO",
+      "[OPTRACE]|65915|255|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_intc_0_0_synth_1/vitis_design_axi_intc_0_0.tcl|vivado_synth|1781236477298|START|Creating in-memory project|",
+      "[OPTRACE]|65915|256|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_intc_0_0_synth_1/vitis_design_axi_intc_0_0.tcl|vivado_synth|1781236479828|END|Creating in-memory project|",
+      "[OPTRACE]|65915|257|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_intc_0_0_synth_1/vitis_design_axi_intc_0_0.tcl|vivado_synth|1781236479828|START|Adding files|",
+      "[OPTRACE]|65915|258|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_intc_0_0_synth_1/vitis_design_axi_intc_0_0.tcl|vivado_synth|1781236480022|END|Adding files|",
+      "[OPTRACE]|65915|259|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_intc_0_0_synth_1/vitis_design_axi_intc_0_0.tcl|vivado_synth|1781236480023|START|Configure IP Cache|",
+      "[OPTRACE]|65915|260|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_intc_0_0_synth_1/vitis_design_axi_intc_0_0.tcl|vivado_synth|1781236480024|END|Configure IP Cache|",
+      "[OPTRACE]|65915|261|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_intc_0_0_synth_1/vitis_design_axi_intc_0_0.tcl|vivado_synth|1781236480025|START|synth_design|",
+      "[OPTRACE]|65915|262|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_intc_0_0_synth_1/vitis_design_axi_intc_0_0.tcl|vivado_synth|1781236505637|END|synth_design|",
+      "[OPTRACE]|65915|263|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_intc_0_0_synth_1/vitis_design_axi_intc_0_0.tcl|vivado_synth|1781236505637|START|Write IP Cache|",
+      "[OPTRACE]|65915|264|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_intc_0_0_synth_1/vitis_design_axi_intc_0_0.tcl|vivado_synth|1781236506223|END|Write IP Cache|",
+      "[OPTRACE]|65915|265|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_intc_0_0_synth_1/vitis_design_axi_intc_0_0.tcl|vivado_synth|1781236506224|START|write_checkpoint|CHECKPOINT",
+      "[OPTRACE]|65915|266|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_intc_0_0_synth_1/vitis_design_axi_intc_0_0.tcl|vivado_synth|1781236506382|END|write_checkpoint|",
+      "[OPTRACE]|65915|267|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_intc_0_0_synth_1/vitis_design_axi_intc_0_0.tcl|vivado_synth|1781236506382|START|synth reports|REPORT",
+      "[OPTRACE]|65915|268|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_intc_0_0_synth_1/vitis_design_axi_intc_0_0.tcl|vivado_synth|1781236506487|END|synth reports|",
+      "[OPTRACE]|65915|269|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_intc_0_0_synth_1/vitis_design_axi_intc_0_0.tcl|vivado_synth|1781236506927|END|vitis_design_axi_intc_0_0_synth_1|",
+      "[OPTRACE]|66034|270|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_vip_0_0_synth_1/vitis_design_axi_vip_0_0.tcl|vivado_synth|1781236513223|START|vitis_design_axi_vip_0_0_synth_1|ROLLUP_AUTO",
+      "[OPTRACE]|66034|271|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_vip_0_0_synth_1/vitis_design_axi_vip_0_0.tcl|vivado_synth|1781236513224|START|Creating in-memory project|",
+      "[OPTRACE]|66034|272|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_vip_0_0_synth_1/vitis_design_axi_vip_0_0.tcl|vivado_synth|1781236515718|END|Creating in-memory project|",
+      "[OPTRACE]|66034|273|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_vip_0_0_synth_1/vitis_design_axi_vip_0_0.tcl|vivado_synth|1781236515719|START|Adding files|",
+      "[OPTRACE]|66034|274|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_vip_0_0_synth_1/vitis_design_axi_vip_0_0.tcl|vivado_synth|1781236515911|END|Adding files|",
+      "[OPTRACE]|66034|275|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_vip_0_0_synth_1/vitis_design_axi_vip_0_0.tcl|vivado_synth|1781236515912|START|Configure IP Cache|",
+      "[OPTRACE]|66034|276|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_vip_0_0_synth_1/vitis_design_axi_vip_0_0.tcl|vivado_synth|1781236515916|END|Configure IP Cache|",
+      "[OPTRACE]|66034|277|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_vip_0_0_synth_1/vitis_design_axi_vip_0_0.tcl|vivado_synth|1781236515916|END|vitis_design_axi_vip_0_0_synth_1|",
+      "[OPTRACE]|66086|278|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_register_slice_0_0_synth_1/vitis_design_axi_register_slice_0_0.tcl|vivado_synth|1781236521753|START|vitis_design_axi_register_slice_0_0_synth_1|ROLLUP_AUTO",
+      "[OPTRACE]|66086|279|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_register_slice_0_0_synth_1/vitis_design_axi_register_slice_0_0.tcl|vivado_synth|1781236521754|START|Creating in-memory project|",
+      "[OPTRACE]|66086|280|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_register_slice_0_0_synth_1/vitis_design_axi_register_slice_0_0.tcl|vivado_synth|1781236524446|END|Creating in-memory project|",
+      "[OPTRACE]|66086|281|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_register_slice_0_0_synth_1/vitis_design_axi_register_slice_0_0.tcl|vivado_synth|1781236524446|START|Adding files|",
+      "[OPTRACE]|66086|282|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_register_slice_0_0_synth_1/vitis_design_axi_register_slice_0_0.tcl|vivado_synth|1781236524644|END|Adding files|",
+      "[OPTRACE]|66086|283|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_register_slice_0_0_synth_1/vitis_design_axi_register_slice_0_0.tcl|vivado_synth|1781236524645|START|Configure IP Cache|",
+      "[OPTRACE]|66086|284|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_register_slice_0_0_synth_1/vitis_design_axi_register_slice_0_0.tcl|vivado_synth|1781236524646|END|Configure IP Cache|",
+      "[OPTRACE]|66086|285|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_register_slice_0_0_synth_1/vitis_design_axi_register_slice_0_0.tcl|vivado_synth|1781236524647|START|synth_design|",
+      "[OPTRACE]|66086|286|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_register_slice_0_0_synth_1/vitis_design_axi_register_slice_0_0.tcl|vivado_synth|1781236547176|END|synth_design|",
+      "[OPTRACE]|66086|287|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_register_slice_0_0_synth_1/vitis_design_axi_register_slice_0_0.tcl|vivado_synth|1781236547177|START|Write IP Cache|",
+      "[OPTRACE]|66086|288|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_register_slice_0_0_synth_1/vitis_design_axi_register_slice_0_0.tcl|vivado_synth|1781236547766|END|Write IP Cache|",
+      "[OPTRACE]|66086|289|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_register_slice_0_0_synth_1/vitis_design_axi_register_slice_0_0.tcl|vivado_synth|1781236547766|START|write_checkpoint|CHECKPOINT",
+      "[OPTRACE]|66086|290|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_register_slice_0_0_synth_1/vitis_design_axi_register_slice_0_0.tcl|vivado_synth|1781236547931|END|write_checkpoint|",
+      "[OPTRACE]|66086|291|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_register_slice_0_0_synth_1/vitis_design_axi_register_slice_0_0.tcl|vivado_synth|1781236547932|START|synth reports|REPORT",
+      "[OPTRACE]|66086|292|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_register_slice_0_0_synth_1/vitis_design_axi_register_slice_0_0.tcl|vivado_synth|1781236548041|END|synth reports|",
+      "[OPTRACE]|66086|293|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_axi_register_slice_0_0_synth_1/vitis_design_axi_register_slice_0_0.tcl|vivado_synth|1781236548459|END|vitis_design_axi_register_slice_0_0_synth_1|",
+      "[OPTRACE]|66206|294|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_digitcaps_accel_1_0_synth_1/vitis_design_digitcaps_accel_1_0.tcl|vivado_synth|1781236554753|START|vitis_design_digitcaps_accel_1_0_synth_1|ROLLUP_AUTO",
+      "[OPTRACE]|66206|295|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_digitcaps_accel_1_0_synth_1/vitis_design_digitcaps_accel_1_0.tcl|vivado_synth|1781236554753|START|Creating in-memory project|",
+      "[OPTRACE]|66206|296|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_digitcaps_accel_1_0_synth_1/vitis_design_digitcaps_accel_1_0.tcl|vivado_synth|1781236557245|END|Creating in-memory project|",
+      "[OPTRACE]|66206|297|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_digitcaps_accel_1_0_synth_1/vitis_design_digitcaps_accel_1_0.tcl|vivado_synth|1781236557245|START|Adding files|",
+      "[OPTRACE]|66206|298|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_digitcaps_accel_1_0_synth_1/vitis_design_digitcaps_accel_1_0.tcl|vivado_synth|1781236557465|END|Adding files|",
+      "[OPTRACE]|66206|299|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_digitcaps_accel_1_0_synth_1/vitis_design_digitcaps_accel_1_0.tcl|vivado_synth|1781236557466|START|Configure IP Cache|",
+      "[OPTRACE]|66206|300|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_digitcaps_accel_1_0_synth_1/vitis_design_digitcaps_accel_1_0.tcl|vivado_synth|1781236557466|END|Configure IP Cache|",
+      "[OPTRACE]|66206|301|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_digitcaps_accel_1_0_synth_1/vitis_design_digitcaps_accel_1_0.tcl|vivado_synth|1781236557467|START|synth_design|",
+      "[OPTRACE]|66206|302|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_digitcaps_accel_1_0_synth_1/vitis_design_digitcaps_accel_1_0.tcl|vivado_synth|1781236982097|END|synth_design|",
+      "[OPTRACE]|66206|303|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_digitcaps_accel_1_0_synth_1/vitis_design_digitcaps_accel_1_0.tcl|vivado_synth|1781236982097|START|Write IP Cache|",
+      "[OPTRACE]|66206|304|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_digitcaps_accel_1_0_synth_1/vitis_design_digitcaps_accel_1_0.tcl|vivado_synth|1781236998079|END|Write IP Cache|",
+      "[OPTRACE]|66206|305|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_digitcaps_accel_1_0_synth_1/vitis_design_digitcaps_accel_1_0.tcl|vivado_synth|1781236998090|START|write_checkpoint|CHECKPOINT",
+      "[OPTRACE]|66206|306|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_digitcaps_accel_1_0_synth_1/vitis_design_digitcaps_accel_1_0.tcl|vivado_synth|1781237006296|END|write_checkpoint|",
+      "[OPTRACE]|66206|307|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_digitcaps_accel_1_0_synth_1/vitis_design_digitcaps_accel_1_0.tcl|vivado_synth|1781237006296|START|synth reports|REPORT",
+      "[OPTRACE]|66206|308|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_digitcaps_accel_1_0_synth_1/vitis_design_digitcaps_accel_1_0.tcl|vivado_synth|1781237006771|END|synth reports|",
+      "[OPTRACE]|66206|309|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_digitcaps_accel_1_0_synth_1/vitis_design_digitcaps_accel_1_0.tcl|vivado_synth|1781237014492|END|vitis_design_digitcaps_accel_1_0_synth_1|",
+      "[OPTRACE]|66548|310|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s02_regslice_0_synth_1/vitis_design_s02_regslice_0.tcl|vivado_synth|1781237020949|START|vitis_design_s02_regslice_0_synth_1|ROLLUP_AUTO",
+      "[OPTRACE]|66548|311|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s02_regslice_0_synth_1/vitis_design_s02_regslice_0.tcl|vivado_synth|1781237020950|START|Creating in-memory project|",
+      "[OPTRACE]|66548|312|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s02_regslice_0_synth_1/vitis_design_s02_regslice_0.tcl|vivado_synth|1781237023451|END|Creating in-memory project|",
+      "[OPTRACE]|66548|313|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s02_regslice_0_synth_1/vitis_design_s02_regslice_0.tcl|vivado_synth|1781237023451|START|Adding files|",
+      "[OPTRACE]|66548|314|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s02_regslice_0_synth_1/vitis_design_s02_regslice_0.tcl|vivado_synth|1781237023650|END|Adding files|",
+      "[OPTRACE]|66548|315|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s02_regslice_0_synth_1/vitis_design_s02_regslice_0.tcl|vivado_synth|1781237023651|START|Configure IP Cache|",
+      "[OPTRACE]|66548|316|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s02_regslice_0_synth_1/vitis_design_s02_regslice_0.tcl|vivado_synth|1781237023652|END|Configure IP Cache|",
+      "[OPTRACE]|66548|317|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s02_regslice_0_synth_1/vitis_design_s02_regslice_0.tcl|vivado_synth|1781237023653|START|synth_design|",
+      "[OPTRACE]|66548|318|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s02_regslice_0_synth_1/vitis_design_s02_regslice_0.tcl|vivado_synth|1781237046532|END|synth_design|",
+      "[OPTRACE]|66548|319|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s02_regslice_0_synth_1/vitis_design_s02_regslice_0.tcl|vivado_synth|1781237046533|START|Write IP Cache|",
+      "[OPTRACE]|66548|320|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s02_regslice_0_synth_1/vitis_design_s02_regslice_0.tcl|vivado_synth|1781237047191|END|Write IP Cache|",
+      "[OPTRACE]|66548|321|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s02_regslice_0_synth_1/vitis_design_s02_regslice_0.tcl|vivado_synth|1781237047192|START|write_checkpoint|CHECKPOINT",
+      "[OPTRACE]|66548|322|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s02_regslice_0_synth_1/vitis_design_s02_regslice_0.tcl|vivado_synth|1781237047377|END|write_checkpoint|",
+      "[OPTRACE]|66548|323|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s02_regslice_0_synth_1/vitis_design_s02_regslice_0.tcl|vivado_synth|1781237047377|START|synth reports|REPORT",
+      "[OPTRACE]|66548|324|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s02_regslice_0_synth_1/vitis_design_s02_regslice_0.tcl|vivado_synth|1781237047492|END|synth reports|",
+      "[OPTRACE]|66548|325|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s02_regslice_0_synth_1/vitis_design_s02_regslice_0.tcl|vivado_synth|1781237047971|END|vitis_design_s02_regslice_0_synth_1|",
+      "[OPTRACE]|66672|326|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s01_regslice_0_synth_1/vitis_design_s01_regslice_0.tcl|vivado_synth|1781237054316|START|vitis_design_s01_regslice_0_synth_1|ROLLUP_AUTO",
+      "[OPTRACE]|66672|327|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s01_regslice_0_synth_1/vitis_design_s01_regslice_0.tcl|vivado_synth|1781237054316|START|Creating in-memory project|",
+      "[OPTRACE]|66672|328|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s01_regslice_0_synth_1/vitis_design_s01_regslice_0.tcl|vivado_synth|1781237056847|END|Creating in-memory project|",
+      "[OPTRACE]|66672|329|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s01_regslice_0_synth_1/vitis_design_s01_regslice_0.tcl|vivado_synth|1781237056847|START|Adding files|",
+      "[OPTRACE]|66672|330|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s01_regslice_0_synth_1/vitis_design_s01_regslice_0.tcl|vivado_synth|1781237057053|END|Adding files|",
+      "[OPTRACE]|66672|331|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s01_regslice_0_synth_1/vitis_design_s01_regslice_0.tcl|vivado_synth|1781237057054|START|Configure IP Cache|",
+      "[OPTRACE]|66672|332|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s01_regslice_0_synth_1/vitis_design_s01_regslice_0.tcl|vivado_synth|1781237057055|END|Configure IP Cache|",
+      "[OPTRACE]|66672|333|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s01_regslice_0_synth_1/vitis_design_s01_regslice_0.tcl|vivado_synth|1781237057056|START|synth_design|",
+      "[OPTRACE]|66672|334|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s01_regslice_0_synth_1/vitis_design_s01_regslice_0.tcl|vivado_synth|1781237079685|END|synth_design|",
+      "[OPTRACE]|66672|335|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s01_regslice_0_synth_1/vitis_design_s01_regslice_0.tcl|vivado_synth|1781237079686|START|Write IP Cache|",
+      "[OPTRACE]|66672|336|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s01_regslice_0_synth_1/vitis_design_s01_regslice_0.tcl|vivado_synth|1781237080357|END|Write IP Cache|",
+      "[OPTRACE]|66672|337|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s01_regslice_0_synth_1/vitis_design_s01_regslice_0.tcl|vivado_synth|1781237080358|START|write_checkpoint|CHECKPOINT",
+      "[OPTRACE]|66672|338|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s01_regslice_0_synth_1/vitis_design_s01_regslice_0.tcl|vivado_synth|1781237080541|END|write_checkpoint|",
+      "[OPTRACE]|66672|339|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s01_regslice_0_synth_1/vitis_design_s01_regslice_0.tcl|vivado_synth|1781237080542|START|synth reports|REPORT",
+      "[OPTRACE]|66672|340|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s01_regslice_0_synth_1/vitis_design_s01_regslice_0.tcl|vivado_synth|1781237080660|END|synth reports|",
+      "[OPTRACE]|66672|341|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s01_regslice_0_synth_1/vitis_design_s01_regslice_0.tcl|vivado_synth|1781237081129|END|vitis_design_s01_regslice_0_synth_1|",
+      "[OPTRACE]|66792|342|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s01_data_fifo_0_synth_1/vitis_design_s01_data_fifo_0.tcl|vivado_synth|1781237087470|START|vitis_design_s01_data_fifo_0_synth_1|ROLLUP_AUTO",
+      "[OPTRACE]|66792|343|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s01_data_fifo_0_synth_1/vitis_design_s01_data_fifo_0.tcl|vivado_synth|1781237087471|START|Creating in-memory project|",
+      "[OPTRACE]|66792|344|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s01_data_fifo_0_synth_1/vitis_design_s01_data_fifo_0.tcl|vivado_synth|1781237089981|END|Creating in-memory project|",
+      "[OPTRACE]|66792|345|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s01_data_fifo_0_synth_1/vitis_design_s01_data_fifo_0.tcl|vivado_synth|1781237089982|START|Adding files|",
+      "[OPTRACE]|66792|346|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s01_data_fifo_0_synth_1/vitis_design_s01_data_fifo_0.tcl|vivado_synth|1781237090183|END|Adding files|",
+      "[OPTRACE]|66792|347|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s01_data_fifo_0_synth_1/vitis_design_s01_data_fifo_0.tcl|vivado_synth|1781237090183|START|Configure IP Cache|",
+      "[OPTRACE]|66792|348|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s01_data_fifo_0_synth_1/vitis_design_s01_data_fifo_0.tcl|vivado_synth|1781237090202|END|Configure IP Cache|",
+      "[OPTRACE]|66792|349|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s01_data_fifo_0_synth_1/vitis_design_s01_data_fifo_0.tcl|vivado_synth|1781237090203|START|synth_design|",
+      "[OPTRACE]|66792|350|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s01_data_fifo_0_synth_1/vitis_design_s01_data_fifo_0.tcl|vivado_synth|1781237121301|END|synth_design|",
+      "[OPTRACE]|66792|351|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s01_data_fifo_0_synth_1/vitis_design_s01_data_fifo_0.tcl|vivado_synth|1781237121301|START|Write IP Cache|",
+      "[OPTRACE]|66792|352|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s01_data_fifo_0_synth_1/vitis_design_s01_data_fifo_0.tcl|vivado_synth|1781237122264|END|Write IP Cache|",
+      "[OPTRACE]|66792|353|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s01_data_fifo_0_synth_1/vitis_design_s01_data_fifo_0.tcl|vivado_synth|1781237122265|START|write_checkpoint|CHECKPOINT",
+      "[OPTRACE]|66792|354|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s01_data_fifo_0_synth_1/vitis_design_s01_data_fifo_0.tcl|vivado_synth|1781237122569|END|write_checkpoint|",
+      "[OPTRACE]|66792|355|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s01_data_fifo_0_synth_1/vitis_design_s01_data_fifo_0.tcl|vivado_synth|1781237122569|START|synth reports|REPORT",
+      "[OPTRACE]|66792|356|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s01_data_fifo_0_synth_1/vitis_design_s01_data_fifo_0.tcl|vivado_synth|1781237122689|END|synth reports|",
+      "[OPTRACE]|66792|357|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s01_data_fifo_0_synth_1/vitis_design_s01_data_fifo_0.tcl|vivado_synth|1781237123315|END|vitis_design_s01_data_fifo_0_synth_1|",
+      "[OPTRACE]|66914|358|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s00_regslice_0_synth_1/vitis_design_s00_regslice_0.tcl|vivado_synth|1781237129608|START|vitis_design_s00_regslice_0_synth_1|ROLLUP_AUTO",
+      "[OPTRACE]|66914|359|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s00_regslice_0_synth_1/vitis_design_s00_regslice_0.tcl|vivado_synth|1781237129609|START|Creating in-memory project|",
+      "[OPTRACE]|66914|360|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s00_regslice_0_synth_1/vitis_design_s00_regslice_0.tcl|vivado_synth|1781237132137|END|Creating in-memory project|",
+      "[OPTRACE]|66914|361|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s00_regslice_0_synth_1/vitis_design_s00_regslice_0.tcl|vivado_synth|1781237132137|START|Adding files|",
+      "[OPTRACE]|66914|362|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s00_regslice_0_synth_1/vitis_design_s00_regslice_0.tcl|vivado_synth|1781237132338|END|Adding files|",
+      "[OPTRACE]|66914|363|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s00_regslice_0_synth_1/vitis_design_s00_regslice_0.tcl|vivado_synth|1781237132339|START|Configure IP Cache|",
+      "[OPTRACE]|66914|364|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s00_regslice_0_synth_1/vitis_design_s00_regslice_0.tcl|vivado_synth|1781237132352|END|Configure IP Cache|",
+      "[OPTRACE]|66914|365|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s00_regslice_0_synth_1/vitis_design_s00_regslice_0.tcl|vivado_synth|1781237132353|END|vitis_design_s00_regslice_0_synth_1|",
+      "[OPTRACE]|66966|366|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s00_data_fifo_0_synth_1/vitis_design_s00_data_fifo_0.tcl|vivado_synth|1781237138277|START|vitis_design_s00_data_fifo_0_synth_1|ROLLUP_AUTO",
+      "[OPTRACE]|66966|367|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s00_data_fifo_0_synth_1/vitis_design_s00_data_fifo_0.tcl|vivado_synth|1781237138277|START|Creating in-memory project|",
+      "[OPTRACE]|66966|368|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s00_data_fifo_0_synth_1/vitis_design_s00_data_fifo_0.tcl|vivado_synth|1781237140747|END|Creating in-memory project|",
+      "[OPTRACE]|66966|369|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s00_data_fifo_0_synth_1/vitis_design_s00_data_fifo_0.tcl|vivado_synth|1781237140747|START|Adding files|",
+      "[OPTRACE]|66966|370|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s00_data_fifo_0_synth_1/vitis_design_s00_data_fifo_0.tcl|vivado_synth|1781237140946|END|Adding files|",
+      "[OPTRACE]|66966|371|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s00_data_fifo_0_synth_1/vitis_design_s00_data_fifo_0.tcl|vivado_synth|1781237140946|START|Configure IP Cache|",
+      "[OPTRACE]|66966|372|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s00_data_fifo_0_synth_1/vitis_design_s00_data_fifo_0.tcl|vivado_synth|1781237141269|END|Configure IP Cache|",
+      "[OPTRACE]|66966|373|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s00_data_fifo_0_synth_1/vitis_design_s00_data_fifo_0.tcl|vivado_synth|1781237141270|END|vitis_design_s00_data_fifo_0_synth_1|",
+      "[OPTRACE]|67018|374|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m00_regslice_0_synth_1/vitis_design_m00_regslice_0.tcl|vivado_synth|1781237147140|START|vitis_design_m00_regslice_0_synth_1|ROLLUP_AUTO",
+      "[OPTRACE]|67018|375|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m00_regslice_0_synth_1/vitis_design_m00_regslice_0.tcl|vivado_synth|1781237147140|START|Creating in-memory project|",
+      "[OPTRACE]|67018|376|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m00_regslice_0_synth_1/vitis_design_m00_regslice_0.tcl|vivado_synth|1781237149642|END|Creating in-memory project|",
+      "[OPTRACE]|67018|377|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m00_regslice_0_synth_1/vitis_design_m00_regslice_0.tcl|vivado_synth|1781237149643|START|Adding files|",
+      "[OPTRACE]|67018|378|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m00_regslice_0_synth_1/vitis_design_m00_regslice_0.tcl|vivado_synth|1781237149845|END|Adding files|",
+      "[OPTRACE]|67018|379|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m00_regslice_0_synth_1/vitis_design_m00_regslice_0.tcl|vivado_synth|1781237149846|START|Configure IP Cache|",
+      "[OPTRACE]|67018|380|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m00_regslice_0_synth_1/vitis_design_m00_regslice_0.tcl|vivado_synth|1781237149848|END|Configure IP Cache|",
+      "[OPTRACE]|67018|381|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m00_regslice_0_synth_1/vitis_design_m00_regslice_0.tcl|vivado_synth|1781237149848|START|synth_design|",
+      "[OPTRACE]|67018|382|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m00_regslice_0_synth_1/vitis_design_m00_regslice_0.tcl|vivado_synth|1781237172311|END|synth_design|",
+      "[OPTRACE]|67018|383|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m00_regslice_0_synth_1/vitis_design_m00_regslice_0.tcl|vivado_synth|1781237172311|START|Write IP Cache|",
+      "[OPTRACE]|67018|384|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m00_regslice_0_synth_1/vitis_design_m00_regslice_0.tcl|vivado_synth|1781237172930|END|Write IP Cache|",
+      "[OPTRACE]|67018|385|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m00_regslice_0_synth_1/vitis_design_m00_regslice_0.tcl|vivado_synth|1781237172930|START|write_checkpoint|CHECKPOINT",
+      "[OPTRACE]|67018|386|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m00_regslice_0_synth_1/vitis_design_m00_regslice_0.tcl|vivado_synth|1781237173093|END|write_checkpoint|",
+      "[OPTRACE]|67018|387|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m00_regslice_0_synth_1/vitis_design_m00_regslice_0.tcl|vivado_synth|1781237173093|START|synth reports|REPORT",
+      "[OPTRACE]|67018|388|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m00_regslice_0_synth_1/vitis_design_m00_regslice_0.tcl|vivado_synth|1781237173208|END|synth reports|",
+      "[OPTRACE]|67018|389|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m00_regslice_0_synth_1/vitis_design_m00_regslice_0.tcl|vivado_synth|1781237173644|END|vitis_design_m00_regslice_0_synth_1|",
+      "[OPTRACE]|67138|390|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m00_data_fifo_0_synth_1/vitis_design_m00_data_fifo_0.tcl|vivado_synth|1781237180017|START|vitis_design_m00_data_fifo_0_synth_1|ROLLUP_AUTO",
+      "[OPTRACE]|67138|391|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m00_data_fifo_0_synth_1/vitis_design_m00_data_fifo_0.tcl|vivado_synth|1781237180017|START|Creating in-memory project|",
+      "[OPTRACE]|67138|392|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m00_data_fifo_0_synth_1/vitis_design_m00_data_fifo_0.tcl|vivado_synth|1781237182551|END|Creating in-memory project|",
+      "[OPTRACE]|67138|393|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m00_data_fifo_0_synth_1/vitis_design_m00_data_fifo_0.tcl|vivado_synth|1781237182551|START|Adding files|",
+      "[OPTRACE]|67138|394|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m00_data_fifo_0_synth_1/vitis_design_m00_data_fifo_0.tcl|vivado_synth|1781237182747|END|Adding files|",
+      "[OPTRACE]|67138|395|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m00_data_fifo_0_synth_1/vitis_design_m00_data_fifo_0.tcl|vivado_synth|1781237182748|START|Configure IP Cache|",
+      "[OPTRACE]|67138|396|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m00_data_fifo_0_synth_1/vitis_design_m00_data_fifo_0.tcl|vivado_synth|1781237182766|END|Configure IP Cache|",
+      "[OPTRACE]|67138|397|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m00_data_fifo_0_synth_1/vitis_design_m00_data_fifo_0.tcl|vivado_synth|1781237182767|START|synth_design|",
+      "[OPTRACE]|67138|398|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m00_data_fifo_0_synth_1/vitis_design_m00_data_fifo_0.tcl|vivado_synth|1781237219763|END|synth_design|",
+      "[OPTRACE]|67138|399|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m00_data_fifo_0_synth_1/vitis_design_m00_data_fifo_0.tcl|vivado_synth|1781237219763|START|Write IP Cache|",
+      "[OPTRACE]|67138|400|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m00_data_fifo_0_synth_1/vitis_design_m00_data_fifo_0.tcl|vivado_synth|1781237221040|END|Write IP Cache|",
+      "[OPTRACE]|67138|401|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m00_data_fifo_0_synth_1/vitis_design_m00_data_fifo_0.tcl|vivado_synth|1781237221041|START|write_checkpoint|CHECKPOINT",
+      "[OPTRACE]|67138|402|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m00_data_fifo_0_synth_1/vitis_design_m00_data_fifo_0.tcl|vivado_synth|1781237221527|END|write_checkpoint|",
+      "[OPTRACE]|67138|403|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m00_data_fifo_0_synth_1/vitis_design_m00_data_fifo_0.tcl|vivado_synth|1781237221527|START|synth reports|REPORT",
+      "[OPTRACE]|67138|404|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m00_data_fifo_0_synth_1/vitis_design_m00_data_fifo_0.tcl|vivado_synth|1781237221668|END|synth reports|",
+      "[OPTRACE]|67138|405|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m00_data_fifo_0_synth_1/vitis_design_m00_data_fifo_0.tcl|vivado_synth|1781237222441|END|vitis_design_m00_data_fifo_0_synth_1|",
+      "[OPTRACE]|67262|406|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_xbar_1_synth_1/vitis_design_xbar_1.tcl|vivado_synth|1781237228779|START|vitis_design_xbar_1_synth_1|ROLLUP_AUTO",
+      "[OPTRACE]|67262|407|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_xbar_1_synth_1/vitis_design_xbar_1.tcl|vivado_synth|1781237228780|START|Creating in-memory project|",
+      "[OPTRACE]|67262|408|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_xbar_1_synth_1/vitis_design_xbar_1.tcl|vivado_synth|1781237231251|END|Creating in-memory project|",
+      "[OPTRACE]|67262|409|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_xbar_1_synth_1/vitis_design_xbar_1.tcl|vivado_synth|1781237231251|START|Adding files|",
+      "[OPTRACE]|67262|410|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_xbar_1_synth_1/vitis_design_xbar_1.tcl|vivado_synth|1781237231631|END|Adding files|",
+      "[OPTRACE]|67262|411|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_xbar_1_synth_1/vitis_design_xbar_1.tcl|vivado_synth|1781237231632|START|Configure IP Cache|",
+      "[OPTRACE]|67262|412|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_xbar_1_synth_1/vitis_design_xbar_1.tcl|vivado_synth|1781237231661|END|Configure IP Cache|",
+      "[OPTRACE]|67262|413|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_xbar_1_synth_1/vitis_design_xbar_1.tcl|vivado_synth|1781237231661|START|synth_design|",
+      "[OPTRACE]|67262|414|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_xbar_1_synth_1/vitis_design_xbar_1.tcl|vivado_synth|1781237264020|END|synth_design|",
+      "[OPTRACE]|67262|415|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_xbar_1_synth_1/vitis_design_xbar_1.tcl|vivado_synth|1781237264020|START|Write IP Cache|",
+      "[OPTRACE]|67262|416|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_xbar_1_synth_1/vitis_design_xbar_1.tcl|vivado_synth|1781237265054|END|Write IP Cache|",
+      "[OPTRACE]|67262|417|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_xbar_1_synth_1/vitis_design_xbar_1.tcl|vivado_synth|1781237265055|START|write_checkpoint|CHECKPOINT",
+      "[OPTRACE]|67262|418|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_xbar_1_synth_1/vitis_design_xbar_1.tcl|vivado_synth|1781237265405|END|write_checkpoint|",
+      "[OPTRACE]|67262|419|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_xbar_1_synth_1/vitis_design_xbar_1.tcl|vivado_synth|1781237265405|START|synth reports|REPORT",
+      "[OPTRACE]|67262|420|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_xbar_1_synth_1/vitis_design_xbar_1.tcl|vivado_synth|1781237265527|END|synth reports|",
+      "[OPTRACE]|67262|421|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_xbar_1_synth_1/vitis_design_xbar_1.tcl|vivado_synth|1781237266182|END|vitis_design_xbar_1_synth_1|",
+      "[OPTRACE]|67386|422|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s02_data_fifo_0_synth_1/vitis_design_s02_data_fifo_0.tcl|vivado_synth|1781237272490|START|vitis_design_s02_data_fifo_0_synth_1|ROLLUP_AUTO",
+      "[OPTRACE]|67386|423|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s02_data_fifo_0_synth_1/vitis_design_s02_data_fifo_0.tcl|vivado_synth|1781237272490|START|Creating in-memory project|",
+      "[OPTRACE]|67386|424|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s02_data_fifo_0_synth_1/vitis_design_s02_data_fifo_0.tcl|vivado_synth|1781237274952|END|Creating in-memory project|",
+      "[OPTRACE]|67386|425|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s02_data_fifo_0_synth_1/vitis_design_s02_data_fifo_0.tcl|vivado_synth|1781237274953|START|Adding files|",
+      "[OPTRACE]|67386|426|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s02_data_fifo_0_synth_1/vitis_design_s02_data_fifo_0.tcl|vivado_synth|1781237275153|END|Adding files|",
+      "[OPTRACE]|67386|427|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s02_data_fifo_0_synth_1/vitis_design_s02_data_fifo_0.tcl|vivado_synth|1781237275154|START|Configure IP Cache|",
+      "[OPTRACE]|67386|428|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s02_data_fifo_0_synth_1/vitis_design_s02_data_fifo_0.tcl|vivado_synth|1781237275173|END|Configure IP Cache|",
+      "[OPTRACE]|67386|429|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s02_data_fifo_0_synth_1/vitis_design_s02_data_fifo_0.tcl|vivado_synth|1781237275173|START|synth_design|",
+      "[OPTRACE]|67386|430|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s02_data_fifo_0_synth_1/vitis_design_s02_data_fifo_0.tcl|vivado_synth|1781237307633|END|synth_design|",
+      "[OPTRACE]|67386|431|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s02_data_fifo_0_synth_1/vitis_design_s02_data_fifo_0.tcl|vivado_synth|1781237307633|START|Write IP Cache|",
+      "[OPTRACE]|67386|432|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s02_data_fifo_0_synth_1/vitis_design_s02_data_fifo_0.tcl|vivado_synth|1781237308622|END|Write IP Cache|",
+      "[OPTRACE]|67386|433|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s02_data_fifo_0_synth_1/vitis_design_s02_data_fifo_0.tcl|vivado_synth|1781237308623|START|write_checkpoint|CHECKPOINT",
+      "[OPTRACE]|67386|434|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s02_data_fifo_0_synth_1/vitis_design_s02_data_fifo_0.tcl|vivado_synth|1781237308938|END|write_checkpoint|",
+      "[OPTRACE]|67386|435|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s02_data_fifo_0_synth_1/vitis_design_s02_data_fifo_0.tcl|vivado_synth|1781237308938|START|synth reports|REPORT",
+      "[OPTRACE]|67386|436|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s02_data_fifo_0_synth_1/vitis_design_s02_data_fifo_0.tcl|vivado_synth|1781237309061|END|synth reports|",
+      "[OPTRACE]|67386|437|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_s02_data_fifo_0_synth_1/vitis_design_s02_data_fifo_0.tcl|vivado_synth|1781237309716|END|vitis_design_s02_data_fifo_0_synth_1|",
+      "[OPTRACE]|67511|438|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_us_0_synth_1/vitis_design_auto_us_0.tcl|vivado_synth|1781237316043|START|vitis_design_auto_us_0_synth_1|ROLLUP_AUTO",
+      "[OPTRACE]|67511|439|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_us_0_synth_1/vitis_design_auto_us_0.tcl|vivado_synth|1781237316043|START|Creating in-memory project|",
+      "[OPTRACE]|67511|440|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_us_0_synth_1/vitis_design_auto_us_0.tcl|vivado_synth|1781237318595|END|Creating in-memory project|",
+      "[OPTRACE]|67511|441|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_us_0_synth_1/vitis_design_auto_us_0.tcl|vivado_synth|1781237318595|START|Adding files|",
+      "[OPTRACE]|67511|442|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_us_0_synth_1/vitis_design_auto_us_0.tcl|vivado_synth|1781237318799|END|Adding files|",
+      "[OPTRACE]|67511|443|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_us_0_synth_1/vitis_design_auto_us_0.tcl|vivado_synth|1781237318800|START|Configure IP Cache|",
+      "[OPTRACE]|67511|444|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_us_0_synth_1/vitis_design_auto_us_0.tcl|vivado_synth|1781237318836|END|Configure IP Cache|",
+      "[OPTRACE]|67511|445|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_us_0_synth_1/vitis_design_auto_us_0.tcl|vivado_synth|1781237318836|START|synth_design|",
+      "[OPTRACE]|67511|446|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_us_0_synth_1/vitis_design_auto_us_0.tcl|vivado_synth|1781237350892|END|synth_design|",
+      "[OPTRACE]|67511|447|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_us_0_synth_1/vitis_design_auto_us_0.tcl|vivado_synth|1781237350893|START|Write IP Cache|",
+      "[OPTRACE]|67511|448|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_us_0_synth_1/vitis_design_auto_us_0.tcl|vivado_synth|1781237351594|END|Write IP Cache|",
+      "[OPTRACE]|67511|449|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_us_0_synth_1/vitis_design_auto_us_0.tcl|vivado_synth|1781237351595|START|write_checkpoint|CHECKPOINT",
+      "[OPTRACE]|67511|450|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_us_0_synth_1/vitis_design_auto_us_0.tcl|vivado_synth|1781237351812|END|write_checkpoint|",
+      "[OPTRACE]|67511|451|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_us_0_synth_1/vitis_design_auto_us_0.tcl|vivado_synth|1781237351812|START|synth reports|REPORT",
+      "[OPTRACE]|67511|452|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_us_0_synth_1/vitis_design_auto_us_0.tcl|vivado_synth|1781237351929|END|synth reports|",
+      "[OPTRACE]|67511|453|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_us_0_synth_1/vitis_design_auto_us_0.tcl|vivado_synth|1781237352412|END|vitis_design_auto_us_0_synth_1|",
+      "[OPTRACE]|67675|454|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_pc_0_synth_1/vitis_design_auto_pc_0.tcl|vivado_synth|1781237358735|START|vitis_design_auto_pc_0_synth_1|ROLLUP_AUTO",
+      "[OPTRACE]|67675|455|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_pc_0_synth_1/vitis_design_auto_pc_0.tcl|vivado_synth|1781237358736|START|Creating in-memory project|",
+      "[OPTRACE]|67675|456|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_pc_0_synth_1/vitis_design_auto_pc_0.tcl|vivado_synth|1781237361246|END|Creating in-memory project|",
+      "[OPTRACE]|67675|457|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_pc_0_synth_1/vitis_design_auto_pc_0.tcl|vivado_synth|1781237361247|START|Adding files|",
+      "[OPTRACE]|67675|458|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_pc_0_synth_1/vitis_design_auto_pc_0.tcl|vivado_synth|1781237361447|END|Adding files|",
+      "[OPTRACE]|67675|459|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_pc_0_synth_1/vitis_design_auto_pc_0.tcl|vivado_synth|1781237361447|START|Configure IP Cache|",
+      "[OPTRACE]|67675|460|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_pc_0_synth_1/vitis_design_auto_pc_0.tcl|vivado_synth|1781237361475|END|Configure IP Cache|",
+      "[OPTRACE]|67675|461|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_pc_0_synth_1/vitis_design_auto_pc_0.tcl|vivado_synth|1781237361476|START|synth_design|",
+      "[OPTRACE]|67675|462|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_pc_0_synth_1/vitis_design_auto_pc_0.tcl|vivado_synth|1781237389256|END|synth_design|",
+      "[OPTRACE]|67675|463|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_pc_0_synth_1/vitis_design_auto_pc_0.tcl|vivado_synth|1781237389256|START|Write IP Cache|",
+      "[OPTRACE]|67675|464|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_pc_0_synth_1/vitis_design_auto_pc_0.tcl|vivado_synth|1781237389923|END|Write IP Cache|",
+      "[OPTRACE]|67675|465|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_pc_0_synth_1/vitis_design_auto_pc_0.tcl|vivado_synth|1781237389924|START|write_checkpoint|CHECKPOINT",
+      "[OPTRACE]|67675|466|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_pc_0_synth_1/vitis_design_auto_pc_0.tcl|vivado_synth|1781237390115|END|write_checkpoint|",
+      "[OPTRACE]|67675|467|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_pc_0_synth_1/vitis_design_auto_pc_0.tcl|vivado_synth|1781237390115|START|synth reports|REPORT",
+      "[OPTRACE]|67675|468|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_pc_0_synth_1/vitis_design_auto_pc_0.tcl|vivado_synth|1781237390233|END|synth reports|",
+      "[OPTRACE]|67675|469|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_pc_0_synth_1/vitis_design_auto_pc_0.tcl|vivado_synth|1781237390696|END|vitis_design_auto_pc_0_synth_1|",
+      "[OPTRACE]|67800|470|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_ds_0_synth_1/vitis_design_auto_ds_0.tcl|vivado_synth|1781237397018|START|vitis_design_auto_ds_0_synth_1|ROLLUP_AUTO",
+      "[OPTRACE]|67800|471|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_ds_0_synth_1/vitis_design_auto_ds_0.tcl|vivado_synth|1781237397019|START|Creating in-memory project|",
+      "[OPTRACE]|67800|472|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_ds_0_synth_1/vitis_design_auto_ds_0.tcl|vivado_synth|1781237399534|END|Creating in-memory project|",
+      "[OPTRACE]|67800|473|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_ds_0_synth_1/vitis_design_auto_ds_0.tcl|vivado_synth|1781237399534|START|Adding files|",
+      "[OPTRACE]|67800|474|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_ds_0_synth_1/vitis_design_auto_ds_0.tcl|vivado_synth|1781237399734|END|Adding files|",
+      "[OPTRACE]|67800|475|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_ds_0_synth_1/vitis_design_auto_ds_0.tcl|vivado_synth|1781237399735|START|Configure IP Cache|",
+      "[OPTRACE]|67800|476|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_ds_0_synth_1/vitis_design_auto_ds_0.tcl|vivado_synth|1781237399770|END|Configure IP Cache|",
+      "[OPTRACE]|67800|477|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_ds_0_synth_1/vitis_design_auto_ds_0.tcl|vivado_synth|1781237399770|START|synth_design|",
+      "[OPTRACE]|67800|478|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_ds_0_synth_1/vitis_design_auto_ds_0.tcl|vivado_synth|1781237432082|END|synth_design|",
+      "[OPTRACE]|67800|479|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_ds_0_synth_1/vitis_design_auto_ds_0.tcl|vivado_synth|1781237432082|START|Write IP Cache|",
+      "[OPTRACE]|67800|480|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_ds_0_synth_1/vitis_design_auto_ds_0.tcl|vivado_synth|1781237433083|END|Write IP Cache|",
+      "[OPTRACE]|67800|481|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_ds_0_synth_1/vitis_design_auto_ds_0.tcl|vivado_synth|1781237433084|START|write_checkpoint|CHECKPOINT",
+      "[OPTRACE]|67800|482|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_ds_0_synth_1/vitis_design_auto_ds_0.tcl|vivado_synth|1781237433414|END|write_checkpoint|",
+      "[OPTRACE]|67800|483|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_ds_0_synth_1/vitis_design_auto_ds_0.tcl|vivado_synth|1781237433414|START|synth reports|REPORT",
+      "[OPTRACE]|67800|484|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_ds_0_synth_1/vitis_design_auto_ds_0.tcl|vivado_synth|1781237433536|END|synth reports|",
+      "[OPTRACE]|67800|485|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_ds_0_synth_1/vitis_design_auto_ds_0.tcl|vivado_synth|1781237434196|END|vitis_design_auto_ds_0_synth_1|",
+      "[OPTRACE]|67922|486|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_cc_0_synth_1/vitis_design_auto_cc_0.tcl|vivado_synth|1781237440547|START|vitis_design_auto_cc_0_synth_1|ROLLUP_AUTO",
+      "[OPTRACE]|67922|487|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_cc_0_synth_1/vitis_design_auto_cc_0.tcl|vivado_synth|1781237440548|START|Creating in-memory project|",
+      "[OPTRACE]|67922|488|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_cc_0_synth_1/vitis_design_auto_cc_0.tcl|vivado_synth|1781237443080|END|Creating in-memory project|",
+      "[OPTRACE]|67922|489|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_cc_0_synth_1/vitis_design_auto_cc_0.tcl|vivado_synth|1781237443080|START|Adding files|",
+      "[OPTRACE]|67922|490|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_cc_0_synth_1/vitis_design_auto_cc_0.tcl|vivado_synth|1781237443283|END|Adding files|",
+      "[OPTRACE]|67922|491|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_cc_0_synth_1/vitis_design_auto_cc_0.tcl|vivado_synth|1781237443284|START|Configure IP Cache|",
+      "[OPTRACE]|67922|492|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_cc_0_synth_1/vitis_design_auto_cc_0.tcl|vivado_synth|1781237443303|END|Configure IP Cache|",
+      "[OPTRACE]|67922|493|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_cc_0_synth_1/vitis_design_auto_cc_0.tcl|vivado_synth|1781237443304|START|synth_design|",
+      "[OPTRACE]|67922|494|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_cc_0_synth_1/vitis_design_auto_cc_0.tcl|vivado_synth|1781237468465|END|synth_design|",
+      "[OPTRACE]|67922|495|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_cc_0_synth_1/vitis_design_auto_cc_0.tcl|vivado_synth|1781237468465|START|Write IP Cache|",
+      "[OPTRACE]|67922|496|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_cc_0_synth_1/vitis_design_auto_cc_0.tcl|vivado_synth|1781237469027|END|Write IP Cache|",
+      "[OPTRACE]|67922|497|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_cc_0_synth_1/vitis_design_auto_cc_0.tcl|vivado_synth|1781237469028|START|write_checkpoint|CHECKPOINT",
+      "[OPTRACE]|67922|498|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_cc_0_synth_1/vitis_design_auto_cc_0.tcl|vivado_synth|1781237469170|END|write_checkpoint|",
+      "[OPTRACE]|67922|499|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_cc_0_synth_1/vitis_design_auto_cc_0.tcl|vivado_synth|1781237469171|START|synth reports|REPORT",
+      "[OPTRACE]|67922|500|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_cc_0_synth_1/vitis_design_auto_cc_0.tcl|vivado_synth|1781237469283|END|synth reports|",
+      "[OPTRACE]|67922|501|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_auto_cc_0_synth_1/vitis_design_auto_cc_0.tcl|vivado_synth|1781237469702|END|vitis_design_auto_cc_0_synth_1|",
+      "[OPTRACE]|68039|502|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m01_regslice_0_synth_1/vitis_design_m01_regslice_0.tcl|vivado_synth|1781237476021|START|vitis_design_m01_regslice_0_synth_1|ROLLUP_AUTO",
+      "[OPTRACE]|68039|503|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m01_regslice_0_synth_1/vitis_design_m01_regslice_0.tcl|vivado_synth|1781237476022|START|Creating in-memory project|",
+      "[OPTRACE]|68039|504|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m01_regslice_0_synth_1/vitis_design_m01_regslice_0.tcl|vivado_synth|1781237478545|END|Creating in-memory project|",
+      "[OPTRACE]|68039|505|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m01_regslice_0_synth_1/vitis_design_m01_regslice_0.tcl|vivado_synth|1781237478545|START|Adding files|",
+      "[OPTRACE]|68039|506|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m01_regslice_0_synth_1/vitis_design_m01_regslice_0.tcl|vivado_synth|1781237478742|END|Adding files|",
+      "[OPTRACE]|68039|507|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m01_regslice_0_synth_1/vitis_design_m01_regslice_0.tcl|vivado_synth|1781237478743|START|Configure IP Cache|",
+      "[OPTRACE]|68039|508|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m01_regslice_0_synth_1/vitis_design_m01_regslice_0.tcl|vivado_synth|1781237478744|END|Configure IP Cache|",
+      "[OPTRACE]|68039|509|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m01_regslice_0_synth_1/vitis_design_m01_regslice_0.tcl|vivado_synth|1781237478745|START|synth_design|",
+      "[OPTRACE]|68039|510|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m01_regslice_0_synth_1/vitis_design_m01_regslice_0.tcl|vivado_synth|1781237500679|END|synth_design|",
+      "[OPTRACE]|68039|511|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m01_regslice_0_synth_1/vitis_design_m01_regslice_0.tcl|vivado_synth|1781237500679|START|Write IP Cache|",
+      "[OPTRACE]|68039|512|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m01_regslice_0_synth_1/vitis_design_m01_regslice_0.tcl|vivado_synth|1781237501242|END|Write IP Cache|",
+      "[OPTRACE]|68039|513|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m01_regslice_0_synth_1/vitis_design_m01_regslice_0.tcl|vivado_synth|1781237501243|START|write_checkpoint|CHECKPOINT",
+      "[OPTRACE]|68039|514|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m01_regslice_0_synth_1/vitis_design_m01_regslice_0.tcl|vivado_synth|1781237501377|END|write_checkpoint|",
+      "[OPTRACE]|68039|515|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m01_regslice_0_synth_1/vitis_design_m01_regslice_0.tcl|vivado_synth|1781237501377|START|synth reports|REPORT",
+      "[OPTRACE]|68039|516|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m01_regslice_0_synth_1/vitis_design_m01_regslice_0.tcl|vivado_synth|1781237501490|END|synth reports|",
+      "[OPTRACE]|68039|517|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/vitis_design_m01_regslice_0_synth_1/vitis_design_m01_regslice_0.tcl|vivado_synth|1781237501901|END|vitis_design_m01_regslice_0_synth_1|",
+      "[OPTRACE]|68156|518|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/synth_1/vitis_design_wrapper.tcl|vivado_synth|1781237508231|START|synth_1|ROLLUP_AUTO",
+      "[OPTRACE]|68156|519|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/synth_1/vitis_design_wrapper.tcl|vivado_synth|1781237508231|START|Creating in-memory project|",
+      "[OPTRACE]|68156|520|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/synth_1/vitis_design_wrapper.tcl|vivado_synth|1781237510697|END|Creating in-memory project|",
+      "[OPTRACE]|68156|521|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/synth_1/vitis_design_wrapper.tcl|vivado_synth|1781237510697|START|Adding files|",
+      "[OPTRACE]|68156|522|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/synth_1/vitis_design_wrapper.tcl|vivado_synth|1781237512145|END|Adding files|",
+      "[OPTRACE]|68156|523|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/synth_1/vitis_design_wrapper.tcl|vivado_synth|1781237512148|START|synth_design|",
+      "[OPTRACE]|68156|524|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/synth_1/vitis_design_wrapper.tcl|vivado_synth|1781237535657|END|synth_design|",
+      "[OPTRACE]|68156|525|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/synth_1/vitis_design_wrapper.tcl|vivado_synth|1781237535657|START|write_checkpoint|CHECKPOINT",
+      "[OPTRACE]|68156|526|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/synth_1/vitis_design_wrapper.tcl|vivado_synth|1781237535985|END|write_checkpoint|",
+      "[OPTRACE]|68156|527|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/synth_1/vitis_design_wrapper.tcl|vivado_synth|1781237535986|START|synth reports|REPORT",
+      "[OPTRACE]|68156|528|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/synth_1/vitis_design_wrapper.tcl|vivado_synth|1781237535986|END|synth reports|",
+      "[OPTRACE]|68156|529|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/synth_1/vitis_design_wrapper.tcl|vivado_synth|1781237535986|END|synth_1|",
+      "[OPTRACE]|68378|531|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237544441|START|impl_1|ROLLUP_1",
+      "[OPTRACE]|68378|532|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237544441|START|Phase: Init Design|ROLLUP_AUTO",
+      "[OPTRACE]|68378|533|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237544442|START|Design Initialization: pre hook|",
+      "[OPTRACE]|68378|534|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237544457|END|Design Initialization: pre hook|",
+      "[OPTRACE]|68378|535|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237544457|START|create in-memory project|",
+      "[OPTRACE]|68378|536|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237546356|END|create in-memory project|",
+      "[OPTRACE]|68378|537|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237546356|START|set parameters|",
+      "[OPTRACE]|68378|538|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237546946|END|set parameters|",
+      "[OPTRACE]|68378|539|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237546946|START|add files|",
+      "[OPTRACE]|68378|540|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237548415|START|read constraints: implementation|",
+      "[OPTRACE]|68378|541|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237548415|END|read constraints: implementation|",
+      "[OPTRACE]|68378|542|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237548416|END|add files|",
+      "[OPTRACE]|68378|543|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237548416|START|link_design|",
+      "[OPTRACE]|68378|544|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237590828|END|link_design|",
+      "[OPTRACE]|68378|545|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237590829|START|gray box cells|",
+      "[OPTRACE]|68378|546|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237590829|END|gray box cells|",
+      "[OPTRACE]|68378|547|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237590829|START|Design Initialization: post hook|",
+      "[OPTRACE]|68378|548|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237590844|END|Design Initialization: post hook|",
+      "[OPTRACE]|68378|549|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237590844|START|init_design_reports|REPORT",
+      "[OPTRACE]|68378|550|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237590844|END|init_design_reports|",
+      "[OPTRACE]|68378|551|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237590844|START|init_design_write_hwdef|",
+      "[OPTRACE]|68378|552|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237590844|END|init_design_write_hwdef|",
+      "[OPTRACE]|68378|553|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237590845|END|Phase: Init Design|",
+      "[OPTRACE]|68378|554|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237590845|START|Phase: Opt Design|ROLLUP_AUTO",
+      "[OPTRACE]|68378|555|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237590846|START|Opt Design: pre hook|",
+      "[OPTRACE]|68378|556|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237592697|END|Opt Design: pre hook|",
+      "[OPTRACE]|68378|557|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237592697|START|read constraints: opt_design|",
+      "[OPTRACE]|68378|558|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237592697|END|read constraints: opt_design|",
+      "[OPTRACE]|68378|559|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237592697|START|opt_design|",
+      "[OPTRACE]|68378|560|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237639792|END|opt_design|",
+      "[OPTRACE]|68378|561|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237639792|START|read constraints: opt_design_post|",
+      "[OPTRACE]|68378|562|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237639792|END|read constraints: opt_design_post|",
+      "[OPTRACE]|68378|563|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237639793|START|Opt Design: post hook|",
+      "[OPTRACE]|68378|564|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237639793|END|Opt Design: post hook|",
+      "[OPTRACE]|68378|565|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237639793|START|opt_design reports|REPORT",
+      "[OPTRACE]|68378|566|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237639793|END|opt_design reports|",
+      "[OPTRACE]|68378|567|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237639794|END|Phase: Opt Design|",
+      "[OPTRACE]|68378|568|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237639794|START|Phase: Place Design|ROLLUP_AUTO",
+      "[OPTRACE]|68378|569|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237639794|START|Place Design: pre hook|",
+      "[OPTRACE]|68378|570|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237639809|END|Place Design: pre hook|",
+      "[OPTRACE]|68378|571|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237639809|START|read constraints: place_design|",
+      "[OPTRACE]|68378|572|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237639809|END|read constraints: place_design|",
+      "[OPTRACE]|68378|573|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237639809|START|place_design|",
+      "[OPTRACE]|68378|574|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237840768|END|place_design|",
+      "[OPTRACE]|68378|575|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237840768|START|read constraints: place_design_post|",
+      "[OPTRACE]|68378|576|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237840768|END|read constraints: place_design_post|",
+      "[OPTRACE]|68378|577|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237840768|START|Place Design: post hook|",
+      "[OPTRACE]|68378|578|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237844079|END|Place Design: post hook|",
+      "[OPTRACE]|68378|579|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237844080|START|place_design reports|REPORT",
+      "[OPTRACE]|68378|580|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237844080|END|place_design reports|",
+      "[OPTRACE]|68378|581|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237844080|END|Phase: Place Design|",
+      "[OPTRACE]|68378|582|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237844080|START|Phase: Physical Opt Design|ROLLUP_AUTO",
+      "[OPTRACE]|68378|583|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237844081|START|read constraints: phys_opt_design|",
+      "[OPTRACE]|68378|584|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237844081|END|read constraints: phys_opt_design|",
+      "[OPTRACE]|68378|585|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237844081|START|phys_opt_design|",
+      "[OPTRACE]|68378|586|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237854729|END|phys_opt_design|",
+      "[OPTRACE]|68378|587|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237854730|START|read constraints: phys_opt_design_post|",
+      "[OPTRACE]|68378|588|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237854730|END|read constraints: phys_opt_design_post|",
+      "[OPTRACE]|68378|589|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237854730|START|phys_opt_design report|REPORT",
+      "[OPTRACE]|68378|590|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237854730|END|phys_opt_design report|",
+      "[OPTRACE]|68378|591|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237854731|END|Phase: Physical Opt Design|",
+      "[OPTRACE]|68378|592|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237854731|START|Phase: Route Design|ROLLUP_AUTO",
+      "[OPTRACE]|68378|593|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237854731|START|read constraints: route_design|",
+      "[OPTRACE]|68378|594|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237854731|END|read constraints: route_design|",
+      "[OPTRACE]|68378|595|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781237854732|START|route_design|",
+      "[OPTRACE]|68378|596|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781238068947|END|route_design|",
+      "[OPTRACE]|68378|597|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781238068948|START|read constraints: route_design_post|",
+      "[OPTRACE]|68378|598|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781238068948|END|read constraints: route_design_post|",
+      "[OPTRACE]|68378|599|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781238068948|START|Route Design: post hook|",
+      "[OPTRACE]|68378|600|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781238088922|END|Route Design: post hook|",
+      "[OPTRACE]|68378|601|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781238088922|START|Route Design: write_checkpoint|CHECKPOINT",
+      "[OPTRACE]|68378|602|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781238100525|END|Route Design: write_checkpoint|",
+      "[OPTRACE]|68378|603|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781238100525|START|route_design reports|REPORT",
+      "[OPTRACE]|68378|604|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781238110584|END|route_design reports|",
+      "[OPTRACE]|68378|605|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781238110584|START|route_design misc|",
+      "[OPTRACE]|68378|606|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781238110585|END|route_design misc|",
+      "[OPTRACE]|68378|607|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781238110585|END|Phase: Route Design|",
+      "[OPTRACE]|68378|608|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781238110585|START|Phase: Write Bitstream|ROLLUP_AUTO",
+      "[OPTRACE]|68378|609|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781238110585|START|write_bitstream setup|",
+      "[OPTRACE]|68378|610|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781238110585|START|Write Bitstream: pre hook|",
+      "[OPTRACE]|68378|611|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781238111183|END|Write Bitstream: pre hook|",
+      "[OPTRACE]|68378|612|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781238111184|START|read constraints: write_bitstream|",
+      "[OPTRACE]|68378|613|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781238111184|END|read constraints: write_bitstream|",
+      "[OPTRACE]|68378|614|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781238111420|END|write_bitstream setup|",
+      "[OPTRACE]|68378|615|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781238111421|START|write_bitstream|",
+      "[OPTRACE]|68378|616|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781238136914|END|write_bitstream|",
+      "[OPTRACE]|68378|617|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781238136914|START|write_bitstream misc|",
+      "[OPTRACE]|68378|618|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781238136915|START|read constraints: write_bitstream_post|",
+      "[OPTRACE]|68378|619|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781238136915|END|read constraints: write_bitstream_post|",
+      "[OPTRACE]|68378|620|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781238136915|START|Write Bitstream: post hook|",
+      "[OPTRACE]|68378|621|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781238136916|END|Write Bitstream: post hook|",
+      "[OPTRACE]|68378|622|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781238136923|END|write_bitstream misc|",
+      "[OPTRACE]|68378|623|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781238136923|END|Phase: Write Bitstream|",
+      "[OPTRACE]|68378|624|/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/vitis_design_wrapper.tcl|vivado_impl|1781238136924|END|impl_1|"
+      ];
+
+  var legendData = [
+  { "title": "Report Generation",
+    "color": "#b9783f"
+  }, {
+    "title": "Write Checkpoint",
+    "color": "#cd82ad"
+  },
+  {
+    "title": "Incomplete Data",
+    "color": "#cc4748"
+  } ];
+
+  // -- Convert Raw data into something we can use ---------------------------
+  console.log("Convert log data (%s entries) to Javascript 'JSON' objects...", csvData.length);
+  var jsonData = csvArrayToJSON(header, csvData, "|");
+
+  // -- Clean up the JSON objects --------------------------------------------
+  for (var i = 0; i < jsonData.length; i++) {
+    jsonData[i].Action = jsonData[i].Action.toUpperCase();
+    jsonData[i].Tags = jsonData[i].Tags.toUpperCase();
+    jsonData[i].Tags = jsonData[i].Tags.trim();
+    jsonData[i].TimeStampMSec = parseInt(jsonData[i].TimeStampMSec, 10);
+    jsonData[i].pid = parseInt(jsonData[i].pid, 10);
+  }
+
+  // -- Sort JSON array ------------------------------------------------------
+  console.log("Sorting JSON objects (%s objects) according to timestamps...", jsonData.length);
+  jsonData.sort(compareByTimeStamp);
+
+  // Record the PID grouping order
+  var pidOrder = new Map();
+  for (var i = 0; i < jsonData.length; i++) {
+    if (pidOrder.has(jsonData[i].pid) == false) {
+      pidOrder.set(jsonData[i].pid, i);    // Simple ordering (lower is first)
+    }
+  }
+
+  // -- Create secondary data array for the chart data array -----------------
+  console.log("Preparing graph data...");
+
+  // Task limits
+  var m_startTS = 0;      // Earliest Timestamp
+  var m_endTS = 0;        // Latest Timestamp
+
+  if (jsonData.length > 0) {
+    m_startTS = jsonData[0].TimeStampMSec;
+    m_endTS = jsonData[jsonData.length - 1].TimeStampMSec;
+  }
+
+
+  var chartData = [ ];   // Empty JSON array
+
+
+  populateChartData();
+  tableCreate( chartData );
+
+  filterChartEntries();
+
+  // -- Search for "holes"
+  // -- Sort by common PID
+  // -- Create groupings by process
+
+  console.log("done");
+
+  var chart = AmCharts.makeChart("chartdiv", {
+    "type": "gantt",
+    "theme": "light",
+    "titles": [
+    { "text": "OPTrace", "size": 15}],
+    "marginRight": 70,
+    "period": "fff",                                     // X-Axis
+    "balloonDateFormat": "JJ:NN:SS",
+    "columnWidth": 0.5,                                 // Bar thickness
+    "valueAxis": {
+      "type": "numeric",
+      "title": "Time [HH:MM:SS]",
+      "duration": "ss",
+      "durationUnits": { DD: 'd. ', hh: ':', mm: ':', ss: '' },
+    },
+    "brightnessStep": 10,
+    "graph": {
+      "fillAlphas": 1,
+      "labelFunction": barLabelCallBack,
+      "labelText": " ",
+      "labelPosition": "right",
+      "balloonFunction": ballonLabelCallBack,
+      "balloonText": "<p align='left'> Task: [[task]]<br/>Start:[[start]]<br/>End:[[end]]<br/>Duration:[[duration]]</p>",
+      "bulletField": "bullet",
+      "bulletSize": 8
+    },
+    "rotate": true,
+    "categoryField": "category",
+    "segmentsField": "segments",
+    "colorField": "color",
+    "startDate": "2015-01-01 00:00:00",
+    "startField": "start",
+    "endField": "end",
+    "durationField": "duration",
+    "dataProvider": chartData,
+    "valueScrollbar": {
+      "autoGridCount": true
+    },
+    "chartScrollbar": {
+      "enable": true
+    },
+    "chartCursor": {
+      "cursorColor": "#55bb76",
+      "valueBalloonsEnabled": false,
+      "cursorAlpha": 0.1,
+      "valueLineAlpha": 0.5,
+      "valueLineBalloonEnabled": true,
+      "valueLineEnabled": true,
+      "zoomable": true,
+      "valueZoomable": true,
+      "fullWidth": true
+    },
+    "legend": {
+      "data": legendData,
+    },
+    "export": {
+      "enabled": true
+    }
+  });
+
+  // =========================================================================
+  // Call back methods
+  // =========================================================================
+function ballonLabelCallBack( _graphDataItem )
+{
+  var start = _graphDataItem.values.open;
+  var end = _graphDataItem.values.value;
+  var duration = end - start;
+
+  var result = "<p align='left'>Task: " + _graphDataItem.category + "<br/>Start: " + secondsToHHMMSS(start) + "<br/>End: " + secondsToHHMMSS( end ) + "<br/>Duration: " + secondsToHHMMSS( duration ) + "</p>";
+  return result;
+}
+
+
+function barLabelCallBack( _graphDataItem )
+{
+   var duration = _graphDataItem.values.value - _graphDataItem.values.open;
+
+   return secondsToHHMMSS( duration);
+}
+
+
+function userInputFormCallback()
+{
+  // Second filter
+  m_secondFilter = document.getElementById("userDurationFilterSecInput").value;
+  console.log("Setting second filter to: " + m_secondFilter + " seconds");
+
+  // Group PID Sort
+  m_groupPidSort = document.getElementById("userGroupPidSortSelected").checked;
+  console.log("Group PID filter is set to: " + m_groupPidSort);
+
+  // Rollup filter
+  m_showRollup = document.getElementById("userRollupSelected").checked;
+  console.log("Rollup filter is set to: " + m_showRollup);
+
+  // Individual filter
+  m_showIndividualEntry = document.getElementById("userIndividualEntrySelected").checked;
+  console.log("Individual filter is set to: " + m_showIndividualEntry);
+
+  // Checkpoint Report Entries filter
+  m_showCheckpointEntry = document.getElementById("userCheckpointEntrySelected").checked;
+  console.log("Checkpoint Entry filter is set to: " + m_showCheckpointEntry);
+
+  // Checkpoint Report Entries filter
+  m_showReportEntry = document.getElementById("userReportEntrySelected").checked;
+  console.log("Report Entry filter is set to: " + m_showReportEntry);
+
+  populateChartData();
+  filterChartEntries()
+  chart.dataProvider = chartData;
+  chart.validateData();
+}
+
+  // =========================================================================
+  // Utilities
+  // =========================================================================
+
+
+function populateChartData()
+{
+  chartData = [ ];
+  if (m_groupPidSort == false) {
+    jsonData.sort(compareByTimeStamp);
+  } else {
+    jsonData.sort(compareByGroupTimeStamp);
+  }
+
+  for (var i = 0; i < jsonData.length; i++) {
+    var timestamp = parseInt(jsonData[0].TimeStampMSec, 10);
+
+    if (m_startTS > timestamp) m_startTS = timestamp;
+    if (m_endTS < timestamp) m_endTS = timestamp;
+
+    for (var i = 0; i < jsonData.length; i++) {
+      switch (jsonData[i].Action) {
+      case "START":
+        var categoryEntry = { };
+        categoryEntry["category"] = jsonData[i].Task;
+        categoryEntry["pid"] = jsonData[i].pid;
+
+        var segmentEntry = { };
+        // Normalize entry and convert to seconds
+        segmentEntry["start"] = (jsonData[i].TimeStampMSec - m_startTS) / 1000;
+        segmentEntry["color"] = getTaskBarColor(jsonData[i].Tags)
+        segmentEntry["task"] = jsonData[i].Task;
+        segmentEntry["tags"] = jsonData[i].Tags;
+        segmentEntry["duration"] = -1;
+
+        categoryEntry["segments"] = [ ];
+        categoryEntry["segments"].push(segmentEntry);
+        chartData.push(categoryEntry);
+        break;
+
+      case "END":
+        var catagory = findCatagory(jsonData[i].pid, jsonData[i].Task, chartData);
+        if (catagory != null) {
+          var segmentsEntry = catagory.segments[0];
+          segmentsEntry["end"] = (jsonData[i].TimeStampMSec - m_startTS) / 1000;
+          segmentsEntry["duration"] = segmentsEntry.end - segmentsEntry.start;
+        } else {
+          console.log("Null entry found: pid:%s, Task: %s", jsonData[i].pid, jsonData[i].Task);
+        }
+
+        break;
+
+      default:
+        console.log("Default");
+        break;
+      }
+    }
+  }
+}
+
+function filterChartEntries()
+{
+  for(var i = chartData.length - 1; i >= 0; i--) {
+    var segment = chartData[i].segments[0];
+
+    // -- Remove entries less than 1 seconds
+    if ( segment["duration"] == -1) {
+      segment["bullet"] = "xError";
+      segment["color"] = "#cc4748";
+      segment["duration"] = ((m_endTS - m_startTS) / 1000) - segment["start"];
+    } else if (segment["duration"] <  m_secondFilter) {
+      chartData.splice(i, 1);
+      continue;
+    }
+  
+
+    // Filter by tags
+    var bHasRollup = false;
+    var bHasCheckpoint = false;
+    var bHasReport = false;
+
+    var tags = segment["tags"];
+    console.log("Tag: " + tags);
+    if (tags.search(/ROLLUP_/i) != -1) { bHasRollup = true; }
+    if (tags.search(/CHECKPOINT/i) != -1) { bHasCheckpoint = true; }
+    if (tags.search(/REPORT/i) != -1) { bHasReport = true; }
+
+    var bRemoveEntry = false;
+
+    // Remove rollups
+    if ((m_showRollup == false) && (bHasRollup == true)) {
+      bRemoveEntry = true;
+    }
+    
+    // Remove checkpoints    
+    if ((m_showCheckpointEntry == false) && (bHasCheckpoint == true)) {
+      bRemoveEntry = true;
+    }
+
+    // Remove reports
+    if ((m_showReportEntry == false) && (bHasReport == true)) {
+      bRemoveEntry = true;
+    }
+
+    // Remove individual entry
+    if (((m_showIndividualEntry == false) && 
+         ((bHasRollup == false) &&
+          (bHasCheckpoint == false) &&
+          (bHasReport == false)))) {
+      bRemoveEntry = true;
+    }
+
+    if (bRemoveEntry == true) {
+      chartData.splice(i, 1);
+      continue;
+    }
+  }
+
+  console.log("ChartData.length: " + chartData.length);
+}
+
+
+function getTaskBarColor( _tags )
+{
+  if (_tags == null)
+    return "#8dc49f";
+
+  if (_tags.search(/ROLLUP_AUTO/i) != -1){ return "#0099ff"; }
+  if (_tags.search(/ROLLUP_0/i) != -1)   { return "#006699"; }
+  if (_tags.search(/ROLLUP_1/i) != -1)   { return "#009933"; }
+  if (_tags.search(/ROLLUP_2/i) != -1)   { return "#66ccff"; }
+  if (_tags.search(/REPORT/i) != -1)     { return "#b9783f"; }
+  if (_tags.search(/CHECKPOINT/i) != -1) { return "#cd82ad"; }
+
+  return "#8dc49f"
+}
+
+
+function tableCreate( _chartData ){
+    var myTableDiv = document.getElementById("myDynamicTable");
+
+
+    for ( var i = 0; i < _chartData.length; i++) {
+      var tr = myTableDiv.insertRow();
+
+      var td_task = tr.insertCell();
+      td_task.appendChild(document.createTextNode( _chartData[i].category ));
+
+      var segmentEntry = _chartData[i].segments;
+      var td_start = tr.insertCell();
+      td_start.appendChild(document.createTextNode( secondsToHHMMSS(segmentEntry[0].start) ));
+
+      var td_duration = tr.insertCell();
+      td_duration.appendChild(document.createTextNode( secondsToHHMMSS(segmentEntry[0].duration) ));
+
+    }
+}
+
+function secondsToHHMMSS( _seconds )
+{
+  var hours = Math.floor(_seconds / 3600);
+  var minutes = Math.floor(_seconds % 3600 / 60);
+  var seconds = Math.floor(_seconds % 3600 % 60);
+
+  var result = hours + ":" + (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds; 
+
+  return result;
+}
+
+
+  function findCatagory(_pid, _category, _catagoryArray) {
+    for (var i = (_catagoryArray.length - 1); i >= 0; i--) {
+      if (_pid == _catagoryArray[i].pid) {
+        if (_catagoryArray[i].category == _category) {
+          return  _catagoryArray[i];
+        }
+      }
+    }
+    return null;
+  }
+
+
+  // Compares the timestamps between to JSON objects
+  function compareByTimeStamp(_a, _b) {
+    if (_a.TimeStampMSec < _b.TimeStampMSec) return -1;
+    if (_a.TimeStampMSec > _b.TimeStampMSec) return 1;
+
+    if (_a.pid == _b.pid) {
+      if ((_a.Action == "START") && (_b.Action == "END")) return -1;
+      if ((_a.Action == "END") && (_b.Action == "START")) return 1;
+
+      if(_a.Entry < _b.Entry) return -1;
+      if(_a.Entry > _b.Entry) return 1;
+    }
+
+    return 0;
+  }
+
+
+  // Compares the timestamps between to JSON objects
+  function compareByGroupTimeStamp(_a, _b) {
+    if (pidOrder.get(_a.pid) < pidOrder.get(_b.pid)) return -1;
+
+    if (pidOrder.get(_a.pid) > pidOrder.get(_b.pid)) return 1;
+
+    return compareByTimeStamp(_a, _b);
+  }
+
+
+  // Return array of string values, or NULL if CSV string not well formed.
+  function CSVtoArray(_text, _sep) {
+    // Regex expressions
+    var re_valid_default = /^\s*(?:'[^'\\]*(?:\\[\S\s][^'\\]*)*'|"[^"\\]*(?:\\[\S\s][^"\\]*)*"|[^,'"\s\\]*(?:\s+[^,'"\s\\]+)*)\s*(?:,\s*(?:'[^'\\]*(?:\\[\S\s][^'\\]*)*'|"[^"\\]*(?:\\[\S\s][^"\\]*)*"|[^,'"\s\\]*(?:\s+[^,'"\s\\]+)*)\s*)*$/;
+    var re_value_default = /(?!\s*$)\s*(?:'([^'\\]*(?:\\[\S\s][^'\\]*)*)'|"([^"\\]*(?:\\[\S\s][^"\\]*)*)"|([^,'"\s\\]*(?:\s+[^,'"\s\\]+)*))\s*(?:,|$)/g;
+    var re_special_default = /,\s*$/;
+
+    // Algorithm:
+    //   1) Convert regex expression to a string.
+    //   2) Remove leading regex escape character (e.g., '\')
+    //   3) Remove training regex escape character(s) (e.g., '\' or "\g")
+    //   4) Replace the comma (',') character witht he new delimiter character
+    //   5) Build the regex command
+
+    // Check delimiter, if special insert escapes
+    if (_sep == "|") _sep = "\\|";
+
+    var re_valid = new RegExp(re_valid_default.toString().substr(1).slice(0, -1).replace(/,/g, _sep));
+    var re_value = new RegExp(re_value_default.toString().substr(1).slice(0, -2).replace(/,/g, _sep), 'g');
+    var re_special = new RegExp(re_special_default.toString().substr(1).slice(0, -1).replace(/,/g, _sep));
+
+    // Validate the input string to determine if it is well formed
+    if (!re_valid.test(_text)) return null;
+
+    var a = [ ];                     // Initialize array to receive values.
+    _text.replace(re_value,           // "Walk" the string using replace with callback.
+                  function(m0, m1, m2, m3) {
+                      // Remove backslash from \' in single quoted values.
+                      if      (m1 !== undefined) a.push(m1.replace(/\\'/g, "'"));
+                      // Remove backslash from \" in double quoted values.
+                      else if (m2 !== undefined) a.push(m2.replace(/\\"/g, '"'));
+                      else if (m3 !== undefined) a.push(m3);
+                      return ''; // Return empty string.
+                  });
+
+    // Handle special case of empty last value.
+    if (re_special.test(_text)) a.push('');
+
+    return a;
+  };
+
+
+  // Converts the given CSV array & header into a JSON array
+  function csvArrayToJSON(_header, _csvArray, _sep) {
+    var result = [ ];
+    var headers = CSVtoArray(_header, _sep);
+
+    for (var i = 0; i < _csvArray.length; i++) {
+
+      var obj = { };
+      var currentline = CSVtoArray(_csvArray[i], _sep);
+
+      for (var j = 0; j < headers.length; j++) {
+        obj[headers[j]] = currentline[j];
+      }
+
+      result.push(obj);
+
+    }
+
+    return result; //JavaScript object
+  }
+
+
+</script>
+</body>
+
+</html>
+

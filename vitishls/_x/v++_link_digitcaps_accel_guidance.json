@@ -1,0 +1,84 @@
+{
+ "session": {
+  "name": "v++_link_digitcaps_accel",
+  "uuid": "c6a77201-7297-4462-b56b-0a22e5155956",
+  "description": "v++  -l -t hw --platform /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_202210_1/xilinx_zcu102_base_202210_1.xpfm --jobs 1 digitcaps_accel.xo -o digitcaps_accel.xclbin ",
+  "timestamp": "0",
+  "report_file": {
+   "scheme": "FILE",
+   "host": "",
+   "port": 0,
+   "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/v++_link_digitcaps_accel_guidance.html",
+   "query": "",
+   "fragment": "",
+   "media_type": "",
+   "encoding": "",
+   "data": ""
+  },
+  "proto_file": {
+   "scheme": "FILE",
+   "host": "",
+   "port": 0,
+   "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/v++_link_digitcaps_accel_guidance.pb",
+   "query": "",
+   "fragment": "",
+   "media_type": "",
+   "encoding": "",
+   "data": ""
+  },
+  "build_target": "",
+  "config_files": []
+ },
+ "violation_count": 0,
+ "waived_count": 0,
+ "affirmation_count": 1,
+ "affirmations": {
+  "hashmap": {
+   "1": {
+    "id": 1,
+    "rule_key": "SYSLINK-1",
+    "examples": {
+     "uri": []
+    },
+    "build_target": "",
+    "expects": "",
+    "details": {
+     "text": "Created top level block diagram design dr.bd.tcl",
+     "args": {
+      "arg": [
+       {
+        "string_val": "dr.bd.tcl"
+       }
+      ]
+     }
+    },
+    "categories": {},
+    "extended_categories": {},
+    "group": ""
+   }
+  }
+ },
+ "specs_affirmed": {
+  "hashmap": {
+   "SYSLINK-1": {
+    "key": "SYSLINK-1",
+    "full_name": "system_link Top Level BD Creation",
+    "owner": "system_link",
+    "raw_msg": "Created top level block diagram design %STR",
+    "msg_abbrev": "",
+    "msg_id": "0",
+    "categories": {},
+    "resolution_msg": "",
+    "severity": "SEV_FATAL",
+    "disposition": "ENABLED",
+    "expects": "",
+    "affirm_msg": "",
+    "dynamic_categories": {},
+    "extensible_categories": [],
+    "impact": "IMPACT_UNKNOWN",
+    "group": ""
+   }
+  }
+ }
+}
+

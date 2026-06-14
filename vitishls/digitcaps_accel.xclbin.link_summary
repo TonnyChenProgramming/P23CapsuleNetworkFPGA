@@ -1,0 +1,1560 @@
+<ENTRY>
+{
+ "thisFile": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/digitcaps_accel.xclbin.link_summary",
+ "connectId": "",
+ "serverToken": "",
+ "timestamp": "0"
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_CmdStep",
+ "dateTimestamp": "Fri Jun 12 15:47:44 2026",
+ "timestampMillis": "1781236064934",
+ "buildStep": {
+  "cmdId": "23797b55-77c0-4607-8e65-5cc76f360a3d",
+  "name": "v++",
+  "logFile": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/link.steps.log",
+  "commandLine": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/Xilinx/Vitis/2022.1/bin/unwrapped/lnx64.o/v++  --vivado.prop \"run.__KERNEL__.{STEPS.SYNTH_DESIGN.ARGS.MORE OPTIONS}={-directive sdx_optimization_effort_high}\" --advanced.misc \"report=type report_timing_summary name impl_report_timing_summary_route_design_summary steps {route_design} runs {impl_1} options {-max_paths 10}\" --advanced.misc \"report=type report_timing_summary name impl_report_timing_summary_post_route_phys_opt_design_summary steps {post_route_phys_opt_design} runs {impl_1} options {-max_paths 10}\" -l -t hw --platform /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_202210_1/xilinx_zcu102_base_202210_1.xpfm --jobs 1 digitcaps_accel.xo -o digitcaps_accel.xclbin ",
+  "args": [
+   "-l",
+   "-t",
+   "hw",
+   "--platform",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_202210_1/xilinx_zcu102_base_202210_1.xpfm",
+   "--jobs",
+   "1",
+   "digitcaps_accel.xo",
+   "-o",
+   "digitcaps_accel.xclbin"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 15:47:44 2026",
+ "timestampMillis": "1781236064934",
+ "status": {
+  "cmdId": "23797b55-77c0-4607-8e65-5cc76f360a3d",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_FlowMetaData",
+ "dateTimestamp": "Fri Jun 12 15:47:46 2026",
+ "timestampMillis": "1781236066489",
+ "buildSummary": {
+  "hardwarePlatform": "xilinx_zcu102_base_202210_1.xpfm",
+  "hardwareDsa": "hw.xsa",
+  "platformDirectory": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_202210_1",
+  "runtime": "OpenCL",
+  "systemConfig": "Linux",
+  "flow": "BF_LINK",
+  "target": "TT_HW",
+  "binaryContainer": {
+   "base": {
+    "type": "BT_UKNOWN",
+    "name": "digitcaps_accel",
+    "file": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/digitcaps_accel.xclbin",
+    "reports": [],
+    "uuid": ""
+   },
+   "kernels": []
+  },
+  "kernels": [
+   {
+    "base": {
+     "type": "KERNEL",
+     "name": "digitcaps_accel",
+     "file": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/digitcaps_accel.xo",
+     "reports": [],
+     "uuid": ""
+    },
+    "sources": [
+     "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/xo/digitcaps_accel/digitcaps_accel/cpu_sources/DigitCaps.cpp"
+    ],
+    "psSources": [],
+    "cuNames": [
+     "digitcaps_accel_1"
+    ],
+    "type": "HLS",
+    "frequency": 0,
+    "freqUnits": ""
+   }
+  ],
+  "toolVersion": "Vitis V++ Compiler Release 2022.1. SW Build 3524075 on 2022-04-13-17:42:45"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Fri Jun 12 15:47:46 2026",
+ "timestampMillis": "1781236066532",
+ "buildStep": {
+  "cmdId": "4a371417-87ce-4bc7-8a3f-ea42d0cfecc9",
+  "name": "system_link",
+  "logFile": "",
+  "commandLine": "system_link --xo /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/digitcaps_accel.xo --xpfm /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_202210_1/xilinx_zcu102_base_202210_1.xpfm --target hw --output_dir /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int --temp_dir /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/sys_link",
+  "args": [
+   "--xo",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/digitcaps_accel.xo",
+   "--xpfm",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_202210_1/xilinx_zcu102_base_202210_1.xpfm",
+   "--target",
+   "hw",
+   "--output_dir",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int",
+   "--temp_dir",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/sys_link"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 15:47:46 2026",
+ "timestampMillis": "1781236066532",
+ "status": {
+  "cmdId": "4a371417-87ce-4bc7-8a3f-ea42d0cfecc9",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 15:47:53 2026",
+ "timestampMillis": "1781236073281",
+ "status": {
+  "cmdId": "4a371417-87ce-4bc7-8a3f-ea42d0cfecc9",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Fri Jun 12 15:47:53 2026",
+ "timestampMillis": "1781236073283",
+ "buildStep": {
+  "cmdId": "eb8fa44b-ccb9-4f02-9ea1-ee81de0bd7b2",
+  "name": "cf2sw",
+  "logFile": "",
+  "commandLine": "cf2sw -sdsl /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/sdsl.dat -rtd /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/cf2sw.rtd -nofilter /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/cf2sw_full.rtd -xclbin /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/xclbin_orig.xml -o /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/xclbin_orig.1.xml",
+  "args": [
+   "-sdsl",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/sdsl.dat",
+   "-rtd",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/cf2sw.rtd",
+   "-nofilter",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/cf2sw_full.rtd",
+   "-xclbin",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/xclbin_orig.xml",
+   "-o",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/xclbin_orig.1.xml"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 15:47:53 2026",
+ "timestampMillis": "1781236073283",
+ "status": {
+  "cmdId": "eb8fa44b-ccb9-4f02-9ea1-ee81de0bd7b2",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 15:47:54 2026",
+ "timestampMillis": "1781236074888",
+ "status": {
+  "cmdId": "eb8fa44b-ccb9-4f02-9ea1-ee81de0bd7b2",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Fri Jun 12 15:47:54 2026",
+ "timestampMillis": "1781236074890",
+ "buildStep": {
+  "cmdId": "d1c4b952-4f73-4d45-b5aa-9f5539e19d79",
+  "name": "rtd2_system_diagram",
+  "logFile": "",
+  "commandLine": "rtd2SystemDiagram",
+  "args": [],
+  "iniFiles": [],
+  "cwd": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 15:47:54 2026",
+ "timestampMillis": "1781236074890",
+ "status": {
+  "cmdId": "d1c4b952-4f73-4d45-b5aa-9f5539e19d79",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 15:47:55 2026",
+ "timestampMillis": "1781236075001",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/systemDiagramModel.json",
+  "name": "",
+  "fileType": "JSON",
+  "reportType": "SYSTEM_DIAGRAM",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 15:47:55 2026",
+ "timestampMillis": "1781236075002",
+ "status": {
+  "cmdId": "d1c4b952-4f73-4d45-b5aa-9f5539e19d79",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Fri Jun 12 15:47:55 2026",
+ "timestampMillis": "1781236075004",
+ "buildStep": {
+  "cmdId": "6592b6e0-28cd-4867-acda-c4d6e647bf7b",
+  "name": "vpl",
+  "logFile": "",
+  "commandLine": "vpl -t hw -f /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_202210_1/xilinx_zcu102_base_202210_1.xpfm --remote_ip_cache /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/.ipcache --output_dir /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int --log_dir /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/logs/link --report_dir /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link --config /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/vplConfig.ini -k /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/kernel_info.dat --webtalk_flag Vitis --temp_dir /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link --no-info --iprepo /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/xo/ip_repo/xilinx_com_hls_digitcaps_accel_1_0 --messageDb /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/run_link/vpl.pb /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/dr.bd.tcl",
+  "args": [
+   "-t",
+   "hw",
+   "-f",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_202210_1/xilinx_zcu102_base_202210_1.xpfm",
+   "--remote_ip_cache",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/.ipcache",
+   "--output_dir",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int",
+   "--log_dir",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/logs/link",
+   "--report_dir",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link",
+   "--config",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/vplConfig.ini",
+   "-k",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/kernel_info.dat",
+   "--webtalk_flag",
+   "Vitis",
+   "--temp_dir",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link",
+   "--no-info",
+   "--iprepo",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/xo/ip_repo/xilinx_com_hls_digitcaps_accel_1_0",
+   "--messageDb",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/run_link/vpl.pb",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/dr.bd.tcl"
+  ],
+  "iniFiles": [
+   {
+    "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/vplConfig.ini",
+    "content": "[advanced]\nmisc=report=type report_timing_summary name impl_report_timing_summary_route_design_summary steps {route_design} runs {impl_1} options {-max_paths 10}\nmisc=report=type report_timing_summary name impl_report_timing_summary_post_route_phys_opt_design_summary steps {post_route_phys_opt_design} runs {impl_1} options {-max_paths 10}\nparam=compiler.enablePerformanceTrace=1\nparam=compiler.vppCurrentWorkingDir=/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls\nmisc=BinaryName=digitcaps_accel\n\n[connectivity]\nnk=digitcaps_accel:1:digitcaps_accel_1\n\n[vivado]\nprop=run.__KERNEL__.{STEPS.SYNTH_DESIGN.ARGS.MORE OPTIONS}={-directive sdx_optimization_effort_high}\nsynth.jobs=1\n\n"
+   }
+  ],
+  "cwd": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 15:47:55 2026",
+ "timestampMillis": "1781236075004",
+ "status": {
+  "cmdId": "6592b6e0-28cd-4867-acda-c4d6e647bf7b",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_CmdStep",
+ "dateTimestamp": "Fri Jun 12 15:47:55 2026",
+ "timestampMillis": "1781236075780",
+ "buildStep": {
+  "cmdId": "53b9af90-8aa4-4efa-a941-04768af28464",
+  "name": "vpl",
+  "logFile": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/link.steps.log",
+  "commandLine": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/Xilinx/Vitis/2022.1/bin/unwrapped/lnx64.o/vpl -t hw -f /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_202210_1/xilinx_zcu102_base_202210_1.xpfm --remote_ip_cache /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/.ipcache --output_dir /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int --log_dir /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/logs/link --report_dir /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link --config /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/vplConfig.ini -k /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/kernel_info.dat --webtalk_flag Vitis --temp_dir /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link --no-info --iprepo /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/xo/ip_repo/xilinx_com_hls_digitcaps_accel_1_0 --messageDb /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/run_link/vpl.pb /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/dr.bd.tcl ",
+  "args": [],
+  "iniFiles": [],
+  "cwd": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/run_link"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 15:47:55 2026",
+ "timestampMillis": "1781236075780",
+ "status": {
+  "cmdId": "53b9af90-8aa4-4efa-a941-04768af28464",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_VivadoProject",
+ "dateTimestamp": "Fri Jun 12 15:47:56 2026",
+ "timestampMillis": "1781236076197",
+ "vivadoProject": {
+  "openDir": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl",
+  "openScript": "openprj.tcl",
+  "relativeProject": "prj/prj.xpr"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Fri Jun 12 15:47:56 2026",
+ "timestampMillis": "1781236076197",
+ "buildStep": {
+  "cmdId": "034faad2-2c81-44f3-9988-9aebdafb8303",
+  "name": "vivado",
+  "logFile": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/vivado.log",
+  "commandLine": "vivado -log vivado.log -applog -m64 -messageDb vivado.pb -mode batch -source vpl.tcl -notrace",
+  "args": [
+   "-log",
+   "vivado.log",
+   "-applog",
+   " -m64",
+   "-messageDb",
+   "vivado.pb",
+   "-mode",
+   "batch",
+   "-source",
+   "vpl.tcl",
+   "-notrace"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/run_link"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 15:47:56 2026",
+ "timestampMillis": "1781236076198",
+ "status": {
+  "cmdId": "034faad2-2c81-44f3-9988-9aebdafb8303",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 15:48:08 2026",
+ "timestampMillis": "1781236088464",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/automation_summary_update_bd.txt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "VITIS_DESIGN_FLOW",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_CmdStep",
+ "dateTimestamp": "Fri Jun 12 16:12:19 2026",
+ "timestampMillis": "1781237539710",
+ "buildStep": {
+  "cmdId": "9a71faac-f86e-4ff9-bf03-2eee2cacffba",
+  "name": "vivado.impl",
+  "logFile": "",
+  "commandLine": "",
+  "args": [],
+  "iniFiles": [],
+  "cwd": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 16:12:19 2026",
+ "timestampMillis": "1781237539711",
+ "status": {
+  "cmdId": "9a71faac-f86e-4ff9-bf03-2eee2cacffba",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_CmdStep",
+ "dateTimestamp": "Fri Jun 12 16:12:19 2026",
+ "timestampMillis": "1781237539711",
+ "buildStep": {
+  "cmdId": "78742bad-f887-4fc0-b24a-b5e22b49af15",
+  "name": "vivado.impl.impl_1",
+  "logFile": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/runme.log",
+  "commandLine": "",
+  "args": [],
+  "iniFiles": [],
+  "cwd": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 16:12:19 2026",
+ "timestampMillis": "1781237539711",
+ "status": {
+  "cmdId": "78742bad-f887-4fc0-b24a-b5e22b49af15",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:21:19 2026",
+ "timestampMillis": "1781238079546",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/vivado/vpl/prj/prj.runs/impl_1/system_diagram.json",
+  "name": "",
+  "fileType": "JSON",
+  "reportType": "SYSTEM_DIAGRAM_PLUS",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:21:28 2026",
+ "timestampMillis": "1781238088919",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/kernel_service.json",
+  "name": "",
+  "fileType": "JSON",
+  "reportType": "KERNEL_SERVICE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:21:28 2026",
+ "timestampMillis": "1781238088921",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/kernel_service.pb",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "KERNEL_SERVICE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139407",
+ "status": {
+  "cmdId": "034faad2-2c81-44f3-9988-9aebdafb8303",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139423",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/imp/impl_1_kernel_util_synthed.xutil",
+  "name": "",
+  "fileType": "XUTIL",
+  "reportType": "KERNEL_UTILIZATION_SYNTHESIS",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139424",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/imp/impl_1_slr_util_routed.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_SLR_UTIL_ROUTED",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139425",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/imp/impl_1_slr_util_placed.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_SLR_UTIL_PLACED",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139425",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/imp/impl_1_full_util_synthed.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_UTILIZATION_SYNTHESIS",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139425",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/imp/impl_1_kernel_util_placed.xutil",
+  "name": "",
+  "fileType": "XUTIL",
+  "reportType": "KERNEL_UTILIZATION_PLACEMENT",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139426",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/imp/impl_1_slr_util_routed.pb",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_SLR_UTIL_ROUTED",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139426",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/imp/impl_1_full_util_synthed.pb",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_UTILIZATION_SYNTHESIS",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139427",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/imp/impl_1_full_util_routed.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_UTILIZATION_ROUTE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139427",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/imp/impl_1_full_util_routed.pb",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_UTILIZATION_ROUTE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139428",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/imp/impl_1_kernel_util_synthed.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "KERNEL_UTILIZATION_SYNTHESIS",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139428",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/imp/impl_1_kernel_util_routed.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "KERNEL_UTILIZATION_ROUTE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139429",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/imp/impl_1_kernel_util_routed.xutil",
+  "name": "",
+  "fileType": "XUTIL",
+  "reportType": "KERNEL_UTILIZATION_ROUTE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139429",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/imp/impl_1_kernel_util_placed.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "KERNEL_UTILIZATION_PLACEMENT",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139429",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/imp/impl_1_slr_util_placed.pb",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_SLR_UTIL_PLACED",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139431",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/syn/vitis_design_ps_e_0_synth_1_vitis_design_ps_e_0_utilization_synth.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_UTILIZATION",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139431",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/syn/vitis_design_proc_sys_reset_6_0_synth_1_vitis_design_proc_sys_reset_6_0_utilization_synth.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_UTILIZATION",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139431",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/syn/vitis_design_proc_sys_reset_5_0_synth_1_vitis_design_proc_sys_reset_5_0_utilization_synth.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_UTILIZATION",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139431",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/syn/vitis_design_proc_sys_reset_4_0_synth_1_vitis_design_proc_sys_reset_4_0_utilization_synth.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_UTILIZATION",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139432",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/syn/vitis_design_proc_sys_reset_3_0_synth_1_vitis_design_proc_sys_reset_3_0_utilization_synth.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_UTILIZATION",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139432",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/syn/vitis_design_proc_sys_reset_2_0_synth_1_vitis_design_proc_sys_reset_2_0_utilization_synth.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_UTILIZATION",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139432",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/syn/vitis_design_proc_sys_reset_1_0_synth_1_vitis_design_proc_sys_reset_1_0_utilization_synth.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_UTILIZATION",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139433",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/syn/vitis_design_proc_sys_reset_0_0_synth_1_vitis_design_proc_sys_reset_0_0_utilization_synth.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_UTILIZATION",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139434",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/syn/vitis_design_clk_wiz_0_0_synth_1_vitis_design_clk_wiz_0_0_utilization_synth.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_UTILIZATION",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139434",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/syn/vitis_design_axi_vip_1_0_synth_1_vitis_design_axi_vip_1_0_utilization_synth.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_UTILIZATION",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139435",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/syn/vitis_design_xbar_0_synth_1_vitis_design_xbar_0_utilization_synth.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_UTILIZATION",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139435",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/syn/vitis_design_axi_intc_0_0_synth_1_vitis_design_axi_intc_0_0_utilization_synth.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_UTILIZATION",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139436",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/syn/vitis_design_axi_register_slice_0_0_synth_1_vitis_design_axi_register_slice_0_0_utilization_synth.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_UTILIZATION",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139436",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/syn/vitis_design_digitcaps_accel_1_0_synth_1_vitis_design_digitcaps_accel_1_0_utilization_synth.rpt",
+  "name": "digitcaps_accel",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_UTILIZATION",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139436",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/syn/vitis_design_s02_regslice_0_synth_1_vitis_design_s02_regslice_0_utilization_synth.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_UTILIZATION",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139436",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/syn/vitis_design_s01_regslice_0_synth_1_vitis_design_s01_regslice_0_utilization_synth.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_UTILIZATION",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139437",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/syn/vitis_design_s01_data_fifo_0_synth_1_vitis_design_s01_data_fifo_0_utilization_synth.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_UTILIZATION",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139437",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/syn/vitis_design_m00_regslice_0_synth_1_vitis_design_m00_regslice_0_utilization_synth.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_UTILIZATION",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139437",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/syn/vitis_design_m00_data_fifo_0_synth_1_vitis_design_m00_data_fifo_0_utilization_synth.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_UTILIZATION",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139437",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/syn/vitis_design_xbar_1_synth_1_vitis_design_xbar_1_utilization_synth.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_UTILIZATION",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139438",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/syn/vitis_design_s02_data_fifo_0_synth_1_vitis_design_s02_data_fifo_0_utilization_synth.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_UTILIZATION",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139438",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/syn/vitis_design_auto_us_0_synth_1_vitis_design_auto_us_0_utilization_synth.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_UTILIZATION",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139438",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/syn/vitis_design_auto_pc_0_synth_1_vitis_design_auto_pc_0_utilization_synth.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_UTILIZATION",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139438",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/syn/vitis_design_auto_ds_0_synth_1_vitis_design_auto_ds_0_utilization_synth.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_UTILIZATION",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139439",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/syn/vitis_design_auto_cc_0_synth_1_vitis_design_auto_cc_0_utilization_synth.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_UTILIZATION",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139439",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/syn/vitis_design_m01_regslice_0_synth_1_vitis_design_m01_regslice_0_utilization_synth.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_UTILIZATION",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139439",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/imp/impl_1_system_diagram.json",
+  "name": "",
+  "fileType": "JSON",
+  "reportType": "SYSTEM_DIAGRAM_PLUS",
+  "cmdId": "78742bad-f887-4fc0-b24a-b5e22b49af15"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139440",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/imp/impl_1_vitis_design_wrapper_timing_summary_routed.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_TIMING_SUMMARY",
+  "cmdId": "78742bad-f887-4fc0-b24a-b5e22b49af15"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139442",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/imp/impl_1_vitis_design_wrapper_timing_summary_routed.rpx",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_REPORT_TIMING_SUMMARY",
+  "cmdId": "78742bad-f887-4fc0-b24a-b5e22b49af15"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139442",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/imp/impl_1_vitis_design_wrapper_timing_summary_routed.rpv",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_REPORT_TIMING_SUMMARY_CONCISE",
+  "cmdId": "78742bad-f887-4fc0-b24a-b5e22b49af15"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139484",
+ "status": {
+  "cmdId": "53b9af90-8aa4-4efa-a941-04768af28464",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139501",
+ "status": {
+  "cmdId": "6592b6e0-28cd-4867-acda-c4d6e647bf7b",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139502",
+ "buildStep": {
+  "cmdId": "c71424e6-4326-47fc-bcbd-a649d73dadc7",
+  "name": "rtdgen",
+  "logFile": "",
+  "commandLine": "rtdgen",
+  "args": [],
+  "iniFiles": [],
+  "cwd": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139503",
+ "status": {
+  "cmdId": "c71424e6-4326-47fc-bcbd-a649d73dadc7",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139503",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/digitcaps_accel_xml.rtd",
+  "name": "",
+  "fileType": "JSON",
+  "reportType": "XCLBIN_INFO",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139504",
+ "buildStep": {
+  "cmdId": "e29ce551-c910-4491-8670-cc4e3aa4c20c",
+  "name": "cf2sw",
+  "logFile": "",
+  "commandLine": "cf2sw -a /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/address_map.xml -sdsl /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/sdsl.dat -xclbin /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/xclbin_orig.xml -rtd /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/digitcaps_accel.rtd -o /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/digitcaps_accel.xml",
+  "args": [
+   "-a",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/address_map.xml",
+   "-sdsl",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/sdsl.dat",
+   "-xclbin",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/xclbin_orig.xml",
+   "-rtd",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/digitcaps_accel.rtd",
+   "-o",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/digitcaps_accel.xml"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 16:22:19 2026",
+ "timestampMillis": "1781238139504",
+ "status": {
+  "cmdId": "e29ce551-c910-4491-8670-cc4e3aa4c20c",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 16:22:20 2026",
+ "timestampMillis": "1781238140996",
+ "status": {
+  "cmdId": "e29ce551-c910-4491-8670-cc4e3aa4c20c",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Fri Jun 12 16:22:20 2026",
+ "timestampMillis": "1781238140997",
+ "buildStep": {
+  "cmdId": "2548b86a-9e2c-478a-a713-7f104ea9fce4",
+  "name": "rtdgen",
+  "logFile": "",
+  "commandLine": "writeSystemDiagram",
+  "args": [
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/digitcaps_accel.rtd",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/systemDiagramModelSlrBaseAddress.json"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 16:22:20 2026",
+ "timestampMillis": "1781238140997",
+ "status": {
+  "cmdId": "2548b86a-9e2c-478a-a713-7f104ea9fce4",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:20 2026",
+ "timestampMillis": "1781238140999",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/systemDiagramModelSlrBaseAddress.json",
+  "name": "",
+  "fileType": "JSON",
+  "reportType": "SYSTEM_DIAGRAM_PLUS",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 16:22:21 2026",
+ "timestampMillis": "1781238141000",
+ "status": {
+  "cmdId": "2548b86a-9e2c-478a-a713-7f104ea9fce4",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Fri Jun 12 16:22:21 2026",
+ "timestampMillis": "1781238141000",
+ "buildStep": {
+  "cmdId": "c969b1ec-b04c-4c5a-b550-a40ad874769c",
+  "name": "rtdgen",
+  "logFile": "",
+  "commandLine": "writeAutomationSummary",
+  "args": [
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/automation_summary.txt"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 16:22:21 2026",
+ "timestampMillis": "1781238141000",
+ "status": {
+  "cmdId": "c969b1ec-b04c-4c5a-b550-a40ad874769c",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:21 2026",
+ "timestampMillis": "1781238141001",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/automation_summary.txt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "VITIS_DESIGN_FLOW",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 16:22:21 2026",
+ "timestampMillis": "1781238141001",
+ "status": {
+  "cmdId": "c969b1ec-b04c-4c5a-b550-a40ad874769c",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 16:22:21 2026",
+ "timestampMillis": "1781238141002",
+ "status": {
+  "cmdId": "c71424e6-4326-47fc-bcbd-a649d73dadc7",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Fri Jun 12 16:22:21 2026",
+ "timestampMillis": "1781238141003",
+ "buildStep": {
+  "cmdId": "887b1677-f5e3-4eb8-a3a9-aac5e64ebfa1",
+  "name": "xclbinutil",
+  "logFile": "",
+  "commandLine": "xclbinutil --add-section BITSTREAM:RAW:/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/system.bit --force --target hw --key-value SYS:dfx_enable:false --add-section :JSON:/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/digitcaps_accel.rtd --add-section CLOCK_FREQ_TOPOLOGY:JSON:/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/digitcaps_accel_xml.rtd --add-section BUILD_METADATA:JSON:/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/digitcaps_accel_build.rtd --add-section EMBEDDED_METADATA:RAW:/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/digitcaps_accel.xml --add-section SYSTEM_METADATA:RAW:/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/systemDiagramModelSlrBaseAddress.json --key-value SYS:PlatformVBNV:xilinx.com_xd_xilinx_zcu102_base_202210_1_202210_1 --output /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/digitcaps_accel.xclbin",
+  "args": [
+   "--add-section",
+   "BITSTREAM:RAW:/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/system.bit",
+   "--force",
+   "--target",
+   "hw",
+   "--key-value",
+   "SYS:dfx_enable:false",
+   "--add-section",
+   ":JSON:/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/digitcaps_accel.rtd",
+   "--add-section",
+   "CLOCK_FREQ_TOPOLOGY:JSON:/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/digitcaps_accel_xml.rtd",
+   "--add-section",
+   "BUILD_METADATA:JSON:/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/digitcaps_accel_build.rtd",
+   "--add-section",
+   "EMBEDDED_METADATA:RAW:/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/digitcaps_accel.xml",
+   "--add-section",
+   "SYSTEM_METADATA:RAW:/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/link/int/systemDiagramModelSlrBaseAddress.json",
+   "--key-value",
+   "SYS:PlatformVBNV:xilinx.com_xd_xilinx_zcu102_base_202210_1_202210_1",
+   "--output",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/digitcaps_accel.xclbin"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 16:22:21 2026",
+ "timestampMillis": "1781238141004",
+ "status": {
+  "cmdId": "887b1677-f5e3-4eb8-a3a9-aac5e64ebfa1",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 16:22:21 2026",
+ "timestampMillis": "1781238141707",
+ "status": {
+  "cmdId": "887b1677-f5e3-4eb8-a3a9-aac5e64ebfa1",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Fri Jun 12 16:22:21 2026",
+ "timestampMillis": "1781238141709",
+ "buildStep": {
+  "cmdId": "39605f2f-632f-4451-a943-5c956f19865d",
+  "name": "xclbinutilinfo",
+  "logFile": "",
+  "commandLine": "xclbinutil --quiet --force --info /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/digitcaps_accel.xclbin.info --input /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/digitcaps_accel.xclbin",
+  "args": [
+   "--quiet",
+   "--force",
+   "--info",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/digitcaps_accel.xclbin.info",
+   "--input",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/digitcaps_accel.xclbin"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 16:22:21 2026",
+ "timestampMillis": "1781238141709",
+ "status": {
+  "cmdId": "39605f2f-632f-4451-a943-5c956f19865d",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 16:22:22 2026",
+ "timestampMillis": "1781238142476",
+ "status": {
+  "cmdId": "39605f2f-632f-4451-a943-5c956f19865d",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Fri Jun 12 16:22:22 2026",
+ "timestampMillis": "1781238142478",
+ "buildStep": {
+  "cmdId": "fb1d480a-8263-4fdd-80c5-abeb329f3f23",
+  "name": "generate_sc_driver",
+  "logFile": "",
+  "commandLine": "",
+  "args": [],
+  "iniFiles": [],
+  "cwd": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 16:22:22 2026",
+ "timestampMillis": "1781238142478",
+ "status": {
+  "cmdId": "fb1d480a-8263-4fdd-80c5-abeb329f3f23",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 16:22:22 2026",
+ "timestampMillis": "1781238142479",
+ "status": {
+  "cmdId": "fb1d480a-8263-4fdd-80c5-abeb329f3f23",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:22 2026",
+ "timestampMillis": "1781238142491",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/system_estimate_digitcaps_accel.xtxt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_SYSTEM_ESTIMATE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:22 2026",
+ "timestampMillis": "1781238142749",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/link/v++_link_digitcaps_accel_guidance.html",
+  "name": "",
+  "fileType": "HTML",
+  "reportType": "GLOBAL_RULECHECK_GUIDANCE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:22 2026",
+ "timestampMillis": "1781238142750",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/v++_link_digitcaps_accel_guidance.pb",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_RULECHECK_GUIDANCE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 16:22:22 2026",
+ "timestampMillis": "1781238142753",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/logs/optraceViewer.html",
+  "name": "",
+  "fileType": "HTML",
+  "reportType": "OPERATION_TRACE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 16:22:22 2026",
+ "timestampMillis": "1781238142753",
+ "status": {
+  "cmdId": "23797b55-77c0-4607-8e65-5cc76f360a3d",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>

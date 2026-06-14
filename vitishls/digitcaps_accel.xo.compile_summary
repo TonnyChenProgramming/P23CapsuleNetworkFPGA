@@ -1,0 +1,237 @@
+<ENTRY>
+{
+ "thisFile": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/digitcaps_accel.xo.compile_summary",
+ "connectId": "",
+ "serverToken": "",
+ "timestamp": "0"
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_CmdStep",
+ "dateTimestamp": "Fri Jun 12 15:20:05 2026",
+ "timestampMillis": "1781234405832",
+ "buildStep": {
+  "cmdId": "16065b5b-f1c4-435e-98d7-d71ef4d2dddb",
+  "name": "v++",
+  "logFile": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/digitcaps_accel/digitcaps_accel.steps.log",
+  "commandLine": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/Xilinx/Vitis/2022.1/bin/unwrapped/lnx64.o/v++  --vivado.prop \"run.__KERNEL__.{STEPS.SYNTH_DESIGN.ARGS.MORE OPTIONS}={-directive sdx_optimization_effort_high}\" --advanced.misc \"report=type report_timing_summary name impl_report_timing_summary_route_design_summary steps {route_design} runs {impl_1} options {-max_paths 10}\" --advanced.misc \"report=type report_timing_summary name impl_report_timing_summary_post_route_phys_opt_design_summary steps {post_route_phys_opt_design} runs {impl_1} options {-max_paths 10}\" -c -t hw --platform /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_202210_1/xilinx_zcu102_base_202210_1.xpfm -k digitcaps_accel -I. -I/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/Xilinx/Vitis_HLS/2022.1/include DigitCaps.cpp -o digitcaps_accel.xo ",
+  "args": [
+   "-c",
+   "-t",
+   "hw",
+   "--platform",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_202210_1/xilinx_zcu102_base_202210_1.xpfm",
+   "-k",
+   "digitcaps_accel",
+   "-I.",
+   "-I/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/Xilinx/Vitis_HLS/2022.1/include",
+   "DigitCaps.cpp",
+   "-o",
+   "digitcaps_accel.xo"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 15:20:05 2026",
+ "timestampMillis": "1781234405833",
+ "status": {
+  "cmdId": "16065b5b-f1c4-435e-98d7-d71ef4d2dddb",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_FlowMetaData",
+ "dateTimestamp": "Fri Jun 12 15:20:07 2026",
+ "timestampMillis": "1781234407242",
+ "buildSummary": {
+  "hardwarePlatform": "xilinx_zcu102_base_202210_1.xpfm",
+  "hardwareDsa": "hw.xsa",
+  "platformDirectory": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_202210_1",
+  "runtime": "OpenCL",
+  "systemConfig": "Linux",
+  "flow": "BF_COMPILE",
+  "target": "TT_HW",
+  "kernels": [
+   {
+    "base": {
+     "type": "KERNEL",
+     "name": "digitcaps_accel",
+     "file": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/digitcaps_accel.xo",
+     "reports": [],
+     "uuid": ""
+    },
+    "sources": [
+     "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/DigitCaps.cpp"
+    ],
+    "psSources": [],
+    "cuNames": [],
+    "type": "HLS",
+    "frequency": 0,
+    "freqUnits": ""
+   }
+  ],
+  "toolVersion": "Vitis V++ Compiler Release 2022.1. SW Build 3524075 on 2022-04-13-17:42:45"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Fri Jun 12 15:20:07 2026",
+ "timestampMillis": "1781234407244",
+ "buildStep": {
+  "cmdId": "ce596959-3344-403a-bb2a-a44f2e397d8d",
+  "name": "vitis_hls",
+  "logFile": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/digitcaps_accel/digitcaps_accel/vitis_hls.log",
+  "commandLine": "vitis_hls -f /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/digitcaps_accel/digitcaps_accel/digitcaps_accel.tcl -messageDb vitis_hls.pb",
+  "args": [
+   "vitis_hls",
+   "-f",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/digitcaps_accel/digitcaps_accel/digitcaps_accel.tcl",
+   "-messageDb",
+   "vitis_hls.pb"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 15:20:07 2026",
+ "timestampMillis": "1781234407244",
+ "status": {
+  "cmdId": "ce596959-3344-403a-bb2a-a44f2e397d8d",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 15:21:07 2026",
+ "timestampMillis": "1781234467731",
+ "status": {
+  "cmdId": "ce596959-3344-403a-bb2a-a44f2e397d8d",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 15:21:07 2026",
+ "timestampMillis": "1781234467771",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/digitcaps_accel/digitcaps_accel/digitcaps_accel/solution/.autopilot/db/digitcaps_accel.design.xml",
+  "name": "digitcaps_accel",
+  "fileType": "XML",
+  "reportType": "KERNEL_HLS_REPORT",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 15:21:07 2026",
+ "timestampMillis": "1781234467772",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/digitcaps_accel/digitcaps_accel/digitcaps_accel/solution/.autopilot/db/.message_syn.xml",
+  "name": "digitcaps_accel",
+  "fileType": "XML",
+  "reportType": "KERNEL_HLS_DRC_SYNTHESIS",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 15:21:07 2026",
+ "timestampMillis": "1781234467773",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/digitcaps_accel/hls_reports/digitcaps_accel_csynth.rpt",
+  "name": "digitcaps_accel",
+  "fileType": "TEXT",
+  "reportType": "KERNEL_HLS_CSYNTH",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 15:21:07 2026",
+ "timestampMillis": "1781234467773",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/digitcaps_accel/digitcaps_accel/digitcaps_accel/solution/syn/report/digitcaps_accel_csynth.xml",
+  "name": "digitcaps_accel",
+  "fileType": "XML",
+  "reportType": "KERNEL_HLS_CSYNTH",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 15:21:07 2026",
+ "timestampMillis": "1781234467779",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/digitcaps_accel/system_estimate_digitcaps_accel.xtxt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_SYSTEM_ESTIMATE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 15:21:08 2026",
+ "timestampMillis": "1781234468095",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/reports/digitcaps_accel/v++_compile_digitcaps_accel_guidance.html",
+  "name": "",
+  "fileType": "HTML",
+  "reportType": "GLOBAL_RULECHECK_GUIDANCE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Fri Jun 12 15:21:08 2026",
+ "timestampMillis": "1781234468096",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/vitishls/_x/v++_compile_digitcaps_accel_guidance.pb",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_RULECHECK_GUIDANCE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Fri Jun 12 15:21:08 2026",
+ "timestampMillis": "1781234468097",
+ "status": {
+  "cmdId": "16065b5b-f1c4-435e-98d7-d71ef4d2dddb",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
