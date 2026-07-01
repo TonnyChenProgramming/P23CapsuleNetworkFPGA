@@ -67,6 +67,32 @@ static void write_float_file(const char* path, const float* data, int count)
 
     std::cout << "[INFO] Wrote " << count << " values to " << path << std::endl;
 }
+static void dump_fixed_array(
+    const char* name,
+    const fixed_t* data,
+    int count,
+    int max_print = -1
+)
+{
+    std::cout << "\n[DUMP] " << name << " count = " << count << std::endl;
+
+    int n = count;
+    if (max_print > 0 && max_print < count) {
+        n = max_print;
+    }
+
+    for (int i = 0; i < n; ++i) {
+        std::cout << name << "[" << i << "] = "
+                  << std::setprecision(10)
+                  << static_cast<float>(data[i])
+                  << std::endl;
+    }
+
+    if (n < count) {
+        std::cout << "[DUMP] " << name << " truncated: printed "
+                  << n << " / " << count << std::endl;
+    }
+}
 
 int main()
 {
@@ -153,6 +179,7 @@ int main()
         // input shape:
         //     [1152][8]
         for (int i = 0; i < input_count; ++i) {
+            //input[i] = all_inputs[img * input_count + i];
             input[i] = all_inputs[img * input_count + i];
         }
 
@@ -160,11 +187,16 @@ int main()
             prediction[i] = 0;
         }
 
-        std::cout << "[INFO] Calling dynamic_routing..." << std::endl;
+        int reset = 0;
 
-        dynamic_routing(input, weights, prediction);
+        std::cout << "[INFO] Calling dynamic_routing with reset = 0..." << std::endl;
+
+        digitcaps_accel(input, weights, prediction, reset);
 
         std::cout << "[INFO] dynamic_routing finished" << std::endl;
+
+        dump_fixed_array("input_after_inference", input, input_count, 64);
+        dump_fixed_array("prediction_after_inference", prediction, output_count, output_count);
 
         // Store full DigitCaps vector output.
         for (int i = 0; i < output_count; ++i) {
@@ -208,6 +240,20 @@ int main()
         }
 
         std::cout << "[INFO] Prediction = " << pred << std::endl;
+        std::cout << "[INFO] Resetting dynamic_routing internal state..." << std::endl;
+
+        reset = 1;
+
+        // Important:
+        // prediction has already been stored in all_predictions before this.
+        // This reset call is only to clear internal/static HLS state.
+        digitcaps_accel(input, weights, prediction, reset);
+
+        std::cout << "[INFO] Reset finished" << std::endl;
+
+        dump_fixed_array("prediction_after_reset", prediction, output_count, output_count);
+
+        reset = 0;
     }
 
     write_fixed_file(

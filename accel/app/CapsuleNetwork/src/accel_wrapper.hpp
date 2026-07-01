@@ -291,6 +291,75 @@ static std::vector<std::string> get_xclbins_in_dir(std::string path)
     return xclbinPaths;
 }
 
+// -----------------------------------------------------------------------------
+// Defensive clear wrapper for the 4-argument HLS kernel:
+//     digitcaps_accel(input, weights, prediction, clear)
+//
+// clear = 1 performs clear-only mode inside the HLS IP. DigitCaps.cpp
+// clears routing buffers and the external prediction BO, then returns without inference.
+//
+// This is NOT an xbutil/device hot reset. It is a normal kernel call that asks
+// the HLS IP to clear itself. It is safe to call before every inference.
+// -----------------------------------------------------------------------------
+int issue_digitcaps_kernel_clear(DigitcapsAcceleratorType *a, const char *reason)
+{
+    std::cout << "========== ENTER issue_digitcaps_kernel_clear ==========" << std::endl;
+
+    if (reason != nullptr) {
+        std::cout << "[DigitCapsAccel][CLEAR] reason = " << reason << std::endl;
+    }
+
+    if (a == nullptr) {
+        std::cout << "[DigitCapsAccel][CLEAR][ERROR] accelerator object is null" << std::endl;
+        return -1;
+    }
+
+    if (a->input_m == nullptr || a->weights_m == nullptr ||
+        a->prediction_fixed_m == nullptr) {
+        std::cout << "[DigitCapsAccel][CLEAR][ERROR] one or more mapped BO pointers are null" << std::endl;
+        return -2;
+    }
+
+    try {
+        // The new DigitCaps.cpp exports:
+        //   digitcaps_accel(input, weights, prediction, clear)
+        // input/weights/prediction are m_axi BO arguments.
+        // clear is an s_axilite scalar argument, NOT a BO and NOT group_id(3).
+        xrt::run run(a->kernel);
+        run.set_arg(0, a->input);
+        run.set_arg(1, a->weights);
+        run.set_arg(2, a->prediction);
+        run.set_arg(3, 1);  // clear = 1, clear-only transaction
+
+        std::cout << "[DigitCapsAccel][CLEAR] starting clear-only xrt::run with clear=1..." << std::endl;
+        run.start();
+        auto state = run.wait(std::chrono::milliseconds(5000));
+
+        std::cout << "[DigitCapsAccel] run.wait state = "
+          << static_cast<int>(state) << std::endl;
+          
+        a->prediction.sync(
+            xclBOSyncDirection::XCL_BO_SYNC_BO_FROM_DEVICE,
+            a->prediction_size,
+            0
+        );
+
+        debug_print_fixed_buffer_as_float(
+            "prediction_fixed_m immediately after clear-only run",
+            static_cast<int32_t*>(a->prediction_fixed_m),
+            a->prediction_count,
+            32
+        );
+        std::cout << "[DigitCapsAccel][CLEAR] clear-only kernel call complete" << std::endl;
+        return 0;
+    }
+    catch (const std::exception &e) {
+        std::cout << "[DigitCapsAccel][CLEAR][ERROR] clear-only kernel call failed: "
+                  << e.what() << std::endl;
+        return -3;
+    }
+}
+
 int run_digitcaps_accelerator(DigitcapsAcceleratorType *a, const float *input_volume)
 {
     std::cout << "========== ENTER run_digitcaps_accelerator FIXED CONVERSION ==========" << std::endl;
@@ -318,6 +387,7 @@ int run_digitcaps_accelerator(DigitcapsAcceleratorType *a, const float *input_vo
     const int weights_size = a->weights_size;
     const int prediction_size = a->prediction_size;
 
+
     std::cout << "[DigitCapsAccel] input_volume CPU float pointer = "
               << static_cast<const void*>(input_volume) << std::endl;
     std::cout << "[DigitCapsAccel] input_m fixed BO             = " << a->input_m << std::endl;
@@ -331,12 +401,6 @@ int run_digitcaps_accelerator(DigitcapsAcceleratorType *a, const float *input_vo
     // Clear host-side mapped input BO.
     std::memset(a->input_m, 0, input_size);
 
-    // Clear host-side mapped prediction BO.
-    std::memset(a->prediction_fixed_m, 0, prediction_size);
-
-    // Clear host-side float output buffer.
-    std::memset(a->prediction_m, 0, prediction_count * sizeof(float));
-
     // Push cleared buffers to device.
     a->input.sync(
         xclBOSyncDirection::XCL_BO_SYNC_BO_TO_DEVICE,
@@ -344,11 +408,15 @@ int run_digitcaps_accelerator(DigitcapsAcceleratorType *a, const float *input_vo
         0
     );
 
-    a->prediction.sync(
-        xclBOSyncDirection::XCL_BO_SYNC_BO_TO_DEVICE,
-        prediction_size,
-        0
-    );
+        // Defensive clear before every inference. This exercises the HLS clear
+    // parameter path and clears all internal routing state before loading new
+    // input data. If this fails, do not continue into inference.
+    int clear_status = issue_digitcaps_kernel_clear(a, "pre-inference clear");
+    if (clear_status != 0) {
+        std::cout << "[DigitCapsAccel][ERROR] pre-inference clear failed, status = "
+                  << clear_status << std::endl;
+        return -10;
+    }
     debug_print_float_buffer("input_volume original float", input_volume, input_count, 32);
 
     std::cout << "[DigitCapsAccel] Converting input float -> ap_fixed<32,16> raw..." << std::endl;
@@ -396,6 +464,7 @@ int run_digitcaps_accelerator(DigitcapsAcceleratorType *a, const float *input_vo
               << weights_size << ", elems = " << weights_count << std::endl;
     std::cout << "[DigitCapsAccel]   arg2 = prediction BO, fixed raw, bytes = "
               << prediction_size << ", elems = " << prediction_count << std::endl;
+    std::cout << "[DigitCapsAccel]   arg3 = clear flag = 0 normal inference" << std::endl;
 
     debug_print_fixed_buffer_as_float(
         "arg0 input_m before runner",
@@ -424,8 +493,9 @@ int run_digitcaps_accelerator(DigitcapsAcceleratorType *a, const float *input_vo
         run.set_arg(0, a->input);
         run.set_arg(1, a->weights);
         run.set_arg(2, a->prediction);
+        run.set_arg(3, 0);  // clear = 0, normal inference
 
-        std::cout << "[DigitCapsAccel] starting fresh xrt::run..." << std::endl;
+        std::cout << "[DigitCapsAccel] starting fresh xrt::run with clear=0..." << std::endl;
         run.start();
 
         std::cout << "[DigitCapsAccel] waiting for fresh xrt::run..." << std::endl;
@@ -494,6 +564,92 @@ int run_digitcaps_accelerator(DigitcapsAcceleratorType *a, const float *input_vo
         32
     );
 
+    // Optional but intentionally defensive: after the CPU-side float result has
+    // been copied into prediction_m, call clear-only mode again so the HLS IP
+    // and prediction BO are left in a clean state for the next image.
+    // prediction_m is preserved and remains the result consumed by the caller.
+    // -------------------------------------------------------------------------
+    // Post-inference clear validation.
+    // Important:
+    //   prediction_m already contains the converted float result consumed by caller.
+    //   The following clear is only to validate/scrub the HLS kernel/output BO.
+    // -------------------------------------------------------------------------
+    std::memset(a->input_m, 0, input_size);
+
+    a->input.sync(
+        xclBOSyncDirection::XCL_BO_SYNC_BO_TO_DEVICE,
+        input_size,
+        0
+    );
+    clear_status = issue_digitcaps_kernel_clear(a, "post-inference scrub clear");
+    if (clear_status != 0) {
+        std::cout << "[DigitCapsAccel][WARN] post-inference clear failed, status = "
+                  << clear_status << std::endl;
+        // Do not fail the inference result here; the output was already read.
+    } else {
+        std::cout << "[DigitCapsAccel][POST-CLEAR VALIDATION] Sync prediction fixed BO from device..."
+              << std::endl;
+
+    a->prediction.sync(
+        xclBOSyncDirection::XCL_BO_SYNC_BO_FROM_DEVICE,
+        prediction_size,
+        0
+    );
+
+    debug_print_fixed_buffer_as_float(
+        "prediction_fixed_m after post-inference clear",
+        static_cast<int32_t*>(a->prediction_fixed_m),
+        prediction_count,
+        32
+    );
+
+    int post_clear_zero_count = 0;
+    int post_clear_minus_one_count = 0;
+    int post_clear_other_count = 0;
+    int post_clear_sentinel_count = 0;
+
+    int32_t *post_clear_pred =
+        static_cast<int32_t*>(a->prediction_fixed_m);
+
+    const int32_t clear_marker_raw = float_to_fixed32_16(-1.0f); // expected from mark_prediction_clear()
+
+    for (int i = 0; i < prediction_count; ++i) {
+        if (post_clear_pred[i] == 0) {
+            post_clear_zero_count++;
+        } else if (post_clear_pred[i] == clear_marker_raw) {
+            post_clear_minus_one_count++;
+        } else {
+            post_clear_other_count++;
+        }
+
+        if (post_clear_pred[i] == static_cast<int32_t>(0x12345678)) {
+            post_clear_sentinel_count++;
+        }
+    }
+
+    std::cout << "[DigitCapsAccel][POST-CLEAR VALIDATION] zero_count       = "
+              << post_clear_zero_count << " / " << prediction_count << std::endl;
+    std::cout << "[DigitCapsAccel][POST-CLEAR VALIDATION] minus_one_count  = "
+              << post_clear_minus_one_count << " / " << prediction_count << std::endl;
+    std::cout << "[DigitCapsAccel][POST-CLEAR VALIDATION] other_count      = "
+              << post_clear_other_count << " / " << prediction_count << std::endl;
+    std::cout << "[DigitCapsAccel][POST-CLEAR VALIDATION] sentinel_count   = "
+              << post_clear_sentinel_count << " / " << prediction_count << std::endl;
+
+    if (post_clear_minus_one_count == prediction_count) {
+        std::cout << "[DigitCapsAccel][POST-CLEAR VALIDATION] PASS: "
+                  << "clear=1 path was taken and marked prediction BO with -1.0."
+                  << std::endl;
+    } else if (post_clear_zero_count == prediction_count) {
+        std::cout << "[DigitCapsAccel][POST-CLEAR VALIDATION] FAIL: "
+                  << "prediction BO is zero; clear=1 marker path was probably not taken."
+                  << std::endl;
+    } else {
+        std::cout << "[DigitCapsAccel][POST-CLEAR VALIDATION] FAIL: "
+                  << "prediction BO does not match the clear marker."
+                  << std::endl;
+    }
+}
     std::cout << "========== EXIT run_digitcaps_accelerator FIXED CONVERSION ==========" << std::endl;
     return 0;
 }
@@ -537,11 +693,31 @@ DigitcapsAcceleratorType *init_digitcaps_accelerator(float *weights_array)
     std::cout << "[DigitCapsAccel] Loading xclbin..." << std::endl;
     auto uuid = device.load_xclbin(xclbin);
     std::cout << "[DigitCapsAccel] xclbin loaded" << std::endl;
+    std::cout << "[DigitCapsAccel] xclbin uuid = "<< uuid.to_string() << std::endl;
 
-    std::cout << "[DigitCapsAccel] Looking for kernel: digitcaps_accel" << std::endl;
-    auto digitcaps_kernel = xrt::kernel(device, uuid.get(), "digitcaps_accel");
-    std::cout << "[DigitCapsAccel] kernel digitcaps_accel opened" << std::endl;
+    // New xclbin metadata reports:
+    //   Instance: digitcaps_accel_1
+    //   args: input@arg0, weights@arg1, prediction@arg2, clear@arg3
+    // Opening the explicit instance name avoids ambiguity when the DPU is also
+    // present in the same xclbin. Fall back to the kernel definition name for
+    // older xclbins.
+    xrt::kernel digitcaps_kernel;
+    try {
+        std::cout << "[DigitCapsAccel] Looking for kernel instance: digitcaps_accel:{digitcaps_accel_1}" << std::endl;
+        digitcaps_kernel = xrt::kernel(device, uuid.get(), "digitcaps_accel:{digitcaps_accel_1}");
+        std::cout << "[DigitCapsAccel] kernel instance digitcaps_accel_1 opened" << std::endl;
+    } catch (const std::exception &e) {
+        std::cout << "[DigitCapsAccel][WARN] instance open failed: " << e.what() << std::endl;
+        std::cout << "[DigitCapsAccel] Falling back to kernel definition: digitcaps_accel" << std::endl;
+        digitcaps_kernel = xrt::kernel(device, uuid.get(), "digitcaps_accel");
+        std::cout << "[DigitCapsAccel] kernel digitcaps_accel opened" << std::endl;
+    }
 
+    // Match the updated xclbin argument map:
+    //   arg0 input      -> M_AXI_GMEM0 -> HP0
+    //   arg1 weights    -> M_AXI_GMEM1 -> HP0
+    //   arg2 prediction -> M_AXI_GMEM2 -> HP1
+    //   arg3 clear      -> S_AXI_CONTROL scalar, no BO/group_id
     auto input_mem_grp = digitcaps_kernel.group_id(0);
     auto weights_mem_grp = digitcaps_kernel.group_id(1);
     auto prediction_mem_grp = digitcaps_kernel.group_id(2);
@@ -692,6 +868,16 @@ DigitcapsAcceleratorType *init_digitcaps_accelerator(float *weights_array)
     a->input_size = input_size;
     a->weights_size = weights_size;
     a->prediction_size = prediction_size;
+
+    // Immediately exercise/reset the new 4-argument kernel once at init time.
+    // This proves the host wrapper and xclbin agree on arg3 before the first
+    // real inference, and leaves internal HLS state clean.
+    int init_clear_status = issue_digitcaps_kernel_clear(a, "init-time clear");
+    if (init_clear_status != 0) {
+        delete[] prediction_float_m;
+        delete a;
+        throw std::runtime_error("[DigitCapsAccel][ERROR] init-time clear failed");
+    }
 
     std::cout << "[DigitCapsAccel] Accelerator object initialized with fixed-point conversion" << std::endl;
     std::cout << "========== EXIT init_digitcaps_accelerator FIXED CONVERSION ==========" << std::endl;

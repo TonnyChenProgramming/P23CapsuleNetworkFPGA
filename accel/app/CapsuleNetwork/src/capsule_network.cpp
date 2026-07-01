@@ -302,14 +302,52 @@ static void debug_float_buffer(const char* name, const float* data, int size, in
     std::cout << "===== END DEBUG FLOAT BUFFER: " << name << " =====" << std::endl;
 }
 
+static std::string g_dump_root = "dump_capsnet";
+
+static void setup_dump_root(bool digitcaps_sw_imp)
+{
+    g_dump_root = digitcaps_sw_imp ? "dump_capsnet_sw" : "dump_capsnet_hw";
+
+    std::filesystem::remove_all(g_dump_root);
+    std::filesystem::create_directories(g_dump_root);
+
+    std::cout << "[DUMP] dump root = " << g_dump_root << std::endl;
+}
+
+static std::string make_image_dump_dir(unsigned int image_index)
+{
+    std::string dir = g_dump_root + "/img" + std::to_string(image_index);
+    std::filesystem::create_directories(dir);
+    return dir;
+}
+
+static std::string make_dump_name(unsigned int image_index,
+                                  const std::string& tensor_name)
+{
+    return make_image_dump_dir(image_index) + "/" + tensor_name + ".txt";
+}
+
 static void dump_float_array_to_txt(const std::string& filename,
                                     const float* data,
                                     int size)
 {
+    if (data == nullptr) {
+        std::cerr << "[DUMP][ERROR] null pointer for "
+                  << filename << std::endl;
+        return;
+    }
+
+    if (size <= 0) {
+        std::cerr << "[DUMP][ERROR] invalid size "
+                  << size << " for "
+                  << filename << std::endl;
+        return;
+    }
+
     std::ofstream f(filename);
 
     if (!f.is_open()) {
-        std::cerr << "ERROR: failed to open dump file: "
+        std::cerr << "[DUMP][ERROR] failed to open "
                   << filename << std::endl;
         return;
     }
@@ -322,7 +360,7 @@ static void dump_float_array_to_txt(const std::string& filename,
 
     f.close();
 
-    std::cout << "Dumped " << size
+    std::cout << "[DUMP] wrote " << size
               << " floats to " << filename << std::endl;
 }
 
@@ -452,6 +490,8 @@ void runCapsuleNetwork(vart::RunnerExt *runner, uint32_t num_images, const xir::
     std::cout << "Output type enum: " << outputTensors[0]->get_data_type().type << std::endl;
 
     std::cout << "===== END Tensor metadata =====\n" << std::endl;
+	setup_dump_root(digitcaps_sw_imp); // setup the dump root for later parameters
+
 	/*get shape info*/
 	int outSize = shapes.outTensorList[0].size;
 	int inSize = shapes.inTensorList[0].size;
@@ -494,6 +534,16 @@ void runCapsuleNetwork(vart::RunnerExt *runner, uint32_t num_images, const xir::
                    imageInputs,
                    batchSize * inSize,
                    32);
+
+	for (unsigned int image_index = 0; image_index < num_images; ++image_index)
+	{
+		dump_float_array_to_txt(
+			make_dump_name(image_index, "00_input_image_after_mnist_load"),
+			&imageInputs[image_index * inSize],
+			inSize
+		);
+	}
+
 	auto imread_end = std::chrono::system_clock::now();
 	auto imread_duration = std::chrono::duration_cast<std::chrono::microseconds>(imread_end - imread_start);
 	imread_time += imread_duration.count();
@@ -516,8 +566,8 @@ void runCapsuleNetwork(vart::RunnerExt *runner, uint32_t num_images, const xir::
 	std::cout << "===== END WEIGHTS DEBUG =====" << std::endl;
 
 	DigitcapsAcceleratorType *digitcaps_accelerator = nullptr;
-	if (!digitcaps_sw_imp)
-		digitcaps_accelerator = init_digitcaps_accelerator(weights.data());
+	//if (!digitcaps_sw_imp)
+		//digitcaps_accelerator = init_digitcaps_accelerator(weights.data());
 
 	int count = num_images;
 
@@ -541,7 +591,7 @@ void runCapsuleNetwork(vart::RunnerExt *runner, uint32_t num_images, const xir::
 			in_dims,
 			xir::DataType{xir::DataType::FLOAT, 32u})));
 
-		inputs.push_back(std::make_unique<CpuFlatTensorBuffer>(
+		inputs.push_back(std::make_unique<CpuFlatTensorBuffer>( //////set all image to zero
 			&imageInputs[n * inSize],
 			batchTensors.back().get()));
 
@@ -612,6 +662,18 @@ void runCapsuleNetwork(vart::RunnerExt *runner, uint32_t num_images, const xir::
 		auto job_id = runner->execute_async(inputsPtr, outputsPtr);
 		runner->wait(job_id.first, -1);
 
+
+		for (unsigned int i = 0; i < runSize; ++i)
+		{
+			const unsigned int image_index = n + i;
+
+			dump_float_array_to_txt(
+				make_dump_name(image_index, "01_primarycap_dpu_output_before_squash"),
+				&primcaps_output[i * outSize],
+				outSize
+			);
+		}
+
         std::cout << "after execute_async" << std::endl;
 		
 		std::cout << "before CPU primarycap_squash" << std::endl;
@@ -620,18 +682,25 @@ void runCapsuleNetwork(vart::RunnerExt *runner, uint32_t num_images, const xir::
 						primcaps_output,
 						batchSize * outSize,
 						64);
-		dump_float_array_to_txt("board_primarycap_reshape_img0.txt",
-                        primcaps_output,
-                        1152 * 8);
+
 		squash_primary_capsules(primcaps_output, 1152, 8);
+
+		for (unsigned int i = 0; i < runSize; ++i)
+		{
+			const unsigned int image_index = n + i;
+
+			dump_float_array_to_txt(
+				make_dump_name(image_index, "02_primarycap_after_cpu_squash_digitcaps_input"),
+				&primcaps_output[i * outSize],
+				outSize
+			);
+		}
 
 		debug_float_buffer("primcaps_output after CPU squash",
 						primcaps_output,
 						batchSize * outSize,
 						64);
-		dump_float_array_to_txt("board_primarycap_squash_img0.txt",
-                        primcaps_output,
-                        1152 * 8);
+
 
 		std::cout << "after CPU primarycap_squash" << std::endl;
 
@@ -669,11 +738,23 @@ void runCapsuleNetwork(vart::RunnerExt *runner, uint32_t num_images, const xir::
 				0.0f
 			);
 
+			dump_float_array_to_txt(
+				make_dump_name(image_index, "04_prediction_before_digitcaps"),
+				prediction_data,
+				DIGIT_CAPS_NUM_DIGITS * DIGIT_CAPS_DIM_CAPSULE
+			);
+
 			debug_float_buffer(
 				"DigitCaps input current_primcaps",
 				current_primcaps,
 				outSize,
 				64
+			);
+
+			dump_float_array_to_txt(
+				make_dump_name(image_index, "03_digitcaps_input_current_primcaps"),
+				current_primcaps,
+				outSize
 			);
 
 			if (digitcaps_sw_imp)
@@ -699,6 +780,9 @@ void runCapsuleNetwork(vart::RunnerExt *runner, uint32_t num_images, const xir::
 				std::cout << "[CapsNet] Running hardware DigitCaps accelerator"
 						<< std::endl;
 
+				if (!digitcaps_sw_imp)
+					digitcaps_accelerator = init_digitcaps_accelerator(weights.data());
+				
 				if (digitcaps_accelerator == nullptr)
 				{
 					std::cerr << "[CapsNet][ERROR] digitcaps_accelerator is null"
@@ -710,13 +794,13 @@ void runCapsuleNetwork(vart::RunnerExt *runner, uint32_t num_images, const xir::
 					digitcaps_accelerator,
 					current_primcaps
 				);
-
 				if (status != 0)
 				{
 					std::cerr << "[CapsNet][ERROR] run_digitcaps_accelerator failed with status "
 							<< status << std::endl;
 					return;
 				}
+
 
 				float *out_prediction =
 					static_cast<float *>(digitcaps_accelerator->prediction_m);
@@ -740,6 +824,11 @@ void runCapsuleNetwork(vart::RunnerExt *runner, uint32_t num_images, const xir::
 					DIGIT_CAPS_NUM_DIGITS * DIGIT_CAPS_DIM_CAPSULE,
 					32
 				);
+				dump_float_array_to_txt(
+					make_dump_name(image_index, "05_prediction_after_hw_digitcaps"),
+					prediction_data,
+					DIGIT_CAPS_NUM_DIGITS * DIGIT_CAPS_DIM_CAPSULE
+				);
 			}
 
 			convert_to_magnitude(
@@ -751,6 +840,12 @@ void runCapsuleNetwork(vart::RunnerExt *runner, uint32_t num_images, const xir::
 				"prediction_magnitude after convert_to_magnitude",
 				prediction_magnitude,
 				DIGIT_CAPS_NUM_DIGITS,
+				DIGIT_CAPS_NUM_DIGITS
+			);
+
+			dump_float_array_to_txt(
+				make_dump_name(image_index, "06_digitcaps_lengths_after_magnitude"),
+				prediction_magnitude,
 				DIGIT_CAPS_NUM_DIGITS
 			);
 

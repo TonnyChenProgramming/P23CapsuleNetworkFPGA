@@ -1,14 +1,23 @@
-// DigitCaps.h
-#ifndef DIGIT_CAPS_H
-#define DIGIT_CAPS_H
+#ifndef DIGITCAPS_H
+#define DIGITCAPS_H
 
 #include <ap_fixed.h>
-#include "constants.h"
 
 typedef ap_fixed<32, 16> fixed_t;
 
-void dynamic_routing(fixed_t *input,
-                     fixed_t *weights,
-                     fixed_t *prediction);
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+void digitcaps_accel(
+    fixed_t* input,
+    fixed_t* weights,
+    fixed_t* prediction,
+    int reset
+);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

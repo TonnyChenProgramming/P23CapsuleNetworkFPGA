@@ -1,0 +1,241 @@
+<ENTRY>
+{
+ "thisFile": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/accel/lib/digit_caps_accel/pl/digitcaps_accel.xo.compile_summary",
+ "connectId": "",
+ "serverToken": "",
+ "timestamp": "0"
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_CmdStep",
+ "dateTimestamp": "Tue Jun 16 10:34:54 2026",
+ "timestampMillis": "1781562894692",
+ "buildStep": {
+  "cmdId": "454a42ba-39e8-40d2-8c33-b4b10641f613",
+  "name": "v++",
+  "logFile": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/accel/lib/digit_caps_accel/pl/_x_temp.hw.xilinx_zcu102_base_202210_1/digitcaps_accel/digitcaps_accel.steps.log",
+  "commandLine": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/Xilinx/Vitis/2022.1/bin/unwrapped/lnx64.o/v++  --vivado.prop \"run.__KERNEL__.{STEPS.SYNTH_DESIGN.ARGS.MORE OPTIONS}={-directive sdx_optimization_effort_high}\" --advanced.misc \"report=type report_timing_summary name impl_report_timing_summary_route_design_summary steps {route_design} runs {impl_1} options {-max_paths 10}\" --advanced.misc \"report=type report_timing_summary name impl_report_timing_summary_post_route_phys_opt_design_summary steps {post_route_phys_opt_design} runs {impl_1} options {-max_paths 10}\" -c -t hw --platform /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_202210_1/xilinx_zcu102_base_202210_1.xpfm --save-temps -k digitcaps_accel --temp_dir _x_temp.hw.xilinx_zcu102_base_202210_1 --log_dir _x_temp.hw.xilinx_zcu102_base_202210_1/logs -I/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/accel/lib/digit_caps_accel/pl -o digitcaps_accel.xo DigitCaps.cpp ",
+  "args": [
+   "-c",
+   "-t",
+   "hw",
+   "--platform",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_202210_1/xilinx_zcu102_base_202210_1.xpfm",
+   "--save-temps",
+   "-k",
+   "digitcaps_accel",
+   "--temp_dir",
+   "_x_temp.hw.xilinx_zcu102_base_202210_1",
+   "--log_dir",
+   "_x_temp.hw.xilinx_zcu102_base_202210_1/logs",
+   "-I/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/accel/lib/digit_caps_accel/pl",
+   "-o",
+   "digitcaps_accel.xo",
+   "DigitCaps.cpp"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/accel/lib/digit_caps_accel/pl"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jun 16 10:34:54 2026",
+ "timestampMillis": "1781562894692",
+ "status": {
+  "cmdId": "454a42ba-39e8-40d2-8c33-b4b10641f613",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_FlowMetaData",
+ "dateTimestamp": "Tue Jun 16 10:34:56 2026",
+ "timestampMillis": "1781562896110",
+ "buildSummary": {
+  "hardwarePlatform": "xilinx_zcu102_base_202210_1.xpfm",
+  "hardwareDsa": "hw.xsa",
+  "platformDirectory": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_202210_1",
+  "runtime": "OpenCL",
+  "systemConfig": "Linux",
+  "flow": "BF_COMPILE",
+  "target": "TT_HW",
+  "kernels": [
+   {
+    "base": {
+     "type": "KERNEL",
+     "name": "digitcaps_accel",
+     "file": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/accel/lib/digit_caps_accel/pl/digitcaps_accel.xo",
+     "reports": [],
+     "uuid": ""
+    },
+    "sources": [
+     "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/accel/lib/digit_caps_accel/pl/DigitCaps.cpp"
+    ],
+    "psSources": [],
+    "cuNames": [],
+    "type": "HLS",
+    "frequency": 0,
+    "freqUnits": ""
+   }
+  ],
+  "toolVersion": "Vitis V++ Compiler Release 2022.1. SW Build 3524075 on 2022-04-13-17:42:45"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Tue Jun 16 10:34:56 2026",
+ "timestampMillis": "1781562896112",
+ "buildStep": {
+  "cmdId": "118d64b2-d197-4bfa-81ae-7bb111e08325",
+  "name": "vitis_hls",
+  "logFile": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/accel/lib/digit_caps_accel/pl/_x_temp.hw.xilinx_zcu102_base_202210_1/digitcaps_accel/digitcaps_accel/vitis_hls.log",
+  "commandLine": "vitis_hls -f /home/tonny/p4p/P4P-CapsuleNetworkAccelerator/accel/lib/digit_caps_accel/pl/_x_temp.hw.xilinx_zcu102_base_202210_1/digitcaps_accel/digitcaps_accel/digitcaps_accel.tcl -messageDb vitis_hls.pb",
+  "args": [
+   "vitis_hls",
+   "-f",
+   "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/accel/lib/digit_caps_accel/pl/_x_temp.hw.xilinx_zcu102_base_202210_1/digitcaps_accel/digitcaps_accel/digitcaps_accel.tcl",
+   "-messageDb",
+   "vitis_hls.pb"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/accel/lib/digit_caps_accel/pl"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jun 16 10:34:56 2026",
+ "timestampMillis": "1781562896112",
+ "status": {
+  "cmdId": "118d64b2-d197-4bfa-81ae-7bb111e08325",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jun 16 10:36:36 2026",
+ "timestampMillis": "1781562996592",
+ "status": {
+  "cmdId": "118d64b2-d197-4bfa-81ae-7bb111e08325",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jun 16 10:36:36 2026",
+ "timestampMillis": "1781562996636",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/accel/lib/digit_caps_accel/pl/_x_temp.hw.xilinx_zcu102_base_202210_1/digitcaps_accel/digitcaps_accel/digitcaps_accel/solution/.autopilot/db/digitcaps_accel.design.xml",
+  "name": "digitcaps_accel",
+  "fileType": "XML",
+  "reportType": "KERNEL_HLS_REPORT",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jun 16 10:36:36 2026",
+ "timestampMillis": "1781562996637",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/accel/lib/digit_caps_accel/pl/_x_temp.hw.xilinx_zcu102_base_202210_1/digitcaps_accel/digitcaps_accel/digitcaps_accel/solution/.autopilot/db/.message_syn.xml",
+  "name": "digitcaps_accel",
+  "fileType": "XML",
+  "reportType": "KERNEL_HLS_DRC_SYNTHESIS",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jun 16 10:36:36 2026",
+ "timestampMillis": "1781562996638",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/accel/lib/digit_caps_accel/pl/_x_temp.hw.xilinx_zcu102_base_202210_1/reports/digitcaps_accel/hls_reports/digitcaps_accel_csynth.rpt",
+  "name": "digitcaps_accel",
+  "fileType": "TEXT",
+  "reportType": "KERNEL_HLS_CSYNTH",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jun 16 10:36:36 2026",
+ "timestampMillis": "1781562996638",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/accel/lib/digit_caps_accel/pl/_x_temp.hw.xilinx_zcu102_base_202210_1/digitcaps_accel/digitcaps_accel/digitcaps_accel/solution/syn/report/digitcaps_accel_csynth.xml",
+  "name": "digitcaps_accel",
+  "fileType": "XML",
+  "reportType": "KERNEL_HLS_CSYNTH",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jun 16 10:36:36 2026",
+ "timestampMillis": "1781562996645",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/accel/lib/digit_caps_accel/pl/_x_temp.hw.xilinx_zcu102_base_202210_1/reports/digitcaps_accel/system_estimate_digitcaps_accel.xtxt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_SYSTEM_ESTIMATE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jun 16 10:36:36 2026",
+ "timestampMillis": "1781562996930",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/accel/lib/digit_caps_accel/pl/_x_temp.hw.xilinx_zcu102_base_202210_1/reports/digitcaps_accel/v++_compile_digitcaps_accel_guidance.html",
+  "name": "",
+  "fileType": "HTML",
+  "reportType": "GLOBAL_RULECHECK_GUIDANCE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jun 16 10:36:36 2026",
+ "timestampMillis": "1781562996931",
+ "report": {
+  "path": "/home/tonny/p4p/P4P-CapsuleNetworkAccelerator/accel/lib/digit_caps_accel/pl/_x_temp.hw.xilinx_zcu102_base_202210_1/v++_compile_digitcaps_accel_guidance.pb",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_RULECHECK_GUIDANCE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jun 16 10:36:36 2026",
+ "timestampMillis": "1781562996931",
+ "status": {
+  "cmdId": "454a42ba-39e8-40d2-8c33-b4b10641f613",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
