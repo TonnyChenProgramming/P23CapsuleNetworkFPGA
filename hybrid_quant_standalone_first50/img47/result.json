@@ -1,0 +1,179 @@
+{
+  "index": 47,
+  "label": 2,
+  "prediction": 2,
+  "correct": true,
+  "scores": [
+    0.03360611945390701,
+    0.0424446240067482,
+    0.9670408368110657,
+    0.09733471274375916,
+    0.01430593989789486,
+    0.023580366745591164,
+    0.05764457583427429,
+    0.018993407487869263,
+    0.0462847501039505,
+    0.039434537291526794
+  ],
+  "boundary_checks": [
+    {
+      "boundary": "conv1_to_primarycap_conv2d",
+      "shape": [
+        1,
+        20,
+        20,
+        256
+      ],
+      "mean_absolute_difference": 0.0,
+      "maximum_absolute_difference": 0.0,
+      "exactly_equal": true
+    },
+    {
+      "boundary": "primarycap_conv2d_to_reshape",
+      "shape": [
+        1,
+        6,
+        6,
+        256
+      ],
+      "mean_absolute_difference": 0.0,
+      "maximum_absolute_difference": 0.0,
+      "exactly_equal": true
+    },
+    {
+      "boundary": "reshape_to_squash",
+      "shape": [
+        1,
+        1152,
+        8
+      ],
+      "mean_absolute_difference": 0.0,
+      "maximum_absolute_difference": 0.0,
+      "exactly_equal": true
+    },
+    {
+      "boundary": "squash_to_digitcaps",
+      "shape": [
+        1,
+        1152,
+        8
+      ],
+      "mean_absolute_difference": 0.0,
+      "maximum_absolute_difference": 0.0,
+      "exactly_equal": true
+    },
+    {
+      "boundary": "digitcaps_to_capsnet",
+      "shape": [
+        1,
+        10,
+        16
+      ],
+      "mean_absolute_difference": 0.0,
+      "maximum_absolute_difference": 0.0,
+      "exactly_equal": true
+    }
+  ],
+  "tensor_statistics": {
+    "mnist_input": {
+      "shape": [
+        1,
+        28,
+        28,
+        1
+      ],
+      "element_count": 784,
+      "dtype": "float32",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "mean": 0.08192776888608932,
+      "standard_deviation": 0.23398587107658386,
+      "all_finite": true
+    },
+    "quantized_conv1_output": {
+      "shape": [
+        1,
+        20,
+        20,
+        256
+      ],
+      "element_count": 102400,
+      "dtype": "float32",
+      "minimum": 0.0,
+      "maximum": 0.6875,
+      "mean": 0.011091461405158043,
+      "standard_deviation": 0.039831992238759995,
+      "all_finite": true
+    },
+    "quantized_primarycap_conv2d_output": {
+      "shape": [
+        1,
+        6,
+        6,
+        256
+      ],
+      "element_count": 9216,
+      "dtype": "float32",
+      "minimum": -21.0,
+      "maximum": 27.25,
+      "mean": 0.278564453125,
+      "standard_deviation": 2.6884572505950928,
+      "all_finite": true
+    },
+    "quantized_primarycap_reshape_output": {
+      "shape": [
+        1,
+        1152,
+        8
+      ],
+      "element_count": 9216,
+      "dtype": "float32",
+      "minimum": -21.0,
+      "maximum": 27.5,
+      "mean": 0.4025065004825592,
+      "standard_deviation": 2.690378189086914,
+      "all_finite": true
+    },
+    "primarycap_squash_output": {
+      "shape": [
+        1,
+        1152,
+        8
+      ],
+      "element_count": 9216,
+      "dtype": "float32",
+      "minimum": -0.9946643114089966,
+      "maximum": 0.9960706830024719,
+      "mean": 0.05971746891736984,
+      "standard_deviation": 0.30544835329055786,
+      "all_finite": true
+    },
+    "digitcaps_output": {
+      "shape": [
+        1,
+        10,
+        16
+      ],
+      "element_count": 160,
+      "dtype": "float32",
+      "minimum": -0.40086954832077026,
+      "maximum": 0.3610883057117462,
+      "mean": -0.010011445730924606,
+      "standard_deviation": 0.07663538306951523,
+      "all_finite": true
+    },
+    "capsnet_output": {
+      "shape": [
+        1,
+        10
+      ],
+      "element_count": 10,
+      "dtype": "float32",
+      "minimum": 0.01430593989789486,
+      "maximum": 0.9670408368110657,
+      "mean": 0.13406698405742645,
+      "standard_deviation": 0.2785632908344269,
+      "all_finite": true
+    }
+  }
+}

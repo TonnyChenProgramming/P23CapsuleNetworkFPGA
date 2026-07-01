@@ -1,0 +1,89 @@
+{
+  "num_images": 50,
+  "pipeline": [
+    "models/quant_standalone/quantized_conv1_standalone.h5",
+    "models/quant_standalone/quantized_primarycap_conv2d_standalone.h5",
+    "models/quant_standalone/quantized_primarycap_reshape_standalone.h5",
+    "models/standalone/primarycap_squash_standalone.h5",
+    "models/standalone/digitcaps_standalone.h5",
+    "models/standalone/capsnet_standalone.h5"
+  ],
+  "interfaces": {
+    "quantized_conv1": {
+      "input": [
+        null,
+        28,
+        28,
+        1
+      ],
+      "output": [
+        null,
+        20,
+        20,
+        256
+      ]
+    },
+    "quantized_primarycap_conv2d": {
+      "input": [
+        null,
+        20,
+        20,
+        256
+      ],
+      "output": [
+        null,
+        6,
+        6,
+        256
+      ]
+    },
+    "quantized_primarycap_reshape": {
+      "input": [
+        null,
+        6,
+        6,
+        256
+      ],
+      "output": [
+        null,
+        1152,
+        8
+      ]
+    },
+    "primarycap_squash": {
+      "input": [
+        null,
+        1152,
+        8
+      ],
+      "output": [
+        null,
+        1152,
+        8
+      ]
+    },
+    "digitcaps": {
+      "input": [
+        null,
+        1152,
+        8
+      ],
+      "output": [
+        null,
+        10,
+        16
+      ]
+    },
+    "capsnet": {
+      "input": [
+        null,
+        10,
+        16
+      ],
+      "output": [
+        null,
+        10
+      ]
+    }
+  }
+}
