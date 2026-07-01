@@ -15,7 +15,6 @@ accel/lib/digit_caps_accel/pl/_x_temp.hw.xilinx_zcu102_base_202210_1/
 **/train-labels-idx1-ubyte
 
 # Model / weight files
-*.xmodel
 *.onnx
 *.pb
 *_weights.txt
