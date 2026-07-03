@@ -41,7 +41,7 @@ $CXX -O2 -w\
   -I/opt/xilinx/xrt/include/ \
   -o ./bin/$name \
   -std=c++17 \
-  src/hw_tb.cpp \
+  src/hw_digitcaps_tb.cpp \
   src/DigitCaps.cpp \
   src/common.cpp \
   -L/opt/xilinx/xrt/lib \

@@ -2,60 +2,68 @@
  * Standalone hardware testbench for DigitCaps accelerator.
  *
  * Usage:
- *   ./DigitCapsHwTestbench.exe weights/new_digitcaps_weights.txt \
- *       dump_capsnet_hw/img0/03_digitcaps_input_current_primcaps.txt \
+ *   ./DigitCapsHwTestbench.exe \
+ *       weights/new_digitcaps_weights.txt \
+ *       hybrid_quant_standalone_first50/img00/09_digitcaps_input.txt \
  *       10
  */
 
 #include <cmath>
-#include <cstdint>
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
 #include "constants.h"
 #include "common.h"
-#include "accel_wrapper.hpp"
+#include "accel_wrapper2.hpp"
 
-static void read_float_file(const std::string& path, float* output, int count)
+static void read_float_file(
+    const std::string& path,
+    float* output,
+    int count)
 {
     std::ifstream file(path);
 
     if (!file.is_open()) {
-        std::cerr << "[ERROR] Failed to open " << path << std::endl;
-        std::exit(1);
+        throw std::runtime_error(
+            "Failed to open input file: " + path
+        );
     }
 
     for (int i = 0; i < count; ++i) {
         if (!(file >> output[i])) {
-            std::cerr << "[ERROR] Failed to read value " << i
-                      << " from " << path << std::endl;
-            std::exit(1);
+            throw std::runtime_error(
+                "Failed to read input value " +
+                std::to_string(i) +
+                " from " +
+                path
+            );
         }
     }
-
-    std::cout << "[INFO] Read " << count << " values from " << path << std::endl;
 }
 
-static void read_weights_file(const std::string& path, std::vector<float>& weights)
+static std::vector<float> read_weights_file(
+    const std::string& path)
 {
-    const int expected_weights =
+    const int expected_count =
         DIGIT_CAPS_NUM_DIGITS *
         DIGIT_CAPS_DIM_CAPSULE *
         DIGIT_CAPS_INPUT_CAPSULES *
         DIGIT_CAPS_INPUT_DIM_CAPSULE;
 
-    weights.clear();
-    weights.reserve(expected_weights);
-
     std::ifstream file(path);
 
     if (!file.is_open()) {
-        std::cerr << "[ERROR] Failed to open weights file: " << path << std::endl;
-        std::exit(1);
+        throw std::runtime_error(
+            "Failed to open weights file: " + path
+        );
     }
+
+    std::vector<float> weights;
+    weights.reserve(expected_count);
 
     float value = 0.0f;
 
@@ -63,36 +71,51 @@ static void read_weights_file(const std::string& path, std::vector<float>& weigh
         weights.push_back(value);
     }
 
-    if (static_cast<int>(weights.size()) != expected_weights) {
-        std::cerr << "[ERROR] Weight count mismatch. Expected "
-                  << expected_weights << ", got " << weights.size()
-                  << std::endl;
-        std::exit(1);
+    if (static_cast<int>(weights.size()) != expected_count) {
+        throw std::runtime_error(
+            "Weight count mismatch. Expected " +
+            std::to_string(expected_count) +
+            ", got " +
+            std::to_string(weights.size())
+        );
     }
 
-    std::cout << "[INFO] Read " << weights.size()
-              << " weights from " << path << std::endl;
+    return weights;
 }
 
-static float digit_length(const float* prediction, int digit)
+static float digit_length(
+    const float* prediction,
+    int digit)
 {
     float sum_sq = 0.0f;
 
-    for (int dim = 0; dim < DIGIT_CAPS_DIM_CAPSULE; ++dim) {
-        const float v = prediction[digit * DIGIT_CAPS_DIM_CAPSULE + dim];
-        sum_sq += v * v;
+    const int offset =
+        digit * DIGIT_CAPS_DIM_CAPSULE;
+
+    for (int dim = 0;
+         dim < DIGIT_CAPS_DIM_CAPSULE;
+         ++dim) {
+        const float value =
+            prediction[offset + dim];
+
+        sum_sq += value * value;
     }
 
     return std::sqrt(sum_sq);
 }
 
-static int argmax_digit(const float* prediction, float* best_length_out)
+static int argmax_digit(
+    const float* prediction,
+    float& best_length)
 {
     int best_digit = 0;
-    float best_length = digit_length(prediction, 0);
+    best_length = digit_length(prediction, 0);
 
-    for (int digit = 1; digit < DIGIT_CAPS_NUM_DIGITS; ++digit) {
-        const float length = digit_length(prediction, digit);
+    for (int digit = 1;
+         digit < DIGIT_CAPS_NUM_DIGITS;
+         ++digit) {
+        const float length =
+            digit_length(prediction, digit);
 
         if (length > best_length) {
             best_length = length;
@@ -100,20 +123,18 @@ static int argmax_digit(const float* prediction, float* best_length_out)
         }
     }
 
-    if (best_length_out != nullptr) {
-        *best_length_out = best_length;
-    }
-
     return best_digit;
 }
 
-static bool same_prediction(const float* a,
-                            const float* b,
-                            int count,
-                            float tolerance)
+static bool same_prediction(
+    const float* first,
+    const float* current,
+    int count,
+    float tolerance)
 {
     for (int i = 0; i < count; ++i) {
-        if (std::fabs(a[i] - b[i]) > tolerance) {
+        if (std::fabs(first[i] - current[i]) >
+            tolerance) {
             return false;
         }
     }
@@ -123,96 +144,162 @@ static bool same_prediction(const float* a,
 
 int main(int argc, char* argv[])
 {
-    if (argc < 3) {
-        std::cerr << "Usage: " << argv[0]
-                  << " <weights.txt> <digitcaps_input.txt> [iterations]"
-                  << std::endl;
+    if (argc < 3 || argc > 4) {
+        std::cerr
+            << "Usage: "
+            << argv[0]
+            << " <weights.txt> <digitcaps_input.txt> [iterations]"
+            << std::endl;
+
         return 1;
     }
 
-    const std::string weight_path = argv[1];
-    const std::string input_path = argv[2];
-    const int iterations = (argc >= 4) ? std::atoi(argv[3]) : 10;
+    try {
+        const std::string weight_path = argv[1];
+        const std::string input_path = argv[2];
 
-    if (iterations <= 0) {
-        std::cerr << "[ERROR] iterations must be positive" << std::endl;
-        return 1;
-    }
+        const int iterations =
+            (argc == 4)
+                ? std::stoi(argv[3])
+                : 10;
 
-    const int input_count =
-        DIGIT_CAPS_INPUT_CAPSULES * DIGIT_CAPS_INPUT_DIM_CAPSULE;
+        if (iterations <= 0) {
+            throw std::runtime_error(
+                "iterations must be positive"
+            );
+        }
 
-    const int prediction_count =
-        DIGIT_CAPS_NUM_DIGITS * DIGIT_CAPS_DIM_CAPSULE;
+        const int input_count =
+            DIGIT_CAPS_INPUT_CAPSULES *
+            DIGIT_CAPS_INPUT_DIM_CAPSULE;
 
-    std::vector<float> weights;
-    read_weights_file(weight_path, weights);
+        const int prediction_count =
+            DIGIT_CAPS_NUM_DIGITS *
+            DIGIT_CAPS_DIM_CAPSULE;
 
-    std::vector<float> digitcaps_input(input_count);
-    read_float_file(input_path, digitcaps_input.data(), input_count);
+        std::vector<float> weights =
+            read_weights_file(weight_path);
 
-    DigitcapsAcceleratorType* accelerator =
-        init_digitcaps_accelerator(weights.data());
-
-    if (accelerator == nullptr) {
-        std::cerr << "[ERROR] init_digitcaps_accelerator returned null"
-                  << std::endl;
-        return 1;
-    }
-
-    std::vector<float> first_prediction(prediction_count, 0.0f);
-    bool have_first_prediction = false;
-    bool all_same = true;
-
-    for (int iter = 0; iter < iterations; ++iter) {
-        const int status = run_digitcaps_accelerator(
-            accelerator,
-            digitcaps_input.data()
+        std::vector<float> digitcaps_input(
+            input_count
         );
 
-        if (status != 0) {
-            std::cerr << "[ERROR] run_digitcaps_accelerator failed at iteration "
-                      << iter << " with status " << status << std::endl;
-            return 1;
+        read_float_file(
+            input_path,
+            digitcaps_input.data(),
+            input_count
+        );
+
+        DigitcapsAcceleratorType* accelerator =
+            init_digitcaps_accelerator(
+                weights.data()
+            );
+
+        if (accelerator == nullptr) {
+            throw std::runtime_error(
+                "init_digitcaps_accelerator returned null"
+            );
         }
 
-        const float* prediction =
-            static_cast<const float*>(accelerator->prediction_m);
+        std::vector<float> first_prediction(
+            prediction_count,
+            0.0f
+        );
 
-        float best_length = 0.0f;
-        const int best_digit = argmax_digit(prediction, &best_length);
-        const float class7_length = digit_length(prediction, 7);
+        bool all_same = true;
 
-        if (!have_first_prediction) {
-            for (int i = 0; i < prediction_count; ++i) {
-                first_prediction[i] = prediction[i];
+        for (int iter = 0;
+             iter < iterations;
+             ++iter) {
+            const int status =
+                run_digitcaps_accelerator(
+                    accelerator,
+                    digitcaps_input.data()
+                );
+
+            if (status != 0) {
+                destroy_digitcaps_accelerator(
+                    accelerator
+                );
+
+                throw std::runtime_error(
+                    "run_digitcaps_accelerator failed at iteration " +
+                    std::to_string(iter) +
+                    " with status " +
+                    std::to_string(status)
+                );
             }
-            have_first_prediction = true;
-        } else {
-            if (!same_prediction(
-                    first_prediction.data(),
-                    prediction,
-                    prediction_count,
-                    1e-6f
-                )) {
+
+            const float* prediction =
+                static_cast<const float*>(
+                    accelerator->prediction_m
+                );
+
+            if (iter == 0) {
+                for (int i = 0;
+                     i < prediction_count;
+                     ++i) {
+                    first_prediction[i] =
+                        prediction[i];
+                }
+            } else if (!same_prediction(
+                           first_prediction.data(),
+                           prediction,
+                           prediction_count,
+                           1e-6f)) {
                 all_same = false;
             }
+
+            float best_length = 0.0f;
+
+            const int best_digit =
+                argmax_digit(
+                    prediction,
+                    best_length
+                );
+
+            const float class7_length =
+                digit_length(
+                    prediction,
+                    7
+                );
+
+            std::cout
+                << "iter "
+                << iter
+                << " -> digit "
+                << best_digit
+                << ", best_length "
+                << best_length
+                << ", class7_length "
+                << class7_length
+                << std::endl;
         }
 
-        std::cout << "iter " << iter
-                  << " -> digit " << best_digit
-                  << ", best_length " << best_length
-                  << ", class7_length " << class7_length
-                  << std::endl;
-    }
+        destroy_digitcaps_accelerator(
+            accelerator
+        );
 
-    if (all_same) {
-        std::cout << "[PASS] All repeated DigitCaps hardware outputs are identical."
-                  << std::endl;
-        return 0;
-    }
+        if (all_same) {
+            std::cout
+                << "[PASS] All repeated DigitCaps hardware outputs are identical."
+                << std::endl;
 
-    std::cout << "[FAIL] Repeated DigitCaps hardware outputs differ."
-              << std::endl;
-    return 2;
+            return 0;
+        }
+
+        std::cout
+            << "[FAIL] Repeated DigitCaps hardware outputs differ."
+            << std::endl;
+
+        return 2;
+    }
+    catch (const std::exception& error) {
+        std::cerr
+            << "[ERROR] "
+            << error.what()
+            << std::endl;
+
+        return 1;
+    }
 }

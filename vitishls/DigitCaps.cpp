@@ -96,7 +96,7 @@ CLEAR_ROUTING_SCRATCH_LOOP:
 // Top-level HLS kernel.
 // Keep extern "C" so the exported kernel symbol remains exactly digitcaps_accel.
 extern "C" {
-void digitcaps_accel(fixed_t *input, fixed_t *weights, fixed_t *prediction, int reset)
+void digitcaps_accel(fixed_t *input, fixed_t *weights, fixed_t *prediction)
 {
 #pragma HLS INTERFACE mode=m_axi port=input      offset=slave bundle=gmem0 max_read_burst_length=8 max_write_burst_length=8 depth=9216
 #pragma HLS INTERFACE mode=m_axi port=weights    offset=slave bundle=gmem1 max_read_burst_length=8 max_write_burst_length=8 depth=1474560

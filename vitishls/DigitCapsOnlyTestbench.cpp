@@ -1,133 +1,179 @@
 #include <cmath>
+#include <cstdio>
 #include <cstdlib>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
+
 #include <ap_fixed.h>
 
 #include "constants.h"
 #include "DigitCaps.h"
 
-static void read_float_file_to_fixed(const char* path, fixed_t* output, int count)
+static void read_float_file_to_fixed(
+    const char* path,
+    fixed_t* output,
+    int count)
 {
     std::ifstream file(path);
 
     if (!file.is_open()) {
         std::cerr << "[ERROR] Failed to open " << path << std::endl;
-        std::exit(1);
+        std::exit(EXIT_FAILURE);
     }
 
-    float value;
+    float value = 0.0f;
 
     for (int i = 0; i < count; ++i) {
         if (!(file >> value)) {
-            std::cerr << "[ERROR] Failed to read value " << i
-                      << " from " << path << std::endl;
-            std::exit(1);
+            std::cerr << "[ERROR] Failed to read value "
+                      << i
+                      << " from "
+                      << path
+                      << std::endl;
+
+            std::exit(EXIT_FAILURE);
         }
 
-        output[i] = value;
+        output[i] = static_cast<fixed_t>(value);
     }
 
-    std::cout << "[INFO] Read " << count << " values from " << path << std::endl;
+    std::cout << "[INFO] Read "
+              << count
+              << " values from "
+              << path
+              << std::endl;
 }
 
-static void write_fixed_file(const char* path, const fixed_t* data, int count)
+static void write_fixed_file(
+    const char* path,
+    const fixed_t* data,
+    int count)
 {
     std::ofstream file(path);
 
     if (!file.is_open()) {
-        std::cerr << "[ERROR] Failed to write " << path << std::endl;
-        std::exit(1);
+        std::cerr << "[ERROR] Failed to write "
+                  << path
+                  << std::endl;
+
+        std::exit(EXIT_FAILURE);
     }
 
     file << std::setprecision(10);
 
     for (int i = 0; i < count; ++i) {
-        file << static_cast<float>(data[i]) << "\n";
+        file << static_cast<float>(data[i]) << '\n';
     }
 
-    std::cout << "[INFO] Wrote " << count << " values to " << path << std::endl;
+    std::cout << "[INFO] Wrote "
+              << count
+              << " values to "
+              << path
+              << std::endl;
 }
 
-static void write_float_file(const char* path, const float* data, int count)
+static void write_float_file(
+    const char* path,
+    const float* data,
+    int count)
 {
     std::ofstream file(path);
 
     if (!file.is_open()) {
-        std::cerr << "[ERROR] Failed to write " << path << std::endl;
-        std::exit(1);
+        std::cerr << "[ERROR] Failed to write "
+                  << path
+                  << std::endl;
+
+        std::exit(EXIT_FAILURE);
     }
 
     file << std::setprecision(10);
 
     for (int i = 0; i < count; ++i) {
-        file << data[i] << "\n";
+        file << data[i] << '\n';
     }
 
-    std::cout << "[INFO] Wrote " << count << " values to " << path << std::endl;
+    std::cout << "[INFO] Wrote "
+              << count
+              << " values to "
+              << path
+              << std::endl;
 }
+
 static void dump_fixed_array(
     const char* name,
     const fixed_t* data,
     int count,
-    int max_print = -1
-)
+    int max_print = -1)
 {
-    std::cout << "\n[DUMP] " << name << " count = " << count << std::endl;
+    std::cout << "\n[DUMP] "
+              << name
+              << " count = "
+              << count
+              << std::endl;
 
-    int n = count;
+    int print_count = count;
+
     if (max_print > 0 && max_print < count) {
-        n = max_print;
+        print_count = max_print;
     }
 
-    for (int i = 0; i < n; ++i) {
-        std::cout << name << "[" << i << "] = "
+    for (int i = 0; i < print_count; ++i) {
+        std::cout << name
+                  << "["
+                  << i
+                  << "] = "
                   << std::setprecision(10)
                   << static_cast<float>(data[i])
                   << std::endl;
     }
 
-    if (n < count) {
-        std::cout << "[DUMP] " << name << " truncated: printed "
-                  << n << " / " << count << std::endl;
+    if (print_count < count) {
+        std::cout << "[DUMP] "
+                  << name
+                  << " truncated: printed "
+                  << print_count
+                  << " / "
+                  << count
+                  << std::endl;
     }
 }
 
 int main()
 {
-    std::cout << "========== DigitCaps first-10 C-sim testbench ==========" << std::endl;
+    std::cout
+        << "========== DigitCaps first-10 C-sim testbench =========="
+        << std::endl;
 
-    const int batch_size = 10;
+    constexpr int batch_size = 10;
 
-    const int input_count =
+    constexpr int input_count =
         DIGIT_CAPS_INPUT_CAPSULES *
         DIGIT_CAPS_INPUT_DIM_CAPSULE;
 
-    const int all_input_count =
-        batch_size *
-        input_count;
-
-    const int weights_count =
+    constexpr int weights_count =
         DIGIT_CAPS_NUM_DIGITS *
         DIGIT_CAPS_DIM_CAPSULE *
         DIGIT_CAPS_INPUT_CAPSULES *
         DIGIT_CAPS_INPUT_DIM_CAPSULE;
 
-    const int output_count =
+    constexpr int output_count =
         DIGIT_CAPS_NUM_DIGITS *
         DIGIT_CAPS_DIM_CAPSULE;
 
-    const int all_output_count =
+    constexpr int all_output_count =
         batch_size *
         output_count;
 
-    const int lengths_count =
+    constexpr int lengths_count =
         batch_size *
         DIGIT_CAPS_NUM_DIGITS;
 
-    static fixed_t all_inputs[10 * DIGIT_CAPS_INPUT_CAPSULES * DIGIT_CAPS_INPUT_DIM_CAPSULE];
-    static fixed_t input[DIGIT_CAPS_INPUT_CAPSULES * DIGIT_CAPS_INPUT_DIM_CAPSULE];
+    static fixed_t input[
+        DIGIT_CAPS_INPUT_CAPSULES *
+        DIGIT_CAPS_INPUT_DIM_CAPSULE
+    ];
 
     static fixed_t weights[
         DIGIT_CAPS_NUM_DIGITS *
@@ -136,31 +182,38 @@ int main()
         DIGIT_CAPS_INPUT_DIM_CAPSULE
     ];
 
-    static fixed_t prediction[DIGIT_CAPS_NUM_DIGITS * DIGIT_CAPS_DIM_CAPSULE];
-
-    static fixed_t all_predictions[
-        10 *
+    static fixed_t prediction[
         DIGIT_CAPS_NUM_DIGITS *
         DIGIT_CAPS_DIM_CAPSULE
     ];
 
-    static float all_lengths[10 * DIGIT_CAPS_NUM_DIGITS];
-    static int all_pred[10];
+    static fixed_t all_predictions[
+        batch_size *
+        DIGIT_CAPS_NUM_DIGITS *
+        DIGIT_CAPS_DIM_CAPSULE
+    ];
 
-    std::cout << "[INFO] input_count per image  = " << input_count << std::endl;
-    std::cout << "[INFO] all_input_count        = " << all_input_count << std::endl;
-    std::cout << "[INFO] weights_count          = " << weights_count << std::endl;
-    std::cout << "[INFO] output_count per image = " << output_count << std::endl;
+    static float all_lengths[
+        batch_size *
+        DIGIT_CAPS_NUM_DIGITS
+    ];
 
-    std::cout << "[INFO] Reading first-10 PrimaryCaps from Python reference..." << std::endl;
+    static int all_pred[batch_size];
 
-    read_float_file_to_fixed(
-        "parameters/python_ref_first10_primarycaps.txt",
-        all_inputs,
-        all_input_count
-    );
+    std::cout << "[INFO] input_count per image  = "
+              << input_count
+              << std::endl;
 
-    std::cout << "[INFO] Reading DigitCaps weights..." << std::endl;
+    std::cout << "[INFO] weights_count          = "
+              << weights_count
+              << std::endl;
+
+    std::cout << "[INFO] output_count per image = "
+              << output_count
+              << std::endl;
+
+    std::cout << "[INFO] Reading DigitCaps weights..."
+              << std::endl;
 
     read_float_file_to_fixed(
         "parameters/new_digitcaps_weights.txt",
@@ -169,19 +222,40 @@ int main()
     );
 
     for (int img = 0; img < batch_size; ++img) {
-        std::cout << "\n========== Image " << img << " ==========" << std::endl;
+        std::cout << "\n========== Image "
+                  << img
+                  << " =========="
+                  << std::endl;
 
-        // Copy image img PrimaryCaps slice:
-        //
-        // all_inputs shape:
-        //     [10][1152][8]
-        //
-        // input shape:
-        //     [1152][8]
-        for (int i = 0; i < input_count; ++i) {
-            //input[i] = all_inputs[img * input_count + i];
-            input[i] = all_inputs[img * input_count + i];
+        char input_path[512];
+
+        const int path_length = std::snprintf(
+            input_path,
+            sizeof(input_path),
+            "../hybrid_quant_standalone_first50/"
+            "img%02d/09_digitcaps_input.txt",
+            img
+        );
+
+        if (path_length < 0 ||
+            path_length >= static_cast<int>(sizeof(input_path))) {
+            std::cerr << "[ERROR] Failed to construct input path "
+                      << "for image "
+                      << img
+                      << std::endl;
+
+            return EXIT_FAILURE;
         }
+
+        std::cout << "[INFO] Reading DigitCaps input from: "
+                  << input_path
+                  << std::endl;
+
+        read_float_file_to_fixed(
+            input_path,
+            input,
+            input_count
+        );
 
         for (int i = 0; i < output_count; ++i) {
             prediction[i] = 0;
@@ -189,71 +263,123 @@ int main()
 
         int reset = 0;
 
-        std::cout << "[INFO] Calling dynamic_routing with reset = 0..." << std::endl;
+        std::cout
+            << "[INFO] Calling digitcaps_accel with reset = 0..."
+            << std::endl;
 
-        digitcaps_accel(input, weights, prediction, reset);
+        digitcaps_accel(
+            input,
+            weights,
+            prediction,
+            reset
+        );
 
-        std::cout << "[INFO] dynamic_routing finished" << std::endl;
+        std::cout << "[INFO] digitcaps_accel finished"
+                  << std::endl;
 
-        dump_fixed_array("input_after_inference", input, input_count, 64);
-        dump_fixed_array("prediction_after_inference", prediction, output_count, output_count);
+        dump_fixed_array(
+            "input_after_inference",
+            input,
+            input_count,
+            64
+        );
 
-        // Store full DigitCaps vector output.
+        dump_fixed_array(
+            "prediction_after_inference",
+            prediction,
+            output_count,
+            output_count
+        );
+
         for (int i = 0; i < output_count; ++i) {
-            all_predictions[img * output_count + i] = prediction[i];
+            all_predictions[
+                img * output_count + i
+            ] = prediction[i];
         }
 
         float magnitudes[DIGIT_CAPS_NUM_DIGITS];
 
-        for (int digit = 0; digit < DIGIT_CAPS_NUM_DIGITS; ++digit) {
+        for (int digit = 0;
+             digit < DIGIT_CAPS_NUM_DIGITS;
+             ++digit) {
             float sum = 0.0f;
 
-            for (int d = 0; d < DIGIT_CAPS_DIM_CAPSULE; ++d) {
-                float v = static_cast<float>(
-                    prediction[digit * DIGIT_CAPS_DIM_CAPSULE + d]
-                );
+            for (int dimension = 0;
+                 dimension < DIGIT_CAPS_DIM_CAPSULE;
+                 ++dimension) {
+                const int index =
+                    digit *
+                    DIGIT_CAPS_DIM_CAPSULE +
+                    dimension;
 
-                sum += v * v;
+                const float value =
+                    static_cast<float>(prediction[index]);
+
+                sum += value * value;
             }
 
             magnitudes[digit] = std::sqrt(sum);
-            all_lengths[img * DIGIT_CAPS_NUM_DIGITS + digit] = magnitudes[digit];
+
+            all_lengths[
+                img *
+                DIGIT_CAPS_NUM_DIGITS +
+                digit
+            ] = magnitudes[digit];
         }
 
-        int pred = 0;
+        int predicted_digit = 0;
 
-        for (int digit = 1; digit < DIGIT_CAPS_NUM_DIGITS; ++digit) {
-            if (magnitudes[digit] > magnitudes[pred]) {
-                pred = digit;
+        for (int digit = 1;
+             digit < DIGIT_CAPS_NUM_DIGITS;
+             ++digit) {
+            if (magnitudes[digit] >
+                magnitudes[predicted_digit]) {
+                predicted_digit = digit;
             }
         }
 
-        all_pred[img] = pred;
+        all_pred[img] = predicted_digit;
 
-        std::cout << "[INFO] Magnitudes:" << std::endl;
+        std::cout << "[INFO] Magnitudes:"
+                  << std::endl;
 
-        for (int digit = 0; digit < DIGIT_CAPS_NUM_DIGITS; ++digit) {
-            std::cout << "  " << digit << ": "
+        for (int digit = 0;
+             digit < DIGIT_CAPS_NUM_DIGITS;
+             ++digit) {
+            std::cout << "  "
+                      << digit
+                      << ": "
                       << std::setprecision(10)
                       << magnitudes[digit]
                       << std::endl;
         }
 
-        std::cout << "[INFO] Prediction = " << pred << std::endl;
-        std::cout << "[INFO] Resetting dynamic_routing internal state..." << std::endl;
+        std::cout << "[INFO] Prediction = "
+                  << predicted_digit
+                  << std::endl;
+
+        std::cout
+            << "[INFO] Resetting DigitCaps internal state..."
+            << std::endl;
 
         reset = 1;
 
-        // Important:
-        // prediction has already been stored in all_predictions before this.
-        // This reset call is only to clear internal/static HLS state.
-        digitcaps_accel(input, weights, prediction, reset);
+        digitcaps_accel(
+            input,
+            weights,
+            prediction,
+            reset
+        );
 
-        std::cout << "[INFO] Reset finished" << std::endl;
+        std::cout << "[INFO] Reset finished"
+                  << std::endl;
 
-        dump_fixed_array("prediction_after_reset", prediction, output_count, output_count);
-
-        reset = 0;
+        dump_fixed_array(
+            "prediction_after_reset",
+            prediction,
+            output_count,
+            output_count
+        );
     }
 
     write_fixed_file(
@@ -269,29 +395,42 @@ int main()
     );
 
     {
-        std::ofstream pred_file("hls_digitcaps_pred_first10.txt");
+        std::ofstream prediction_file(
+            "hls_digitcaps_pred_first10.txt"
+        );
 
-        if (!pred_file.is_open()) {
-            std::cerr << "[ERROR] Failed to write hls_digitcaps_pred_first10.txt" << std::endl;
-            std::exit(1);
+        if (!prediction_file.is_open()) {
+            std::cerr
+                << "[ERROR] Failed to write "
+                << "hls_digitcaps_pred_first10.txt"
+                << std::endl;
+
+            return EXIT_FAILURE;
         }
 
         for (int img = 0; img < batch_size; ++img) {
-            pred_file << all_pred[img] << "\n";
+            prediction_file << all_pred[img] << '\n';
         }
 
-        std::cout << "[INFO] Wrote hls_digitcaps_pred_first10.txt" << std::endl;
+        std::cout
+            << "[INFO] Wrote hls_digitcaps_pred_first10.txt"
+            << std::endl;
     }
 
-    std::cout << "\n========== Summary ==========" << std::endl;
+    std::cout << "\n========== Summary =========="
+              << std::endl;
 
     for (int img = 0; img < batch_size; ++img) {
-        std::cout << "image " << img
-                  << " pred = " << all_pred[img]
+        std::cout << "image "
+                  << img
+                  << " pred = "
+                  << all_pred[img]
                   << std::endl;
     }
 
-    std::cout << "\n[INFO] Done." << std::endl;
+    std::cout << "\n[INFO] Done."
+              << std::endl;
 
-    return 0;
+    return EXIT_SUCCESS;
 }
+
