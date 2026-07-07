@@ -1,0 +1,1 @@
+export XLNX_VART_FIRMWARE="$(pwd)/a.xclbin"

@@ -1,0 +1,106 @@
+{
+    "Used Resources": [
+        {
+            "ip_instance": "pfm_dynamic_digitcaps_accel_1_0",
+            "resources": [
+                {
+                    "LUT": "23462"
+                },
+                {
+                    "LUTAsLogic": "20707"
+                },
+                {
+                    "LUTAsMem": "2755"
+                },
+                {
+                    "REG": "26320"
+                },
+                {
+                    "CARRY8": "1324"
+                },
+                {
+                    "F7MUX": "631"
+                },
+                {
+                    "F8MUX": "121"
+                },
+                {
+                    "F9MUX": "0"
+                },
+                {
+                    "BRAM": "260"
+                },
+                {
+                    "DSP": "52"
+                },
+                {
+                    "GLOBAL_CLOCK_BUFFERS": "0"
+                },
+                {
+                    "PLL": "0"
+                },
+                {
+                    "MMCM": "0"
+                },
+                {
+                    "GTHE4_CHANNEL": "0"
+                },
+                {
+                    "GTHE4_COMMON": "0"
+                }
+            ]
+        }
+    ],
+    "Available Resources": [
+        {
+            "pblock": "pblock_dynamic_region",
+            "resources": [
+                {
+                    "BRAM": "840"
+                },
+                {
+                    "CARRY8": "30358"
+                },
+                {
+                    "DSP": "2160"
+                },
+                {
+                    "F7MUX": "121432"
+                },
+                {
+                    "F8MUX": "60716"
+                },
+                {
+                    "F9MUX": "30358"
+                },
+                {
+                    "GLOBAL_CLOCK_BUFFERS": "224"
+                },
+                {
+                    "GTHE4_CHANNEL": "24"
+                },
+                {
+                    "GTHE4_COMMON": "6"
+                },
+                {
+                    "LUT": "241520"
+                },
+                {
+                    "LUTAsLogic": "241522"
+                },
+                {
+                    "LUTAsMem": "126230"
+                },
+                {
+                    "MMCM": "1"
+                },
+                {
+                    "PLL": "2"
+                },
+                {
+                    "REG": "483777"
+                }
+            ]
+        }
+    ]
+}

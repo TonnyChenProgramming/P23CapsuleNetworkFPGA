@@ -1,0 +1,1235 @@
+<ENTRY>
+{
+ "thisFile": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/digitcaps_accel.xclbin.link_summary",
+ "connectId": "",
+ "serverToken": "",
+ "timestamp": "0"
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_CmdStep",
+ "dateTimestamp": "Tue Jul  7 21:02:35 2026",
+ "timestampMillis": "1783414955497",
+ "buildStep": {
+  "cmdId": "8eeb146f-8e1a-4e4e-9e11-af49906845a9",
+  "name": "v++",
+  "logFile": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/link.steps.log",
+  "commandLine": "/home/tonny/p4p/xilinx/Vitis/2022.1/bin/unwrapped/lnx64.o/v++  --vivado.prop \"run.__KERNEL__.{STEPS.SYNTH_DESIGN.ARGS.MORE OPTIONS}={-directive sdx_optimization_effort_high}\" --advanced.misc \"report=type report_timing_summary name impl_report_timing_summary_route_design_summary steps {route_design} runs {impl_1} options {-max_paths 10}\" --advanced.misc \"report=type report_timing_summary name impl_report_timing_summary_post_route_phys_opt_design_summary steps {post_route_phys_opt_design} runs {impl_1} options {-max_paths 10}\" --link --target hw --platform /home/tonny/p4p/xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_dfx_202210_1/xilinx_zcu102_base_dfx_202210_1.xpfm --clock.defaultFreqHz 150000000 --jobs 4 --config /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/connectivity.cfg --save-temps --temp_dir /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp --report_dir /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/reports --log_dir /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/logs --output /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/digitcaps_accel.xclbin /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/digitcaps_accel.xo ",
+  "args": [
+   "--link",
+   "--target",
+   "hw",
+   "--platform",
+   "/home/tonny/p4p/xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_dfx_202210_1/xilinx_zcu102_base_dfx_202210_1.xpfm",
+   "--clock.defaultFreqHz",
+   "150000000",
+   "--jobs",
+   "4",
+   "--config",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/connectivity.cfg",
+   "--save-temps",
+   "--temp_dir",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp",
+   "--report_dir",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/reports",
+   "--log_dir",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/logs",
+   "--output",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/digitcaps_accel.xclbin",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/digitcaps_accel.xo"
+  ],
+  "iniFiles": [
+   {
+    "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/connectivity.cfg",
+    "content": "[connectivity]\nnk=digitcaps_accel:1:digitcaps_accel_1\nsp=digitcaps_accel_1.input:HP0\nsp=digitcaps_accel_1.weights:HP0\nsp=digitcaps_accel_1.prediction:HP1\n"
+   }
+  ],
+  "cwd": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jul  7 21:02:35 2026",
+ "timestampMillis": "1783414955497",
+ "status": {
+  "cmdId": "8eeb146f-8e1a-4e4e-9e11-af49906845a9",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_FlowMetaData",
+ "dateTimestamp": "Tue Jul  7 21:02:37 2026",
+ "timestampMillis": "1783414957297",
+ "buildSummary": {
+  "hardwarePlatform": "xilinx_zcu102_base_dfx_202210_1.xpfm",
+  "hardwareDsa": "",
+  "platformDirectory": "/home/tonny/p4p/xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_dfx_202210_1",
+  "runtime": "OpenCL",
+  "systemConfig": "Linux",
+  "flow": "BF_LINK",
+  "target": "TT_HW",
+  "binaryContainer": {
+   "base": {
+    "type": "BT_UKNOWN",
+    "name": "digitcaps_accel",
+    "file": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/digitcaps_accel.xclbin",
+    "reports": [],
+    "uuid": ""
+   },
+   "kernels": []
+  },
+  "kernels": [
+   {
+    "base": {
+     "type": "KERNEL",
+     "name": "digitcaps_accel",
+     "file": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/digitcaps_accel.xo",
+     "reports": [],
+     "uuid": ""
+    },
+    "sources": [
+     "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/xo/digitcaps_accel/digitcaps_accel/cpu_sources/DigitCaps.cpp"
+    ],
+    "psSources": [],
+    "cuNames": [
+     "digitcaps_accel_1"
+    ],
+    "type": "HLS",
+    "frequency": 0,
+    "freqUnits": ""
+   }
+  ],
+  "toolVersion": "Vitis V++ Compiler Release 2022.1. SW Build 3524075 on 2022-04-13-17:42:45"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Tue Jul  7 21:02:37 2026",
+ "timestampMillis": "1783414957376",
+ "buildStep": {
+  "cmdId": "5bcbee58-cc99-402b-ae9d-ec432d116dc9",
+  "name": "system_link",
+  "logFile": "",
+  "commandLine": "system_link --xo /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/digitcaps_accel.xo -keep --config /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/syslinkConfig.ini --xpfm /home/tonny/p4p/xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_dfx_202210_1/xilinx_zcu102_base_dfx_202210_1.xpfm --target hw --output_dir /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int --temp_dir /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/sys_link",
+  "args": [
+   "--xo",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/digitcaps_accel.xo",
+   "-keep",
+   "--config",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/syslinkConfig.ini",
+   "--xpfm",
+   "/home/tonny/p4p/xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_dfx_202210_1/xilinx_zcu102_base_dfx_202210_1.xpfm",
+   "--target",
+   "hw",
+   "--output_dir",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int",
+   "--temp_dir",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/sys_link"
+  ],
+  "iniFiles": [
+   {
+    "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/syslinkConfig.ini",
+    "content": "nk=digitcaps_accel:1:digitcaps_accel_1\nsp=digitcaps_accel_1.input:HP0\nsp=digitcaps_accel_1.weights:HP0\nsp=digitcaps_accel_1.prediction:HP1\n\nclock.defaultFreqHz=150000000\n\n"
+   }
+  ],
+  "cwd": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jul  7 21:02:37 2026",
+ "timestampMillis": "1783414957376",
+ "status": {
+  "cmdId": "5bcbee58-cc99-402b-ae9d-ec432d116dc9",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jul  7 21:02:45 2026",
+ "timestampMillis": "1783414965970",
+ "status": {
+  "cmdId": "5bcbee58-cc99-402b-ae9d-ec432d116dc9",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Tue Jul  7 21:02:45 2026",
+ "timestampMillis": "1783414965972",
+ "buildStep": {
+  "cmdId": "634aab90-e37d-4df3-953a-9d61e87eb48e",
+  "name": "cf2sw",
+  "logFile": "",
+  "commandLine": "cf2sw -sdsl /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/sdsl.dat -rtd /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/cf2sw.rtd -nofilter /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/cf2sw_full.rtd -xclbin /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/xclbin_orig.xml -o /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/xclbin_orig.1.xml",
+  "args": [
+   "-sdsl",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/sdsl.dat",
+   "-rtd",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/cf2sw.rtd",
+   "-nofilter",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/cf2sw_full.rtd",
+   "-xclbin",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/xclbin_orig.xml",
+   "-o",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/xclbin_orig.1.xml"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jul  7 21:02:45 2026",
+ "timestampMillis": "1783414965972",
+ "status": {
+  "cmdId": "634aab90-e37d-4df3-953a-9d61e87eb48e",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jul  7 21:02:47 2026",
+ "timestampMillis": "1783414967943",
+ "status": {
+  "cmdId": "634aab90-e37d-4df3-953a-9d61e87eb48e",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Tue Jul  7 21:02:47 2026",
+ "timestampMillis": "1783414967944",
+ "buildStep": {
+  "cmdId": "3d9be1a5-e4a6-4a87-9ef6-f268ad15a852",
+  "name": "rtd2_system_diagram",
+  "logFile": "",
+  "commandLine": "rtd2SystemDiagram",
+  "args": [],
+  "iniFiles": [],
+  "cwd": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jul  7 21:02:47 2026",
+ "timestampMillis": "1783414967944",
+ "status": {
+  "cmdId": "3d9be1a5-e4a6-4a87-9ef6-f268ad15a852",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jul  7 21:02:48 2026",
+ "timestampMillis": "1783414968110",
+ "report": {
+  "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/systemDiagramModel.json",
+  "name": "",
+  "fileType": "JSON",
+  "reportType": "SYSTEM_DIAGRAM",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jul  7 21:02:48 2026",
+ "timestampMillis": "1783414968110",
+ "status": {
+  "cmdId": "3d9be1a5-e4a6-4a87-9ef6-f268ad15a852",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Tue Jul  7 21:02:48 2026",
+ "timestampMillis": "1783414968111",
+ "buildStep": {
+  "cmdId": "a1b9096b-cdaf-48c1-a847-ff6e2577f3c9",
+  "name": "vpl",
+  "logFile": "",
+  "commandLine": "vpl -t hw -f /home/tonny/p4p/xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_dfx_202210_1/xilinx_zcu102_base_dfx_202210_1.xpfm --remote_ip_cache /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/.ipcache -s --output_dir /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int --log_dir /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/logs/link --report_dir /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/reports/link --config /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/vplConfig.ini -k /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/kernel_info.dat --webtalk_flag Vitis --temp_dir /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link --no-info --iprepo /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/xo/ip_repo/xilinx_com_hls_digitcaps_accel_1_0 --messageDb /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/run_link/vpl.pb /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/dr.bd.tcl",
+  "args": [
+   "-t",
+   "hw",
+   "-f",
+   "/home/tonny/p4p/xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_dfx_202210_1/xilinx_zcu102_base_dfx_202210_1.xpfm",
+   "--remote_ip_cache",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/.ipcache",
+   "-s",
+   "--output_dir",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int",
+   "--log_dir",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/logs/link",
+   "--report_dir",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/reports/link",
+   "--config",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/vplConfig.ini",
+   "-k",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/kernel_info.dat",
+   "--webtalk_flag",
+   "Vitis",
+   "--temp_dir",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link",
+   "--no-info",
+   "--iprepo",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/xo/ip_repo/xilinx_com_hls_digitcaps_accel_1_0",
+   "--messageDb",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/run_link/vpl.pb",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/dr.bd.tcl"
+  ],
+  "iniFiles": [
+   {
+    "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/vplConfig.ini",
+    "content": "[advanced]\nmisc=report=type report_timing_summary name impl_report_timing_summary_route_design_summary steps {route_design} runs {impl_1} options {-max_paths 10}\nmisc=report=type report_timing_summary name impl_report_timing_summary_post_route_phys_opt_design_summary steps {post_route_phys_opt_design} runs {impl_1} options {-max_paths 10}\nparam=compiler.enablePerformanceTrace=1\nparam=compiler.vppCurrentWorkingDir=/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone\nmisc=BinaryName=digitcaps_accel\n\n[connectivity]\nnk=digitcaps_accel:1:digitcaps_accel_1\n\n[vivado]\nprop=run.__KERNEL__.{STEPS.SYNTH_DESIGN.ARGS.MORE OPTIONS}={-directive sdx_optimization_effort_high}\nsynth.jobs=4\n\n"
+   }
+  ],
+  "cwd": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jul  7 21:02:48 2026",
+ "timestampMillis": "1783414968111",
+ "status": {
+  "cmdId": "a1b9096b-cdaf-48c1-a847-ff6e2577f3c9",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_CmdStep",
+ "dateTimestamp": "Tue Jul  7 21:02:49 2026",
+ "timestampMillis": "1783414969188",
+ "buildStep": {
+  "cmdId": "63d6e940-7e3b-4411-ac30-fd880670c81a",
+  "name": "vpl",
+  "logFile": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/link.steps.log",
+  "commandLine": "/home/tonny/p4p/xilinx/Vitis/2022.1/bin/unwrapped/lnx64.o/vpl -t hw -f /home/tonny/p4p/xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_dfx_202210_1/xilinx_zcu102_base_dfx_202210_1.xpfm --remote_ip_cache /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/.ipcache -s --output_dir /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int --log_dir /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/logs/link --report_dir /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/reports/link --config /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/vplConfig.ini -k /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/kernel_info.dat --webtalk_flag Vitis --temp_dir /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link --no-info --iprepo /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/xo/ip_repo/xilinx_com_hls_digitcaps_accel_1_0 --messageDb /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/run_link/vpl.pb /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/dr.bd.tcl ",
+  "args": [],
+  "iniFiles": [],
+  "cwd": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/run_link"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jul  7 21:02:49 2026",
+ "timestampMillis": "1783414969188",
+ "status": {
+  "cmdId": "63d6e940-7e3b-4411-ac30-fd880670c81a",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_VivadoProject",
+ "dateTimestamp": "Tue Jul  7 21:02:50 2026",
+ "timestampMillis": "1783414970044",
+ "vivadoProject": {
+  "openDir": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl",
+  "openScript": "openprj.tcl",
+  "relativeProject": "prj/prj.xpr"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Tue Jul  7 21:02:50 2026",
+ "timestampMillis": "1783414970044",
+ "buildStep": {
+  "cmdId": "10ee7738-56b6-4da1-9c33-fc68bfbac970",
+  "name": "vivado",
+  "logFile": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/vivado.log",
+  "commandLine": "vivado -log vivado.log -applog -m64 -messageDb vivado.pb -mode batch -source vpl.tcl -notrace",
+  "args": [
+   "-log",
+   "vivado.log",
+   "-applog",
+   " -m64",
+   "-messageDb",
+   "vivado.pb",
+   "-mode",
+   "batch",
+   "-source",
+   "vpl.tcl",
+   "-notrace"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/run_link"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jul  7 21:02:50 2026",
+ "timestampMillis": "1783414970044",
+ "status": {
+  "cmdId": "10ee7738-56b6-4da1-9c33-fc68bfbac970",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jul  7 21:03:01 2026",
+ "timestampMillis": "1783414981736",
+ "report": {
+  "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/automation_summary_update_bd.txt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "VITIS_DESIGN_FLOW",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_CmdStep",
+ "dateTimestamp": "Tue Jul  7 21:07:09 2026",
+ "timestampMillis": "1783415229690",
+ "buildStep": {
+  "cmdId": "56133bd8-eb50-4a12-98d8-b88beed80633",
+  "name": "vivado.impl",
+  "logFile": "",
+  "commandLine": "",
+  "args": [],
+  "iniFiles": [],
+  "cwd": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jul  7 21:07:09 2026",
+ "timestampMillis": "1783415229691",
+ "status": {
+  "cmdId": "56133bd8-eb50-4a12-98d8-b88beed80633",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_CmdStep",
+ "dateTimestamp": "Tue Jul  7 21:07:09 2026",
+ "timestampMillis": "1783415229691",
+ "buildStep": {
+  "cmdId": "68d4bb94-a29f-4d73-820d-f0eeacc57272",
+  "name": "vivado.impl.impl_1",
+  "logFile": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/runme.log",
+  "commandLine": "",
+  "args": [],
+  "iniFiles": [],
+  "cwd": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jul  7 21:07:09 2026",
+ "timestampMillis": "1783415229691",
+ "status": {
+  "cmdId": "68d4bb94-a29f-4d73-820d-f0eeacc57272",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jul  7 21:13:54 2026",
+ "timestampMillis": "1783415634058",
+ "report": {
+  "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/system_diagram.json",
+  "name": "",
+  "fileType": "JSON",
+  "reportType": "SYSTEM_DIAGRAM_PLUS",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jul  7 21:14:02 2026",
+ "timestampMillis": "1783415642191",
+ "report": {
+  "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/kernel_service.json",
+  "name": "",
+  "fileType": "JSON",
+  "reportType": "KERNEL_SERVICE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jul  7 21:14:02 2026",
+ "timestampMillis": "1783415642192",
+ "report": {
+  "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/kernel_service.pb",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "KERNEL_SERVICE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jul  7 21:15:56 2026",
+ "timestampMillis": "1783415756224",
+ "status": {
+  "cmdId": "10ee7738-56b6-4da1-9c33-fc68bfbac970",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jul  7 21:15:56 2026",
+ "timestampMillis": "1783415756230",
+ "report": {
+  "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/reports/link/imp/impl_1_kernel_util_routed.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "KERNEL_UTILIZATION_ROUTE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jul  7 21:15:56 2026",
+ "timestampMillis": "1783415756231",
+ "report": {
+  "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/reports/link/imp/impl_1_full_util_routed.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_UTILIZATION_ROUTE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jul  7 21:15:56 2026",
+ "timestampMillis": "1783415756231",
+ "report": {
+  "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/reports/link/imp/impl_1_kernel_util_placed.xutil",
+  "name": "",
+  "fileType": "XUTIL",
+  "reportType": "KERNEL_UTILIZATION_PLACEMENT",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jul  7 21:15:56 2026",
+ "timestampMillis": "1783415756231",
+ "report": {
+  "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/reports/link/imp/impl_1_slr_util_placed.pb",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_SLR_UTIL_PLACED",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jul  7 21:15:56 2026",
+ "timestampMillis": "1783415756232",
+ "report": {
+  "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/reports/link/imp/impl_1_slr_util_routed.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_SLR_UTIL_ROUTED",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jul  7 21:15:56 2026",
+ "timestampMillis": "1783415756232",
+ "report": {
+  "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/reports/link/imp/impl_1_kernel_util_synthed.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "KERNEL_UTILIZATION_SYNTHESIS",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jul  7 21:15:56 2026",
+ "timestampMillis": "1783415756232",
+ "report": {
+  "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/reports/link/imp/impl_1_kernel_util_placed.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "KERNEL_UTILIZATION_PLACEMENT",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jul  7 21:15:56 2026",
+ "timestampMillis": "1783415756232",
+ "report": {
+  "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/reports/link/imp/impl_1_full_util_synthed.pb",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_UTILIZATION_SYNTHESIS",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jul  7 21:15:56 2026",
+ "timestampMillis": "1783415756232",
+ "report": {
+  "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/reports/link/imp/impl_1_kernel_util_synthed.xutil",
+  "name": "",
+  "fileType": "XUTIL",
+  "reportType": "KERNEL_UTILIZATION_SYNTHESIS",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jul  7 21:15:56 2026",
+ "timestampMillis": "1783415756232",
+ "report": {
+  "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/reports/link/imp/impl_1_full_util_synthed.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_UTILIZATION_SYNTHESIS",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jul  7 21:15:56 2026",
+ "timestampMillis": "1783415756233",
+ "report": {
+  "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/reports/link/imp/impl_1_slr_util_placed.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_SLR_UTIL_PLACED",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jul  7 21:15:56 2026",
+ "timestampMillis": "1783415756233",
+ "report": {
+  "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/reports/link/imp/impl_1_slr_util_routed.pb",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_SLR_UTIL_ROUTED",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jul  7 21:15:56 2026",
+ "timestampMillis": "1783415756233",
+ "report": {
+  "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/reports/link/imp/impl_1_full_util_routed.pb",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_UTILIZATION_ROUTE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jul  7 21:15:56 2026",
+ "timestampMillis": "1783415756233",
+ "report": {
+  "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/reports/link/imp/impl_1_kernel_util_routed.xutil",
+  "name": "",
+  "fileType": "XUTIL",
+  "reportType": "KERNEL_UTILIZATION_ROUTE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jul  7 21:15:56 2026",
+ "timestampMillis": "1783415756237",
+ "report": {
+  "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/reports/link/syn/pfm_dynamic_digitcaps_accel_1_0_synth_1_pfm_dynamic_digitcaps_accel_1_0_utilization_synth.rpt",
+  "name": "digitcaps_accel",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_UTILIZATION",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jul  7 21:15:56 2026",
+ "timestampMillis": "1783415756237",
+ "report": {
+  "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/reports/link/imp/impl_1_system_diagram.json",
+  "name": "",
+  "fileType": "JSON",
+  "reportType": "SYSTEM_DIAGRAM_PLUS",
+  "cmdId": "68d4bb94-a29f-4d73-820d-f0eeacc57272"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jul  7 21:15:56 2026",
+ "timestampMillis": "1783415756238",
+ "report": {
+  "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/reports/link/imp/impl_1_hw_bb_locked_timing_summary_routed.rpt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_REPORT_TIMING_SUMMARY",
+  "cmdId": "68d4bb94-a29f-4d73-820d-f0eeacc57272"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jul  7 21:15:56 2026",
+ "timestampMillis": "1783415756239",
+ "report": {
+  "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/reports/link/imp/impl_1_hw_bb_locked_timing_summary_routed.rpx",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_REPORT_TIMING_SUMMARY",
+  "cmdId": "68d4bb94-a29f-4d73-820d-f0eeacc57272"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jul  7 21:15:56 2026",
+ "timestampMillis": "1783415756240",
+ "report": {
+  "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/reports/link/imp/impl_1_hw_bb_locked_timing_summary_routed.rpv",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_REPORT_TIMING_SUMMARY_CONCISE",
+  "cmdId": "68d4bb94-a29f-4d73-820d-f0eeacc57272"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jul  7 21:15:56 2026",
+ "timestampMillis": "1783415756252",
+ "status": {
+  "cmdId": "63d6e940-7e3b-4411-ac30-fd880670c81a",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jul  7 21:15:56 2026",
+ "timestampMillis": "1783415756261",
+ "status": {
+  "cmdId": "a1b9096b-cdaf-48c1-a847-ff6e2577f3c9",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Tue Jul  7 21:15:56 2026",
+ "timestampMillis": "1783415756262",
+ "buildStep": {
+  "cmdId": "ba511869-3447-4263-b023-5cc23010e912",
+  "name": "rtdgen",
+  "logFile": "",
+  "commandLine": "rtdgen",
+  "args": [],
+  "iniFiles": [],
+  "cwd": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jul  7 21:15:56 2026",
+ "timestampMillis": "1783415756262",
+ "status": {
+  "cmdId": "ba511869-3447-4263-b023-5cc23010e912",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jul  7 21:15:56 2026",
+ "timestampMillis": "1783415756263",
+ "report": {
+  "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/digitcaps_accel_xml.rtd",
+  "name": "",
+  "fileType": "JSON",
+  "reportType": "XCLBIN_INFO",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Tue Jul  7 21:15:56 2026",
+ "timestampMillis": "1783415756264",
+ "buildStep": {
+  "cmdId": "68a90687-dde9-4373-b23e-bc1132b1fbd8",
+  "name": "cf2sw",
+  "logFile": "",
+  "commandLine": "cf2sw -a /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/address_map.xml -sdsl /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/sdsl.dat -xclbin /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/xclbin_orig.xml -rtd /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/digitcaps_accel.rtd -o /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/digitcaps_accel.xml",
+  "args": [
+   "-a",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/address_map.xml",
+   "-sdsl",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/sdsl.dat",
+   "-xclbin",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/xclbin_orig.xml",
+   "-rtd",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/digitcaps_accel.rtd",
+   "-o",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/digitcaps_accel.xml"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jul  7 21:15:56 2026",
+ "timestampMillis": "1783415756264",
+ "status": {
+  "cmdId": "68a90687-dde9-4373-b23e-bc1132b1fbd8",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jul  7 21:15:58 2026",
+ "timestampMillis": "1783415758043",
+ "status": {
+  "cmdId": "68a90687-dde9-4373-b23e-bc1132b1fbd8",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Tue Jul  7 21:15:58 2026",
+ "timestampMillis": "1783415758044",
+ "buildStep": {
+  "cmdId": "20dc3df4-7594-4bbc-8aad-2e02d0dadd88",
+  "name": "rtdgen",
+  "logFile": "",
+  "commandLine": "writeSystemDiagram",
+  "args": [
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/digitcaps_accel.rtd",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/systemDiagramModelSlrBaseAddress.json"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jul  7 21:15:58 2026",
+ "timestampMillis": "1783415758044",
+ "status": {
+  "cmdId": "20dc3df4-7594-4bbc-8aad-2e02d0dadd88",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jul  7 21:15:58 2026",
+ "timestampMillis": "1783415758045",
+ "report": {
+  "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/systemDiagramModelSlrBaseAddress.json",
+  "name": "",
+  "fileType": "JSON",
+  "reportType": "SYSTEM_DIAGRAM_PLUS",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jul  7 21:15:58 2026",
+ "timestampMillis": "1783415758045",
+ "status": {
+  "cmdId": "20dc3df4-7594-4bbc-8aad-2e02d0dadd88",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Tue Jul  7 21:15:58 2026",
+ "timestampMillis": "1783415758045",
+ "buildStep": {
+  "cmdId": "9b725732-55fc-4e9f-b063-5850e25aa7aa",
+  "name": "rtdgen",
+  "logFile": "",
+  "commandLine": "writeAutomationSummary",
+  "args": [
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/automation_summary.txt"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jul  7 21:15:58 2026",
+ "timestampMillis": "1783415758045",
+ "status": {
+  "cmdId": "9b725732-55fc-4e9f-b063-5850e25aa7aa",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jul  7 21:15:58 2026",
+ "timestampMillis": "1783415758045",
+ "report": {
+  "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/automation_summary.txt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "VITIS_DESIGN_FLOW",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jul  7 21:15:58 2026",
+ "timestampMillis": "1783415758045",
+ "status": {
+  "cmdId": "9b725732-55fc-4e9f-b063-5850e25aa7aa",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jul  7 21:15:58 2026",
+ "timestampMillis": "1783415758046",
+ "status": {
+  "cmdId": "ba511869-3447-4263-b023-5cc23010e912",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Tue Jul  7 21:15:58 2026",
+ "timestampMillis": "1783415758046",
+ "buildStep": {
+  "cmdId": "24a08bc9-0257-4f48-a64d-c826252eceeb",
+  "name": "xclbinutil",
+  "logFile": "",
+  "commandLine": "xclbinutil --add-section BITSTREAM:RAW:/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/partial.bit --force --target hw --key-value SYS:dfx_enable:true --add-section :JSON:/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/digitcaps_accel.rtd --add-section CLOCK_FREQ_TOPOLOGY:JSON:/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/digitcaps_accel_xml.rtd --add-section BUILD_METADATA:JSON:/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/digitcaps_accel_build.rtd --add-section EMBEDDED_METADATA:RAW:/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/digitcaps_accel.xml --add-section SYSTEM_METADATA:RAW:/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/systemDiagramModelSlrBaseAddress.json --key-value SYS:PlatformVBNV:xilinx_zcu102_dynamic_1_0 --output /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/digitcaps_accel.xclbin",
+  "args": [
+   "--add-section",
+   "BITSTREAM:RAW:/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/partial.bit",
+   "--force",
+   "--target",
+   "hw",
+   "--key-value",
+   "SYS:dfx_enable:true",
+   "--add-section",
+   ":JSON:/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/digitcaps_accel.rtd",
+   "--add-section",
+   "CLOCK_FREQ_TOPOLOGY:JSON:/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/digitcaps_accel_xml.rtd",
+   "--add-section",
+   "BUILD_METADATA:JSON:/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/digitcaps_accel_build.rtd",
+   "--add-section",
+   "EMBEDDED_METADATA:RAW:/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/digitcaps_accel.xml",
+   "--add-section",
+   "SYSTEM_METADATA:RAW:/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/systemDiagramModelSlrBaseAddress.json",
+   "--key-value",
+   "SYS:PlatformVBNV:xilinx_zcu102_dynamic_1_0",
+   "--output",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/digitcaps_accel.xclbin"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jul  7 21:15:58 2026",
+ "timestampMillis": "1783415758047",
+ "status": {
+  "cmdId": "24a08bc9-0257-4f48-a64d-c826252eceeb",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jul  7 21:15:58 2026",
+ "timestampMillis": "1783415758997",
+ "status": {
+  "cmdId": "24a08bc9-0257-4f48-a64d-c826252eceeb",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Tue Jul  7 21:15:58 2026",
+ "timestampMillis": "1783415758998",
+ "buildStep": {
+  "cmdId": "7bcf8b3a-ad5f-46fa-9bc5-8be3df11cb50",
+  "name": "xclbinutilinfo",
+  "logFile": "",
+  "commandLine": "xclbinutil --quiet --force --info /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/digitcaps_accel.xclbin.info --input /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/digitcaps_accel.xclbin",
+  "args": [
+   "--quiet",
+   "--force",
+   "--info",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/digitcaps_accel.xclbin.info",
+   "--input",
+   "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/digitcaps_accel.xclbin"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jul  7 21:15:58 2026",
+ "timestampMillis": "1783415758998",
+ "status": {
+  "cmdId": "7bcf8b3a-ad5f-46fa-9bc5-8be3df11cb50",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jul  7 21:15:59 2026",
+ "timestampMillis": "1783415759997",
+ "status": {
+  "cmdId": "7bcf8b3a-ad5f-46fa-9bc5-8be3df11cb50",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Tue Jul  7 21:15:59 2026",
+ "timestampMillis": "1783415759998",
+ "buildStep": {
+  "cmdId": "1385170f-e1ac-40ad-b3be-fb3177ed9c15",
+  "name": "generate_sc_driver",
+  "logFile": "",
+  "commandLine": "",
+  "args": [],
+  "iniFiles": [],
+  "cwd": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jul  7 21:15:59 2026",
+ "timestampMillis": "1783415759998",
+ "status": {
+  "cmdId": "1385170f-e1ac-40ad-b3be-fb3177ed9c15",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jul  7 21:15:59 2026",
+ "timestampMillis": "1783415759999",
+ "status": {
+  "cmdId": "1385170f-e1ac-40ad-b3be-fb3177ed9c15",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jul  7 21:16:00 2026",
+ "timestampMillis": "1783415760007",
+ "report": {
+  "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/reports/link/system_estimate_digitcaps_accel.xtxt",
+  "name": "",
+  "fileType": "TEXT",
+  "reportType": "GLOBAL_SYSTEM_ESTIMATE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jul  7 21:16:00 2026",
+ "timestampMillis": "1783415760080",
+ "report": {
+  "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/reports/link/v++_link_digitcaps_accel_guidance.html",
+  "name": "",
+  "fileType": "HTML",
+  "reportType": "GLOBAL_RULECHECK_GUIDANCE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jul  7 21:16:00 2026",
+ "timestampMillis": "1783415760080",
+ "report": {
+  "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/v++_link_digitcaps_accel_guidance.pb",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_RULECHECK_GUIDANCE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Tue Jul  7 21:16:00 2026",
+ "timestampMillis": "1783415760082",
+ "report": {
+  "path": "/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/logs/optraceViewer.html",
+  "name": "",
+  "fileType": "HTML",
+  "reportType": "OPERATION_TRACE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Tue Jul  7 21:16:00 2026",
+ "timestampMillis": "1783415760082",
+ "status": {
+  "cmdId": "8eeb146f-8e1a-4e4e-9e11-af49906845a9",
+  "state": "CS_PASSED"
+ }
+}
+</ENTRY>

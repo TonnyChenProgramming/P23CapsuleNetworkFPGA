@@ -1,0 +1,11 @@
+===================================
+Configuration Memory information
+===================================
+File Format        MCS
+Interface          BPIX16
+Size               1024M
+Start Address      0x00000000
+End Address        0x3FFFFFFF
+
+Addr1         Addr2         Date                    File(s)
+0x00000000    0x009E3C2B    Apr 15 17:32:06 2022    /proj/xbb/xrt-embedded/2022.1/hw/2022.1_0415_0430/Xilinx_Official_Platforms/xilinx_zcu102_base_dfx/hw/build/.Xil/Vivado-163-399467ad205a/xsa/hw.bit

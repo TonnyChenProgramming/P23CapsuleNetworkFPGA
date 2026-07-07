@@ -1,0 +1,42 @@
+{
+    "schema_version": {
+        "major": "1",
+        "minor": "0",
+        "patch": "0"
+    },
+    "design_state": "Synthesized",
+    "user_budget": {
+        "actual_resources": {
+            "LUT": "23462",
+            "LUTAsMem": "2755",
+            "REG": "26320",
+            "BRAM": "260",
+            "DSP": "52"
+        },
+        "supply_resources": {
+            "LUT": "253021",
+            "LUTAsMem": "140403",
+            "REG": "507076",
+            "BRAM": "889",
+            "DSP": "2520"
+        }
+    },
+    "kernels": [
+        {
+            "name": "digitcaps_accel",
+            "compute_unit_count": "1",
+            "compute_units": [
+                {
+                    "cu_name": "digitcaps_accel_1",
+                    "actual_resources": {
+                        "LUT": "23462",
+                        "LUTAsMem": "2755",
+                        "REG": "26320",
+                        "BRAM": "260",
+                        "DSP": "52"
+                    }
+                }
+            ]
+        }
+    ]
+}

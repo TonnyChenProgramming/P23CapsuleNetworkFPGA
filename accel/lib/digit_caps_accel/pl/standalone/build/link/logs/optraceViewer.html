@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+
+<html>
+<!-- Styles -->
+<style>
+    #chartdiv {
+      width: 100%;
+      height: 1000px;
+    }
+</style>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>OPTraceViewer</title>
+  <script src="https://www.amcharts.com/lib/3/amcharts.js">
+  </script>
+  <script src="https://www.amcharts.com/lib/3/serial.js">
+  </script>
+  <script src="https://www.amcharts.com/lib/3/gantt.js">
+  </script>
+  <script src="https://www.amcharts.com/lib/3/themes/light.js">
+  </script>
+  <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js">
+  </script>
+  <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all"/>
+
+  <form name="userInputForm" action="javascript:userInputFormCallback()">
+    <fieldset>
+    <legend>Graph Filters:</legend>
+    <table style="width:100%">
+      <col width="50"></col>
+      <col width="20"></col>
+      <col width="60"></col>
+      <tr>
+        <td style="text-align: center"; colspan="3"><input type="number" name="userDurationFilterSecInput" id="userDurationFilterSecInput" value="2" min="0" max="6000" step="1"> sec</td>
+        <td>Filter out run durations lower than this value</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td style="text-align: center"><input type="checkbox" name="userGroupPidSortSelected" id="userGroupPidSortSelected"></td>
+        <td>Group sort by process ID</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td bgcolor="#0099ff"></td>
+        <td style="text-align: center"><input type="checkbox" name="userRollupSelected" id="userRollupSelected"></td>
+        <td>Show rollup entries</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td bgcolor="#8dc49f"></td>
+        <td style="text-align: center"><input type="checkbox" name="userIndividualEntrySelected" id="userIndividualEntrySelected"></td>
+        <td>Show individual entries</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td bgcolor="#cd82ad"></td>
+        <td style="text-align: center"><input type="checkbox" name="userCheckpointEntrySelected" id="userCheckpointEntrySelected"></td>
+        <td>Show checkpoints entry</td>
+      </tr>
+       <tr>
+        <td></td>
+        <td bgcolor="#b9783f"></td>
+        <td style="text-align: center"><input type="checkbox" name="userReportEntrySelected" id="userReportEntrySelected"></td>
+        <td>Show report entry</td>
+      </tr>
+
+    </table>
+    <br>
+    <input name="Submit" type="submit" value="Update Graph">
+    </fieldset>
+  </form> 
+
+  <div id="chartdiv">
+  </div>
+
+  <script>
+  </script>
+
+</head>
+
+
+<body>
+<table id="myDynamicTable" cellpadding="2" cellspacing="2" border="1" onclick="tester()">
+  <tr>
+  <td>Task</td>
+  <td>Start</td>
+  <td>Duration</td>
+  </tr>
+</table>
+<script>
+  // Default User Selected variables
+  var m_secondFilter = 1;
+  var m_groupPidSort = true;
+  var m_showRollup = true;
+  var m_showIndividualEntry = false;
+  var m_showCheckpointEntry = false;
+  var m_showReportEntry = false;
+
+  function SetDefaultUserValues()
+  {
+    document.getElementById("userDurationFilterSecInput").value = m_secondFilter;
+    document.getElementById("userGroupPidSortSelected").checked = m_groupPidSort;
+    document.getElementById("userRollupSelected").checked = m_showRollup;
+    document.getElementById("userIndividualEntrySelected").checked = m_showIndividualEntry;
+    document.getElementById("userCheckpointEntrySelected").checked = m_showCheckpointEntry;
+    document.getElementById("userReportEntrySelected").checked = m_showReportEntry;
+  }
+
+  window.onload = function(){
+    SetDefaultUserValues();
+  }
+
+
+
+
+  // Header
+  var header = "Keyword|pid|Entry|SrcFile|Catagory|TimeStampMSec|Action|Task|Tags|Misc";
+                         
+  // Insert Raw Data Here
+  // Note: Do not change the following signature. 
+  var csvData =    [
+      "[OPTRACE]|6194|10|run|cpp|1783414957134|START|OCL_LINK|",
+      "[OPTRACE]|6194|11|setupBinaryForLink|cpp|1783414957134|START|Create Binary|",
+      "[OPTRACE]|6194|12||cpp|1783414957134|END|Create Binary|",
+      "[OPTRACE]|6194|13|setupBinaryForLink|cpp|1783414957134|START|Extract Kernels|",
+      "[OPTRACE]|6194|14||cpp|1783414957297|END|Extract Kernels|",
+      "[OPTRACE]|6194|15|launchStep_|cpp|1783414957375|START|Launch Step: system_link|",
+      "[OPTRACE]|6194|16||cpp|1783414965971|END|Launch Step: system_link|",
+      "[OPTRACE]|6194|17|launchStep_|cpp|1783414965971|START|Launch Step: cf2sw|",
+      "[OPTRACE]|6194|18||cpp|1783414967944|END|Launch Step: cf2sw|",
+      "[OPTRACE]|6194|19|launchStep_|cpp|1783414967944|START|Launch Step: rtd2_system_diagram|",
+      "[OPTRACE]|6194|1|main|cpp|1783414945401|START|v++|ROLLUP_0",
+      "[OPTRACE]|6194|20||cpp|1783414968110|END|Launch Step: rtd2_system_diagram|",
+      "[OPTRACE]|6194|212||cpp|1783415756261|END|Launch Step: vpl|",
+      "[OPTRACE]|6194|213|launchStep_|cpp|1783415756262|START|Launch Step: rtdgen|",
+      "[OPTRACE]|6194|214|launchCf2sw_|cpp|1783415756263|START|Launch cf2sw|",
+      "[OPTRACE]|6194|215||cpp|1783415758043|END|Launch cf2sw|",
+      "[OPTRACE]|6194|216|writeSystemDiagram|cpp|1783415758043|START|writeSystemDiagram|",
+      "[OPTRACE]|6194|217||cpp|1783415758045|END|writeSystemDiagram|",
+      "[OPTRACE]|6194|218|writeAutomationSummary|cpp|1783415758045|START|writeAutomationSummary|",
+      "[OPTRACE]|6194|219||cpp|1783415758046|END|writeAutomationSummary|",
+      "[OPTRACE]|6194|21|launchStep_|cpp|1783414968111|START|Launch Step: vpl|",
+      "[OPTRACE]|6194|220||cpp|1783415758046|END|Launch Step: rtdgen|",
+      "[OPTRACE]|6194|221|launchStep_|cpp|1783415758046|START|Launch Step: xclbinutil|",
+      "[OPTRACE]|6194|222||cpp|1783415758998|END|Launch Step: xclbinutil|",
+      "[OPTRACE]|6194|223|launchStep_|cpp|1783415758998|START|Launch Step: xclbinutilinfo|",
+      "[OPTRACE]|6194|224||cpp|1783415759998|END|Launch Step: xclbinutilinfo|",
+      "[OPTRACE]|6194|225|launchStep_|cpp|1783415759998|START|Launch Step: generate_sc_driver|",
+      "[OPTRACE]|6194|226||cpp|1783415759999|END|Launch Step: generate_sc_driver|",
+      "[OPTRACE]|6194|227||cpp|1783415759999|END|OCL_LINK|",
+      "[OPTRACE]|6194|228||cpp|1783415760081|END|v++|",
+      "[OPTRACE]|6194|2|run|cpp|1783414945401|START|Validate Kernels|",
+      "[OPTRACE]|6194|3||cpp|1783414945472|END|Validate Kernels|",
+      "[OPTRACE]|6194|4|prepareProject|cpp|1783414945483|START|Create Solution|",
+      "[OPTRACE]|6194|5||cpp|1783414956680|END|Create Solution|",
+      "[OPTRACE]|6194|6|prepareProject|cpp|1783414956680|START|Add Device|",
+      "[OPTRACE]|6194|7|addDevice|cpp|1783414956681|START|Find & Load Device|",
+      "[OPTRACE]|6194|8||cpp|1783414956711|END|Find & Load Device|",
+      "[OPTRACE]|6194|9||cpp|1783414957127|END|Add Device|",
+      "[OPTRACE]|6542|208|runPlatformLinker|cpp|1783415756240|START|Generate Resource Availability Report|",
+      "[OPTRACE]|6542|209||cpp|1783415756240|END|Generate Resource Availability Report|",
+      "[OPTRACE]|6542|210||cpp|1783415756240|END|runPlatformLinker|",
+      "[OPTRACE]|6542|211||cpp|1783415756252|END|vpl|",
+      "[OPTRACE]|6542|22|main|cpp|1783414969174|START|vpl|",
+      "[OPTRACE]|6542|23|runPlatformLinker|cpp|1783414969187|START|runPlatformLinker|",
+      "[OPTRACE]|6542|24|setupBinaryForLink|cpp|1783414969187|START|Create Solution|",
+      "[OPTRACE]|6542|25||cpp|1783414969189|END|Create Solution|",
+      "[OPTRACE]|6542|26|setupBinaryForLink|cpp|1783414969189|START|Add platform|",
+      "[OPTRACE]|6542|27||cpp|1783414969654|END|Add platform|",
+      "[OPTRACE]|6542|28|setupBinaryForLink|cpp|1783414969654|START|Create Binary|",
+      "[OPTRACE]|6542|29||cpp|1783414969654|END|Create Binary|",
+      "[OPTRACE]|6542|30|setupBinaryForLink|cpp|1783414969654|START|Create Kernels|",
+      "[OPTRACE]|6542|31||cpp|1783414969660|END|Create Kernels|",
+      "[OPTRACE]|6542|32|runPlatformLinker|cpp|1783414969669|START|Process Kernels|",
+      "[OPTRACE]|6542|33|runPlatformLinker|cpp|1783414969669|START|Set Board Repo Paths and Connections|",
+      "[OPTRACE]|6542|34||cpp|1783414969670|END|Set Board Repo Paths and Connections|",
+      "[OPTRACE]|6542|35|runPlatformLinker|cpp|1783414969670|START|Process Kernel Profiles|",
+      "[OPTRACE]|6542|36||cpp|1783414969670|END|Process Kernel Profiles|",
+      "[OPTRACE]|6542|37|runPlatformLinker|cpp|1783414969670|START|Process Trace Memory|",
+      "[OPTRACE]|6542|38||cpp|1783414969670|END|Process Trace Memory|",
+      "[OPTRACE]|6542|39||cpp|1783414969670|END|Process Kernels|",
+      "[OPTRACE]|6542|40|runPlatformLinker|cpp|1783414969670|START|Process Kernel Debug|",
+      "[OPTRACE]|6542|41||cpp|1783414969670|END|Process Kernel Debug|",
+      "[OPTRACE]|6542|42|runPlatformLinker|cpp|1783414969670|START|Set Kernel Debug|",
+      "[OPTRACE]|6542|43||cpp|1783414969670|END|Set Kernel Debug|",
+      "[OPTRACE]|6542|44|runPlatformLinker|cpp|1783414969670|START|Set Miscellaneous|",
+      "[OPTRACE]|6542|45||cpp|1783414969670|END|Set Miscellaneous|",
+      "[OPTRACE]|6542|46|run|cpp|1783414969670|START|Extract Platform|",
+      "[OPTRACE]|6542|47||cpp|1783414970033|END|Extract Platform|",
+      "[OPTRACE]|6623|110|ipirun.tcl|vpl|1783415229684|END|Synthesis|",
+      "[OPTRACE]|6623|207|ipirun.tcl|vpl|1783415755862|END|Implementation|",
+      "[OPTRACE]|6623|48|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/vpl.tcl|vivado_impl|1783414974138|START|Implementation|ROLLUP_1",
+      "[OPTRACE]|6623|49|ipirun.tcl|vpl|1783414974154|START|ipirun|ROLLUP_0",
+      "[OPTRACE]|6623|50|ipirun.tcl|vpl|1783414974155|END|ipirun|",
+      "[OPTRACE]|6623|51|ipirun.tcl|vpl|1783414974165|START|Create project|",
+      "[OPTRACE]|6623|52|ipirun.tcl|vpl|1783414976540|END|Create project|",
+      "[OPTRACE]|6623|53|ipirun.tcl|vpl|1783414976544|START|Create IP caching environment|",
+      "[OPTRACE]|6623|54|ipirun.tcl|vpl|1783414977250|END|Create IP caching environment|",
+      "[OPTRACE]|6623|55|ipirun.tcl|vpl|1783414977250|START|Import/add dynamic BD|",
+      "[OPTRACE]|6623|56|ipirun.tcl|vpl|1783414978445|END|Import/add dynamic BD|",
+      "[OPTRACE]|6623|57|ipirun.tcl|vpl|1783414978445|START|Open BD and insert kernels|",
+      "[OPTRACE]|6623|58|ipirun.tcl|vpl|1783414980044|START|Source pre_sys_link_overlay_tcl Tcl script|",
+      "[OPTRACE]|6623|59|ipirun.tcl|vpl|1783414980044|END|Source pre_sys_link_overlay_tcl Tcl script|",
+      "[OPTRACE]|6623|60|ipirun.tcl|vpl|1783414981628|START|Source post_sys_link_overlay_tcl Tcl script|",
+      "[OPTRACE]|6623|61|ipirun.tcl|vpl|1783414981630|END|Source post_sys_link_overlay_tcl Tcl script|",
+      "[OPTRACE]|6623|62|ipirun.tcl|vpl|1783414981633|END|Open BD and insert kernels|",
+      "[OPTRACE]|6623|63|ipirun.tcl|vpl|1783414981634|START|Add debug/profiling support|",
+      "[OPTRACE]|6623|64|ipirun.tcl|vpl|1783414981652|END|Add debug/profiling support|",
+      "[OPTRACE]|6623|65|ipirun.tcl|vpl|1783414981652|START|IPI address assignments|",
+      "[OPTRACE]|6623|66|ipirun.tcl|vpl|1783414981660|END|IPI address assignments|",
+      "[OPTRACE]|6623|67|ipirun.tcl|vpl|1783414981663|START|Save BD|",
+      "[OPTRACE]|6623|68|ipirun.tcl|vpl|1783414981730|END|Save BD|",
+      "[OPTRACE]|6623|69|ipirun.tcl|vpl|1783414981730|START|Create address map and debug IP profile files|",
+      "[OPTRACE]|6623|70|ipirun.tcl|vpl|1783414981733|END|Create address map and debug IP profile files|",
+      "[OPTRACE]|6623|71|ipirun.tcl|vpl|1783414981733|START|Collect BD interface connectivity and write automation summary report|",
+      "[OPTRACE]|6623|72|ipirun.tcl|vpl|1783414981736|END|Collect BD interface connectivity and write automation summary report|",
+      "[OPTRACE]|6623|73|ipirun.tcl|vpl|1783414981737|START|Generate output products|",
+      "[OPTRACE]|6623|74|ipirun.tcl|vpl|1783414994202|END|Generate output products|",
+      "[OPTRACE]|6623|75|ipirun.tcl|vpl|1783414994203|START|Source report_commands_tcl|",
+      "[OPTRACE]|6623|76|ipirun.tcl|vpl|1783414994260|END|Source report_commands_tcl|",
+      "[OPTRACE]|6623|77|ipirun.tcl|vpl|1783414994260|START|Source synth_props_tcl|",
+      "[OPTRACE]|6623|78|ipirun.tcl|vpl|1783414995428|END|Source synth_props_tcl|",
+      "[OPTRACE]|6623|79|ipirun.tcl|vpl|1783414995431|START|Source impl_props_tcl|",
+      "[OPTRACE]|6623|80|ipirun.tcl|vpl|1783414995458|END|Source impl_props_tcl|",
+      "[OPTRACE]|6623|81|ipirun.tcl|vpl|1783414995459|START|Synthesis|ROLLUP_1,SYNTH",
+      "[OPTRACE]|6880|82|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/pfm_dynamic_digitcaps_accel_1_0_synth_1/pfm_dynamic_digitcaps_accel_1_0.tcl|vivado_synth|1783415000743|START|pfm_dynamic_digitcaps_accel_1_0_synth_1|ROLLUP_AUTO",
+      "[OPTRACE]|6880|83|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/pfm_dynamic_digitcaps_accel_1_0_synth_1/pfm_dynamic_digitcaps_accel_1_0.tcl|vivado_synth|1783415000743|START|Creating in-memory project|",
+      "[OPTRACE]|6880|84|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/pfm_dynamic_digitcaps_accel_1_0_synth_1/pfm_dynamic_digitcaps_accel_1_0.tcl|vivado_synth|1783415003520|END|Creating in-memory project|",
+      "[OPTRACE]|6880|85|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/pfm_dynamic_digitcaps_accel_1_0_synth_1/pfm_dynamic_digitcaps_accel_1_0.tcl|vivado_synth|1783415003520|START|Adding files|",
+      "[OPTRACE]|6880|86|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/pfm_dynamic_digitcaps_accel_1_0_synth_1/pfm_dynamic_digitcaps_accel_1_0.tcl|vivado_synth|1783415003733|END|Adding files|",
+      "[OPTRACE]|6880|87|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/pfm_dynamic_digitcaps_accel_1_0_synth_1/pfm_dynamic_digitcaps_accel_1_0.tcl|vivado_synth|1783415003734|START|Configure IP Cache|",
+      "[OPTRACE]|6880|88|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/pfm_dynamic_digitcaps_accel_1_0_synth_1/pfm_dynamic_digitcaps_accel_1_0.tcl|vivado_synth|1783415003735|END|Configure IP Cache|",
+      "[OPTRACE]|6880|89|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/pfm_dynamic_digitcaps_accel_1_0_synth_1/pfm_dynamic_digitcaps_accel_1_0.tcl|vivado_synth|1783415003735|START|synth_design|",
+      "[OPTRACE]|6880|90|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/pfm_dynamic_digitcaps_accel_1_0_synth_1/pfm_dynamic_digitcaps_accel_1_0.tcl|vivado_synth|1783415174717|END|synth_design|",
+      "[OPTRACE]|6880|91|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/pfm_dynamic_digitcaps_accel_1_0_synth_1/pfm_dynamic_digitcaps_accel_1_0.tcl|vivado_synth|1783415174717|START|Write IP Cache|",
+      "[OPTRACE]|6880|92|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/pfm_dynamic_digitcaps_accel_1_0_synth_1/pfm_dynamic_digitcaps_accel_1_0.tcl|vivado_synth|1783415180251|END|Write IP Cache|",
+      "[OPTRACE]|6880|93|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/pfm_dynamic_digitcaps_accel_1_0_synth_1/pfm_dynamic_digitcaps_accel_1_0.tcl|vivado_synth|1783415180255|START|write_checkpoint|CHECKPOINT",
+      "[OPTRACE]|6880|94|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/pfm_dynamic_digitcaps_accel_1_0_synth_1/pfm_dynamic_digitcaps_accel_1_0.tcl|vivado_synth|1783415182821|END|write_checkpoint|",
+      "[OPTRACE]|6880|95|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/pfm_dynamic_digitcaps_accel_1_0_synth_1/pfm_dynamic_digitcaps_accel_1_0.tcl|vivado_synth|1783415182821|START|synth reports|REPORT",
+      "[OPTRACE]|6880|96|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/pfm_dynamic_digitcaps_accel_1_0_synth_1/pfm_dynamic_digitcaps_accel_1_0.tcl|vivado_synth|1783415183039|END|synth reports|",
+      "[OPTRACE]|6880|97|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/pfm_dynamic_digitcaps_accel_1_0_synth_1/pfm_dynamic_digitcaps_accel_1_0.tcl|vivado_synth|1783415186005|END|pfm_dynamic_digitcaps_accel_1_0_synth_1|",
+      "[OPTRACE]|7161|100|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/pfm_dynamic.tcl|vivado_synth|1783415195477|END|Creating in-memory project|",
+      "[OPTRACE]|7161|101|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/pfm_dynamic.tcl|vivado_synth|1783415195477|START|Adding files|",
+      "[OPTRACE]|7161|102|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/pfm_dynamic.tcl|vivado_synth|1783415197360|END|Adding files|",
+      "[OPTRACE]|7161|103|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/pfm_dynamic.tcl|vivado_synth|1783415197365|START|synth_design|",
+      "[OPTRACE]|7161|104|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/pfm_dynamic.tcl|vivado_synth|1783415225139|END|synth_design|",
+      "[OPTRACE]|7161|105|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/pfm_dynamic.tcl|vivado_synth|1783415225147|START|write_checkpoint|CHECKPOINT",
+      "[OPTRACE]|7161|106|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/pfm_dynamic.tcl|vivado_synth|1783415225620|END|write_checkpoint|",
+      "[OPTRACE]|7161|107|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/pfm_dynamic.tcl|vivado_synth|1783415225620|START|synth reports|REPORT",
+      "[OPTRACE]|7161|108|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/pfm_dynamic.tcl|vivado_synth|1783415225620|END|synth reports|",
+      "[OPTRACE]|7161|109|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/pfm_dynamic.tcl|vivado_synth|1783415226158|END|my_rm_synth_1|",
+      "[OPTRACE]|7161|98|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/pfm_dynamic.tcl|vivado_synth|1783415192693|START|my_rm_synth_1|ROLLUP_AUTO",
+      "[OPTRACE]|7161|99|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/pfm_dynamic.tcl|vivado_synth|1783415192694|START|Creating in-memory project|",
+      "[OPTRACE]|7386|111|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415234914|START|impl_1|ROLLUP_1",
+      "[OPTRACE]|7386|112|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415234914|START|Phase: Init Design|ROLLUP_AUTO",
+      "[OPTRACE]|7386|113|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415234915|START|Design Initialization: pre hook|",
+      "[OPTRACE]|7386|114|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415234926|END|Design Initialization: pre hook|",
+      "[OPTRACE]|7386|115|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415234927|START|create in-memory project|",
+      "[OPTRACE]|7386|116|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415237019|END|create in-memory project|",
+      "[OPTRACE]|7386|117|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415237019|START|set parameters|",
+      "[OPTRACE]|7386|118|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415237696|END|set parameters|",
+      "[OPTRACE]|7386|119|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415237696|START|add files|",
+      "[OPTRACE]|7386|120|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415239544|START|read constraints: implementation|",
+      "[OPTRACE]|7386|121|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415239545|END|read constraints: implementation|",
+      "[OPTRACE]|7386|122|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415239546|END|add files|",
+      "[OPTRACE]|7386|123|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415239546|START|link_design|",
+      "[OPTRACE]|7386|124|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415278644|END|link_design|",
+      "[OPTRACE]|7386|125|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415278644|START|gray box cells|",
+      "[OPTRACE]|7386|126|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415278644|END|gray box cells|",
+      "[OPTRACE]|7386|127|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415278644|START|Design Initialization: post hook|",
+      "[OPTRACE]|7386|128|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415278655|END|Design Initialization: post hook|",
+      "[OPTRACE]|7386|129|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415278655|START|init_design_reports|REPORT",
+      "[OPTRACE]|7386|130|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415278655|END|init_design_reports|",
+      "[OPTRACE]|7386|131|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415278655|START|init_design_write_hwdef|",
+      "[OPTRACE]|7386|132|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415278656|END|init_design_write_hwdef|",
+      "[OPTRACE]|7386|133|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415278656|END|Phase: Init Design|",
+      "[OPTRACE]|7386|134|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415278656|START|Phase: Opt Design|ROLLUP_AUTO",
+      "[OPTRACE]|7386|135|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415278656|START|Opt Design: pre hook|",
+      "[OPTRACE]|7386|136|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415280884|END|Opt Design: pre hook|",
+      "[OPTRACE]|7386|137|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415280884|START|read constraints: opt_design|",
+      "[OPTRACE]|7386|138|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415280884|END|read constraints: opt_design|",
+      "[OPTRACE]|7386|139|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415280884|START|opt_design|",
+      "[OPTRACE]|7386|140|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415304076|END|opt_design|",
+      "[OPTRACE]|7386|141|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415304076|START|read constraints: opt_design_post|",
+      "[OPTRACE]|7386|142|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415304076|END|read constraints: opt_design_post|",
+      "[OPTRACE]|7386|143|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415304076|START|Opt Design: post hook|",
+      "[OPTRACE]|7386|144|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415304077|END|Opt Design: post hook|",
+      "[OPTRACE]|7386|145|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415304077|START|opt_design reports|REPORT",
+      "[OPTRACE]|7386|146|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415304077|END|opt_design reports|",
+      "[OPTRACE]|7386|147|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415304077|END|Phase: Opt Design|",
+      "[OPTRACE]|7386|148|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415304077|START|Phase: Place Design|ROLLUP_AUTO",
+      "[OPTRACE]|7386|149|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415304078|START|Place Design: pre hook|",
+      "[OPTRACE]|7386|150|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415304094|END|Place Design: pre hook|",
+      "[OPTRACE]|7386|151|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415304095|START|read constraints: place_design|",
+      "[OPTRACE]|7386|152|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415304095|END|read constraints: place_design|",
+      "[OPTRACE]|7386|153|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415304095|START|implement_debug_core|",
+      "[OPTRACE]|7386|154|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415304107|END|implement_debug_core|",
+      "[OPTRACE]|7386|155|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415304107|START|place_design|",
+      "[OPTRACE]|7386|156|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415479173|END|place_design|",
+      "[OPTRACE]|7386|157|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415479173|START|read constraints: place_design_post|",
+      "[OPTRACE]|7386|158|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415479173|END|read constraints: place_design_post|",
+      "[OPTRACE]|7386|159|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415479173|START|Place Design: post hook|",
+      "[OPTRACE]|7386|160|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415483681|END|Place Design: post hook|",
+      "[OPTRACE]|7386|161|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415483681|START|place_design reports|REPORT",
+      "[OPTRACE]|7386|162|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415483681|END|place_design reports|",
+      "[OPTRACE]|7386|163|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415483681|END|Phase: Place Design|",
+      "[OPTRACE]|7386|164|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415483681|START|Phase: Physical Opt Design|ROLLUP_AUTO",
+      "[OPTRACE]|7386|165|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415483682|START|read constraints: phys_opt_design|",
+      "[OPTRACE]|7386|166|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415483682|END|read constraints: phys_opt_design|",
+      "[OPTRACE]|7386|167|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415483682|START|phys_opt_design|",
+      "[OPTRACE]|7386|168|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415492536|END|phys_opt_design|",
+      "[OPTRACE]|7386|169|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415492536|START|read constraints: phys_opt_design_post|",
+      "[OPTRACE]|7386|170|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415492536|END|read constraints: phys_opt_design_post|",
+      "[OPTRACE]|7386|171|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415492536|START|phys_opt_design report|REPORT",
+      "[OPTRACE]|7386|172|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415492536|END|phys_opt_design report|",
+      "[OPTRACE]|7386|173|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415492536|END|Phase: Physical Opt Design|",
+      "[OPTRACE]|7386|174|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415492536|START|Phase: Route Design|ROLLUP_AUTO",
+      "[OPTRACE]|7386|175|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415492537|START|read constraints: route_design|",
+      "[OPTRACE]|7386|176|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415492537|END|read constraints: route_design|",
+      "[OPTRACE]|7386|177|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415492537|START|route_design|",
+      "[OPTRACE]|7386|178|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415632940|END|route_design|",
+      "[OPTRACE]|7386|179|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415632940|START|read constraints: route_design_post|",
+      "[OPTRACE]|7386|180|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415632940|END|read constraints: route_design_post|",
+      "[OPTRACE]|7386|181|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415632940|START|Route Design: post hook|",
+      "[OPTRACE]|7386|182|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415642193|END|Route Design: post hook|",
+      "[OPTRACE]|7386|183|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415642193|START|Route Design: write_checkpoint|CHECKPOINT",
+      "[OPTRACE]|7386|184|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415649921|END|Route Design: write_checkpoint|",
+      "[OPTRACE]|7386|185|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415649921|START|route_design reports|REPORT",
+      "[OPTRACE]|7386|186|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415656695|END|route_design reports|",
+      "[OPTRACE]|7386|187|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415656695|START|route_design misc|",
+      "[OPTRACE]|7386|188|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415656696|END|route_design misc|",
+      "[OPTRACE]|7386|189|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415656696|END|Phase: Route Design|",
+      "[OPTRACE]|7386|190|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415656696|START|Phase: Write Bitstream|ROLLUP_AUTO",
+      "[OPTRACE]|7386|191|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415656696|START|write_bitstream setup|",
+      "[OPTRACE]|7386|192|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415656696|START|Write Bitstream: pre hook|",
+      "[OPTRACE]|7386|193|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415657361|END|Write Bitstream: pre hook|",
+      "[OPTRACE]|7386|194|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415657361|START|read constraints: write_bitstream|",
+      "[OPTRACE]|7386|195|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415657362|END|read constraints: write_bitstream|",
+      "[OPTRACE]|7386|196|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415657362|END|write_bitstream setup|",
+      "[OPTRACE]|7386|197|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415657362|START|write_bitstream|",
+      "[OPTRACE]|7386|198|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415750408|END|write_bitstream|",
+      "[OPTRACE]|7386|199|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415750408|START|write_bitstream misc|",
+      "[OPTRACE]|7386|200|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415750408|START|read constraints: write_bitstream_post|",
+      "[OPTRACE]|7386|201|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415750408|END|read constraints: write_bitstream_post|",
+      "[OPTRACE]|7386|202|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415750408|START|Write Bitstream: post hook|",
+      "[OPTRACE]|7386|203|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415750409|END|Write Bitstream: post hook|",
+      "[OPTRACE]|7386|204|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415750410|END|write_bitstream misc|",
+      "[OPTRACE]|7386|205|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415750410|END|Phase: Write Bitstream|",
+      "[OPTRACE]|7386|206|/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/pfm_top_wrapper.tcl|vivado_impl|1783415750410|END|impl_1|"
+      ];
+
+  var legendData = [
+  { "title": "Report Generation",
+    "color": "#b9783f"
+  }, {
+    "title": "Write Checkpoint",
+    "color": "#cd82ad"
+  },
+  {
+    "title": "Incomplete Data",
+    "color": "#cc4748"
+  } ];
+
+  // -- Convert Raw data into something we can use ---------------------------
+  console.log("Convert log data (%s entries) to Javascript 'JSON' objects...", csvData.length);
+  var jsonData = csvArrayToJSON(header, csvData, "|");
+
+  // -- Clean up the JSON objects --------------------------------------------
+  for (var i = 0; i < jsonData.length; i++) {
+    jsonData[i].Action = jsonData[i].Action.toUpperCase();
+    jsonData[i].Tags = jsonData[i].Tags.toUpperCase();
+    jsonData[i].Tags = jsonData[i].Tags.trim();
+    jsonData[i].TimeStampMSec = parseInt(jsonData[i].TimeStampMSec, 10);
+    jsonData[i].pid = parseInt(jsonData[i].pid, 10);
+  }
+
+  // -- Sort JSON array ------------------------------------------------------
+  console.log("Sorting JSON objects (%s objects) according to timestamps...", jsonData.length);
+  jsonData.sort(compareByTimeStamp);
+
+  // Record the PID grouping order
+  var pidOrder = new Map();
+  for (var i = 0; i < jsonData.length; i++) {
+    if (pidOrder.has(jsonData[i].pid) == false) {
+      pidOrder.set(jsonData[i].pid, i);    // Simple ordering (lower is first)
+    }
+  }
+
+  // -- Create secondary data array for the chart data array -----------------
+  console.log("Preparing graph data...");
+
+  // Task limits
+  var m_startTS = 0;      // Earliest Timestamp
+  var m_endTS = 0;        // Latest Timestamp
+
+  if (jsonData.length > 0) {
+    m_startTS = jsonData[0].TimeStampMSec;
+    m_endTS = jsonData[jsonData.length - 1].TimeStampMSec;
+  }
+
+
+  var chartData = [ ];   // Empty JSON array
+
+
+  populateChartData();
+  tableCreate( chartData );
+
+  filterChartEntries();
+
+  // -- Search for "holes"
+  // -- Sort by common PID
+  // -- Create groupings by process
+
+  console.log("done");
+
+  var chart = AmCharts.makeChart("chartdiv", {
+    "type": "gantt",
+    "theme": "light",
+    "titles": [
+    { "text": "OPTrace", "size": 15}],
+    "marginRight": 70,
+    "period": "fff",                                     // X-Axis
+    "balloonDateFormat": "JJ:NN:SS",
+    "columnWidth": 0.5,                                 // Bar thickness
+    "valueAxis": {
+      "type": "numeric",
+      "title": "Time [HH:MM:SS]",
+      "duration": "ss",
+      "durationUnits": { DD: 'd. ', hh: ':', mm: ':', ss: '' },
+    },
+    "brightnessStep": 10,
+    "graph": {
+      "fillAlphas": 1,
+      "labelFunction": barLabelCallBack,
+      "labelText": " ",
+      "labelPosition": "right",
+      "balloonFunction": ballonLabelCallBack,
+      "balloonText": "<p align='left'> Task: [[task]]<br/>Start:[[start]]<br/>End:[[end]]<br/>Duration:[[duration]]</p>",
+      "bulletField": "bullet",
+      "bulletSize": 8
+    },
+    "rotate": true,
+    "categoryField": "category",
+    "segmentsField": "segments",
+    "colorField": "color",
+    "startDate": "2015-01-01 00:00:00",
+    "startField": "start",
+    "endField": "end",
+    "durationField": "duration",
+    "dataProvider": chartData,
+    "valueScrollbar": {
+      "autoGridCount": true
+    },
+    "chartScrollbar": {
+      "enable": true
+    },
+    "chartCursor": {
+      "cursorColor": "#55bb76",
+      "valueBalloonsEnabled": false,
+      "cursorAlpha": 0.1,
+      "valueLineAlpha": 0.5,
+      "valueLineBalloonEnabled": true,
+      "valueLineEnabled": true,
+      "zoomable": true,
+      "valueZoomable": true,
+      "fullWidth": true
+    },
+    "legend": {
+      "data": legendData,
+    },
+    "export": {
+      "enabled": true
+    }
+  });
+
+  // =========================================================================
+  // Call back methods
+  // =========================================================================
+function ballonLabelCallBack( _graphDataItem )
+{
+  var start = _graphDataItem.values.open;
+  var end = _graphDataItem.values.value;
+  var duration = end - start;
+
+  var result = "<p align='left'>Task: " + _graphDataItem.category + "<br/>Start: " + secondsToHHMMSS(start) + "<br/>End: " + secondsToHHMMSS( end ) + "<br/>Duration: " + secondsToHHMMSS( duration ) + "</p>";
+  return result;
+}
+
+
+function barLabelCallBack( _graphDataItem )
+{
+   var duration = _graphDataItem.values.value - _graphDataItem.values.open;
+
+   return secondsToHHMMSS( duration);
+}
+
+
+function userInputFormCallback()
+{
+  // Second filter
+  m_secondFilter = document.getElementById("userDurationFilterSecInput").value;
+  console.log("Setting second filter to: " + m_secondFilter + " seconds");
+
+  // Group PID Sort
+  m_groupPidSort = document.getElementById("userGroupPidSortSelected").checked;
+  console.log("Group PID filter is set to: " + m_groupPidSort);
+
+  // Rollup filter
+  m_showRollup = document.getElementById("userRollupSelected").checked;
+  console.log("Rollup filter is set to: " + m_showRollup);
+
+  // Individual filter
+  m_showIndividualEntry = document.getElementById("userIndividualEntrySelected").checked;
+  console.log("Individual filter is set to: " + m_showIndividualEntry);
+
+  // Checkpoint Report Entries filter
+  m_showCheckpointEntry = document.getElementById("userCheckpointEntrySelected").checked;
+  console.log("Checkpoint Entry filter is set to: " + m_showCheckpointEntry);
+
+  // Checkpoint Report Entries filter
+  m_showReportEntry = document.getElementById("userReportEntrySelected").checked;
+  console.log("Report Entry filter is set to: " + m_showReportEntry);
+
+  populateChartData();
+  filterChartEntries()
+  chart.dataProvider = chartData;
+  chart.validateData();
+}
+
+  // =========================================================================
+  // Utilities
+  // =========================================================================
+
+
+function populateChartData()
+{
+  chartData = [ ];
+  if (m_groupPidSort == false) {
+    jsonData.sort(compareByTimeStamp);
+  } else {
+    jsonData.sort(compareByGroupTimeStamp);
+  }
+
+  for (var i = 0; i < jsonData.length; i++) {
+    var timestamp = parseInt(jsonData[0].TimeStampMSec, 10);
+
+    if (m_startTS > timestamp) m_startTS = timestamp;
+    if (m_endTS < timestamp) m_endTS = timestamp;
+
+    for (var i = 0; i < jsonData.length; i++) {
+      switch (jsonData[i].Action) {
+      case "START":
+        var categoryEntry = { };
+        categoryEntry["category"] = jsonData[i].Task;
+        categoryEntry["pid"] = jsonData[i].pid;
+
+        var segmentEntry = { };
+        // Normalize entry and convert to seconds
+        segmentEntry["start"] = (jsonData[i].TimeStampMSec - m_startTS) / 1000;
+        segmentEntry["color"] = getTaskBarColor(jsonData[i].Tags)
+        segmentEntry["task"] = jsonData[i].Task;
+        segmentEntry["tags"] = jsonData[i].Tags;
+        segmentEntry["duration"] = -1;
+
+        categoryEntry["segments"] = [ ];
+        categoryEntry["segments"].push(segmentEntry);
+        chartData.push(categoryEntry);
+        break;
+
+      case "END":
+        var catagory = findCatagory(jsonData[i].pid, jsonData[i].Task, chartData);
+        if (catagory != null) {
+          var segmentsEntry = catagory.segments[0];
+          segmentsEntry["end"] = (jsonData[i].TimeStampMSec - m_startTS) / 1000;
+          segmentsEntry["duration"] = segmentsEntry.end - segmentsEntry.start;
+        } else {
+          console.log("Null entry found: pid:%s, Task: %s", jsonData[i].pid, jsonData[i].Task);
+        }
+
+        break;
+
+      default:
+        console.log("Default");
+        break;
+      }
+    }
+  }
+}
+
+function filterChartEntries()
+{
+  for(var i = chartData.length - 1; i >= 0; i--) {
+    var segment = chartData[i].segments[0];
+
+    // -- Remove entries less than 1 seconds
+    if ( segment["duration"] == -1) {
+      segment["bullet"] = "xError";
+      segment["color"] = "#cc4748";
+      segment["duration"] = ((m_endTS - m_startTS) / 1000) - segment["start"];
+    } else if (segment["duration"] <  m_secondFilter) {
+      chartData.splice(i, 1);
+      continue;
+    }
+  
+
+    // Filter by tags
+    var bHasRollup = false;
+    var bHasCheckpoint = false;
+    var bHasReport = false;
+
+    var tags = segment["tags"];
+    console.log("Tag: " + tags);
+    if (tags.search(/ROLLUP_/i) != -1) { bHasRollup = true; }
+    if (tags.search(/CHECKPOINT/i) != -1) { bHasCheckpoint = true; }
+    if (tags.search(/REPORT/i) != -1) { bHasReport = true; }
+
+    var bRemoveEntry = false;
+
+    // Remove rollups
+    if ((m_showRollup == false) && (bHasRollup == true)) {
+      bRemoveEntry = true;
+    }
+    
+    // Remove checkpoints    
+    if ((m_showCheckpointEntry == false) && (bHasCheckpoint == true)) {
+      bRemoveEntry = true;
+    }
+
+    // Remove reports
+    if ((m_showReportEntry == false) && (bHasReport == true)) {
+      bRemoveEntry = true;
+    }
+
+    // Remove individual entry
+    if (((m_showIndividualEntry == false) && 
+         ((bHasRollup == false) &&
+          (bHasCheckpoint == false) &&
+          (bHasReport == false)))) {
+      bRemoveEntry = true;
+    }
+
+    if (bRemoveEntry == true) {
+      chartData.splice(i, 1);
+      continue;
+    }
+  }
+
+  console.log("ChartData.length: " + chartData.length);
+}
+
+
+function getTaskBarColor( _tags )
+{
+  if (_tags == null)
+    return "#8dc49f";
+
+  if (_tags.search(/ROLLUP_AUTO/i) != -1){ return "#0099ff"; }
+  if (_tags.search(/ROLLUP_0/i) != -1)   { return "#006699"; }
+  if (_tags.search(/ROLLUP_1/i) != -1)   { return "#009933"; }
+  if (_tags.search(/ROLLUP_2/i) != -1)   { return "#66ccff"; }
+  if (_tags.search(/REPORT/i) != -1)     { return "#b9783f"; }
+  if (_tags.search(/CHECKPOINT/i) != -1) { return "#cd82ad"; }
+
+  return "#8dc49f"
+}
+
+
+function tableCreate( _chartData ){
+    var myTableDiv = document.getElementById("myDynamicTable");
+
+
+    for ( var i = 0; i < _chartData.length; i++) {
+      var tr = myTableDiv.insertRow();
+
+      var td_task = tr.insertCell();
+      td_task.appendChild(document.createTextNode( _chartData[i].category ));
+
+      var segmentEntry = _chartData[i].segments;
+      var td_start = tr.insertCell();
+      td_start.appendChild(document.createTextNode( secondsToHHMMSS(segmentEntry[0].start) ));
+
+      var td_duration = tr.insertCell();
+      td_duration.appendChild(document.createTextNode( secondsToHHMMSS(segmentEntry[0].duration) ));
+
+    }
+}
+
+function secondsToHHMMSS( _seconds )
+{
+  var hours = Math.floor(_seconds / 3600);
+  var minutes = Math.floor(_seconds % 3600 / 60);
+  var seconds = Math.floor(_seconds % 3600 % 60);
+
+  var result = hours + ":" + (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds; 
+
+  return result;
+}
+
+
+  function findCatagory(_pid, _category, _catagoryArray) {
+    for (var i = (_catagoryArray.length - 1); i >= 0; i--) {
+      if (_pid == _catagoryArray[i].pid) {
+        if (_catagoryArray[i].category == _category) {
+          return  _catagoryArray[i];
+        }
+      }
+    }
+    return null;
+  }
+
+
+  // Compares the timestamps between to JSON objects
+  function compareByTimeStamp(_a, _b) {
+    if (_a.TimeStampMSec < _b.TimeStampMSec) return -1;
+    if (_a.TimeStampMSec > _b.TimeStampMSec) return 1;
+
+    if (_a.pid == _b.pid) {
+      if ((_a.Action == "START") && (_b.Action == "END")) return -1;
+      if ((_a.Action == "END") && (_b.Action == "START")) return 1;
+
+      if(_a.Entry < _b.Entry) return -1;
+      if(_a.Entry > _b.Entry) return 1;
+    }
+
+    return 0;
+  }
+
+
+  // Compares the timestamps between to JSON objects
+  function compareByGroupTimeStamp(_a, _b) {
+    if (pidOrder.get(_a.pid) < pidOrder.get(_b.pid)) return -1;
+
+    if (pidOrder.get(_a.pid) > pidOrder.get(_b.pid)) return 1;
+
+    return compareByTimeStamp(_a, _b);
+  }
+
+
+  // Return array of string values, or NULL if CSV string not well formed.
+  function CSVtoArray(_text, _sep) {
+    // Regex expressions
+    var re_valid_default = /^\s*(?:'[^'\\]*(?:\\[\S\s][^'\\]*)*'|"[^"\\]*(?:\\[\S\s][^"\\]*)*"|[^,'"\s\\]*(?:\s+[^,'"\s\\]+)*)\s*(?:,\s*(?:'[^'\\]*(?:\\[\S\s][^'\\]*)*'|"[^"\\]*(?:\\[\S\s][^"\\]*)*"|[^,'"\s\\]*(?:\s+[^,'"\s\\]+)*)\s*)*$/;
+    var re_value_default = /(?!\s*$)\s*(?:'([^'\\]*(?:\\[\S\s][^'\\]*)*)'|"([^"\\]*(?:\\[\S\s][^"\\]*)*)"|([^,'"\s\\]*(?:\s+[^,'"\s\\]+)*))\s*(?:,|$)/g;
+    var re_special_default = /,\s*$/;
+
+    // Algorithm:
+    //   1) Convert regex expression to a string.
+    //   2) Remove leading regex escape character (e.g., '\')
+    //   3) Remove training regex escape character(s) (e.g., '\' or "\g")
+    //   4) Replace the comma (',') character witht he new delimiter character
+    //   5) Build the regex command
+
+    // Check delimiter, if special insert escapes
+    if (_sep == "|") _sep = "\\|";
+
+    var re_valid = new RegExp(re_valid_default.toString().substr(1).slice(0, -1).replace(/,/g, _sep));
+    var re_value = new RegExp(re_value_default.toString().substr(1).slice(0, -2).replace(/,/g, _sep), 'g');
+    var re_special = new RegExp(re_special_default.toString().substr(1).slice(0, -1).replace(/,/g, _sep));
+
+    // Validate the input string to determine if it is well formed
+    if (!re_valid.test(_text)) return null;
+
+    var a = [ ];                     // Initialize array to receive values.
+    _text.replace(re_value,           // "Walk" the string using replace with callback.
+                  function(m0, m1, m2, m3) {
+                      // Remove backslash from \' in single quoted values.
+                      if      (m1 !== undefined) a.push(m1.replace(/\\'/g, "'"));
+                      // Remove backslash from \" in double quoted values.
+                      else if (m2 !== undefined) a.push(m2.replace(/\\"/g, '"'));
+                      else if (m3 !== undefined) a.push(m3);
+                      return ''; // Return empty string.
+                  });
+
+    // Handle special case of empty last value.
+    if (re_special.test(_text)) a.push('');
+
+    return a;
+  };
+
+
+  // Converts the given CSV array & header into a JSON array
+  function csvArrayToJSON(_header, _csvArray, _sep) {
+    var result = [ ];
+    var headers = CSVtoArray(_header, _sep);
+
+    for (var i = 0; i < _csvArray.length; i++) {
+
+      var obj = { };
+      var currentline = CSVtoArray(_csvArray[i], _sep);
+
+      for (var j = 0; j < headers.length; j++) {
+        obj[headers[j]] = currentline[j];
+      }
+
+      result.push(obj);
+
+    }
+
+    return result; //JavaScript object
+  }
+
+
+</script>
+</body>
+
+</html>
+

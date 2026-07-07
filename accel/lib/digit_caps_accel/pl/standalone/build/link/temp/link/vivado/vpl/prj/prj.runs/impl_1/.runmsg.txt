@@ -1,0 +1,2 @@
+Compiling (bitstream) accelerator binary: digitcaps_accel
+Log file: /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/impl_1/runme.log

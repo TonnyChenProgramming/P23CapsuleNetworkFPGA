@@ -1,0 +1,18 @@
+{
+    "kernelContainerValues": [
+        "digitcaps_accel:xo"
+    ],
+    "compile": "false",
+    "debug": "false",
+    "exportScript": "false",
+    "gccHostCompile": "false",
+    "generateEstimateRpt": "false",
+    "keepSolution": "false",
+    "link": "false",
+    "logDir": "\/home\/tonny\/p4p\/P23CapsuleNetworkFPGA\/accel\/lib\/digit_caps_accel\/pl\/standalone\/build\/link\/logs\/link",
+    "package": "false",
+    "reportDir": "\/home\/tonny\/p4p\/P23CapsuleNetworkFPGA\/accel\/lib\/digit_caps_accel\/pl\/standalone\/build\/link\/reports\/link",
+    "saveTemps": "false",
+    "verbose": "false",
+    "vplNoIpCache": "false"
+}

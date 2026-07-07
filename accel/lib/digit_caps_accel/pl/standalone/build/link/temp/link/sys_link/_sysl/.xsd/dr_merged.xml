@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xd:component xmlns:xd="http://www.xilinx.com/xd" xd:vendor="xilinx.com" xd:library="xd" xd:name="dr" xd:version="1.00" xd:type="design">
+  <xd:repository>
+    <xd:file xd:name="xd_ip_db.xml"/>
+  </xd:repository>
+  <xd:instance xd:componentVdr="xilinx" xd:componentLib="xd" xd:componentVer="202210.1" xd:componentType="platform" xd:name="xilinx_zcu102_base_dfx_202210_1" xd:componentRef="xilinx_zcu102_base_dfx_202210_1">
+    <xd:parameter xd:name="NUM_SI" xd:value="2" xd:instanceRef="axi_interconnect_0"/>
+    <xd:parameter xd:name="NUM_MI" xd:value="1" xd:instanceRef="axi_interconnect_0"/>
+    <xd:parameter xd:name="S01_HAS_REGSLICE" xd:value="1" xd:instanceRef="axi_interconnect_0"/>
+    <xd:parameter xd:name="S01_HAS_DATA_FIFO" xd:value="2" xd:instanceRef="axi_interconnect_0"/>
+    <xd:parameter xd:name="NUM_SI" xd:value="1" xd:instanceRef="axi_interconnect_1"/>
+    <xd:parameter xd:name="NUM_MI" xd:value="1" xd:instanceRef="axi_interconnect_1"/>
+    <xd:parameter xd:name="NUM_SI" xd:value="1" xd:instanceRef="interconnect_axifull_1_user_slr1"/>
+    <xd:parameter xd:name="NUM_MI" xd:value="1" xd:instanceRef="interconnect_axifull_1_user_slr1"/>
+    <xd:parameter xd:name="NUM_SI" xd:value="3" xd:instanceRef="interconnect_axifull_2_user_slr1"/>
+    <xd:parameter xd:name="NUM_MI" xd:value="1" xd:instanceRef="interconnect_axifull_2_user_slr1"/>
+    <xd:parameter xd:name="S01_HAS_REGSLICE" xd:value="1" xd:instanceRef="interconnect_axifull_2_user_slr1"/>
+    <xd:parameter xd:name="S01_HAS_DATA_FIFO" xd:value="2" xd:instanceRef="interconnect_axifull_2_user_slr1"/>
+    <xd:parameter xd:name="S02_HAS_REGSLICE" xd:value="1" xd:instanceRef="interconnect_axifull_2_user_slr1"/>
+    <xd:parameter xd:name="S02_HAS_DATA_FIFO" xd:value="2" xd:instanceRef="interconnect_axifull_2_user_slr1"/>
+    <xd:parameter xd:name="NUM_SI" xd:value="1" xd:instanceRef="interconnect_axilite_user_slr1"/>
+    <xd:parameter xd:name="NUM_MI" xd:value="2" xd:instanceRef="interconnect_axilite_user_slr1"/>
+    <xd:parameter xd:name="M01_HAS_REGSLICE" xd:value="1" xd:instanceRef="interconnect_axilite_user_slr1"/>
+  </xd:instance>
+  <xd:instance xd:componentVdr="xilinx.com" xd:componentLib="hls" xd:componentVer="1.0" xd:componentType="accelerator" xd:name="digitcaps_accel_1" xd:componentRef="digitcaps_accel">
+    <xd:clock xd:name="ap_clk" xd:frequency="150000000" xd:tolerance="7500000"/>
+  </xd:instance>
+  <xd:connection>
+    <xd:busInterface xd:name="interconnect_axilite_user_slr1_M01_AXI" xd:instanceRef="xilinx_zcu102_base_dfx_202210_1" xd:componentRef="axi_interconnect"/>
+    <xd:busInterface xd:name="s_axi_control" xd:instanceRef="digitcaps_accel_1"/>
+  </xd:connection>
+  <xd:connection>
+    <xd:busInterface xd:name="m_axi_gmem0" xd:instanceRef="digitcaps_accel_1"/>
+    <xd:busInterface xd:name="interconnect_axifull_2_user_slr1_S01_AXI" xd:instanceRef="xilinx_zcu102_base_dfx_202210_1" xd:componentRef="axi_interconnect"/>
+  </xd:connection>
+  <xd:connection>
+    <xd:busInterface xd:name="m_axi_gmem1" xd:instanceRef="digitcaps_accel_1"/>
+    <xd:busInterface xd:name="interconnect_axifull_2_user_slr1_S02_AXI" xd:instanceRef="xilinx_zcu102_base_dfx_202210_1" xd:componentRef="axi_interconnect"/>
+  </xd:connection>
+  <xd:connection>
+    <xd:busInterface xd:name="m_axi_gmem2" xd:instanceRef="digitcaps_accel_1"/>
+    <xd:busInterface xd:name="axi_interconnect_0_S01_AXI" xd:instanceRef="xilinx_zcu102_base_dfx_202210_1" xd:componentRef="axi_interconnect"/>
+  </xd:connection>
+</xd:component>

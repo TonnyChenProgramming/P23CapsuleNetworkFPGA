@@ -1,0 +1,130 @@
+{
+    "schema_version": {
+        "major": "1",
+        "minor": "0",
+        "patch": "0"
+    },
+    "build_metadata": {
+        "dsa": {
+            "vendor": "xilinx",
+            "board_id": "zcu102",
+            "name": "dynamic",
+            "version_major": "1",
+            "version_minor": "0",
+            "description": "",
+            "generated_by": {
+                "name": "Vivado",
+                "version": "2022.1",
+                "cl": "3524922",
+                "time_stamp": "Fri Apr 15 17:30:05 2022"
+            },
+            "board": {
+                "name": "xilinx.com:zcu102:3.4",
+                "vendor": "xilinx.com",
+                "part": "xczu9eg-ffvb1156-2-e",
+                "board_part": "xilinx.com:zcu102:part0:3.4"
+            },
+            "feature_roms": [
+                {
+                    "time_epoch": "0"
+                }
+            ]
+        },
+        "xclbin": {
+            "generated_by": {
+                "name": "v++",
+                "version": "2022.1",
+                "cl": "3524075",
+                "time_stamp": "2022-04-13-17:42:45",
+                "options": "\/home\/tonny\/p4p\/xilinx\/Vitis\/2022.1\/bin\/unwrapped\/lnx64.o\/v++ --clock.defaultFreqHz 150000000 --config \/home\/tonny\/p4p\/P23CapsuleNetworkFPGA\/accel\/lib\/digit_caps_accel\/pl\/standalone\/connectivity.cfg --connectivity.nk digitcaps_accel:1:digitcaps_accel_1 --connectivity.sp digitcaps_accel_1.input:HP0 --connectivity.sp digitcaps_accel_1.weights:HP0 --connectivity.sp digitcaps_accel_1.prediction:HP1 --input_files \/home\/tonny\/p4p\/P23CapsuleNetworkFPGA\/accel\/lib\/digit_caps_accel\/pl\/standalone\/digitcaps_accel.xo --jobs 4 --link --log_dir \/home\/tonny\/p4p\/P23CapsuleNetworkFPGA\/accel\/lib\/digit_caps_accel\/pl\/standalone\/build\/link\/logs --optimize 0 --output \/home\/tonny\/p4p\/P23CapsuleNetworkFPGA\/accel\/lib\/digit_caps_accel\/pl\/standalone\/digitcaps_accel.xclbin --platform \/home\/tonny\/p4p\/xilinx\/Vitis\/2022.1\/base_platforms\/xilinx_zcu102_base_dfx_202210_1\/xilinx_zcu102_base_dfx_202210_1.xpfm --report_dir \/home\/tonny\/p4p\/P23CapsuleNetworkFPGA\/accel\/lib\/digit_caps_accel\/pl\/standalone\/build\/link\/reports --report_level 0 --save-temps --target hw --temp_dir \/home\/tonny\/p4p\/P23CapsuleNetworkFPGA\/accel\/lib\/digit_caps_accel\/pl\/standalone\/build\/link\/temp "
+            },
+            "user_regions": [
+                {
+                    "name": "OCL_REGION_0",
+                    "type": "clc_region",
+                    "instance_path": "pfm_top_i\/dynamic_region",
+                    "base_address": "",
+                    "kernels": [
+                        {
+                            "name": "digitcaps_accel",
+                            "ports": [
+                                {
+                                    "name": "M_AXI_GMEM0",
+                                    "mode": "master",
+                                    "range": "0xFFFFFFFF",
+                                    "data_width": "512",
+                                    "port_type": "addressable",
+                                    "base": "0x0"
+                                },
+                                {
+                                    "name": "M_AXI_GMEM1",
+                                    "mode": "master",
+                                    "range": "0xFFFFFFFF",
+                                    "data_width": "512",
+                                    "port_type": "addressable",
+                                    "base": "0x0"
+                                },
+                                {
+                                    "name": "M_AXI_GMEM2",
+                                    "mode": "master",
+                                    "range": "0xFFFFFFFF",
+                                    "data_width": "512",
+                                    "port_type": "addressable",
+                                    "base": "0x0"
+                                },
+                                {
+                                    "name": "S_AXI_CONTROL",
+                                    "mode": "slave",
+                                    "range": "0x34",
+                                    "data_width": "32",
+                                    "port_type": "addressable",
+                                    "base": "0x0"
+                                }
+                            ],
+                            "arguments": [
+                                {
+                                    "name": "input",
+                                    "address_qualifier": "1",
+                                    "id": "0",
+                                    "port": "M_AXI_GMEM0",
+                                    "size": "0x8",
+                                    "offset": "0x10",
+                                    "host_offset": "0x0",
+                                    "host_size": "0x8",
+                                    "type": "void*"
+                                },
+                                {
+                                    "name": "weights",
+                                    "address_qualifier": "1",
+                                    "id": "1",
+                                    "port": "M_AXI_GMEM1",
+                                    "size": "0x8",
+                                    "offset": "0x1C",
+                                    "host_offset": "0x0",
+                                    "host_size": "0x8",
+                                    "type": "void*"
+                                },
+                                {
+                                    "name": "prediction",
+                                    "address_qualifier": "1",
+                                    "id": "2",
+                                    "port": "M_AXI_GMEM2",
+                                    "size": "0x8",
+                                    "offset": "0x28",
+                                    "host_offset": "0x0",
+                                    "host_size": "0x8",
+                                    "type": "void*"
+                                }
+                            ],
+                            "instances": [
+                                {
+                                    "name": "digitcaps_accel_1"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

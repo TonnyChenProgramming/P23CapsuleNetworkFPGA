@@ -1,0 +1,879 @@
+#-----------------------------------------------------------
+# Vivado v2022.1 (64-bit)
+# SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
+# IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+# Start of session at: Tue Jul  7 21:06:30 2026
+# Process ID: 7161
+# Current directory: /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1
+# Command line: vivado -log pfm_dynamic.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source pfm_dynamic.tcl
+# Log file: /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/pfm_dynamic.vds
+# Journal file: /home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/vivado.jou
+# Running On: tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE, OS: Linux, CPU Frequency: 4224.811 MHz, CPU Physical cores: 4, Host memory: 16443 MB
+#-----------------------------------------------------------
+source pfm_dynamic.tcl -notrace
+INFO: Dispatch client connection id - 40839
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/int/xo/ip_repo/xilinx_com_hls_digitcaps_accel_1_0'.
+INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/.local/hw_platform/iprepo'.
+INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/.local/hw_platform/ipcache'.
+INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/tonny/p4p/xilinx/Vitis/2022.1/data/ip'.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/tonny/p4p/xilinx/Vivado/2022.1/data/ip'.
+WARNING: [BD 41-2576] File '/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/pfm_dynamic_sim_netlist.vhdl' referenced by design 'pfm_dynamic' could not be found.
+WARNING: [BD 41-2576] File '/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/pfm_dynamic_sim_netlist.v' referenced by design 'pfm_dynamic' could not be found.
+WARNING: [BD 41-2576] File '/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/pfm_dynamic_stub.vhdl' referenced by design 'pfm_dynamic' could not be found.
+WARNING: [BD 41-2576] File '/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/pfm_dynamic_stub.v' referenced by design 'pfm_dynamic' could not be found.
+WARNING: [BD 41-2576] File '/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/pfm_dynamic.dcp' referenced by design 'pfm_dynamic' could not be found.
+Command: synth_design -top pfm_dynamic -part xczu9eg-ffvb1156-2-e -incremental_mode off -mode out_of_context
+Starting synth_design
+WARNING: [Vivado_Tcl 4-393] The 'Synthesis' target of the following IPs are stale, please generate the output products using the generate_target or synth_ip command before running synth_design.
+/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.srcs/my_rm/bd/pfm_dynamic/pfm_dynamic.bd
+
+WARNING: [Vivado_Tcl 4-393] The 'Implementation' target of the following IPs are stale, please generate the output products using the generate_target or synth_ip command before running synth_design.
+/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.srcs/my_rm/bd/pfm_dynamic/pfm_dynamic.bd
+
+Attempting to get a license for feature 'Synthesis' and/or device 'xczu9eg'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xczu9eg'
+INFO: [Device 21-403] Loading part xczu9eg-ffvb1156-2-e
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 1 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 7170
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 2857.145 ; gain = 212.828 ; free physical = 3672 ; free virtual = 11734
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:1752]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_axi_gpio_null_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_axi_gpio_null_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_axi_gpio_null_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_axi_gpio_null_0_stub.v:5]
+WARNING: [Synth 8-7071] port 'gpio_io_o' of module 'pfm_dynamic_axi_gpio_null_0' is unconnected for instance 'axi_gpio_null' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3135]
+WARNING: [Synth 8-7071] port 'gpio_io_t' of module 'pfm_dynamic_axi_gpio_null_0' is unconnected for instance 'axi_gpio_null' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3135]
+WARNING: [Synth 8-7023] instance 'axi_gpio_null' of module 'pfm_dynamic_axi_gpio_null_0' has 22 connections declared, but only 20 given [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3135]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_axi_interconnect_0_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4412]
+INFO: [Synth 8-6157] synthesizing module 'm00_couplers_imp_R2G0XH' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:674]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_auto_ds_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_auto_ds_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_auto_ds_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_auto_ds_0_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_auto_rs_w_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_auto_rs_w_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_auto_rs_w_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_auto_rs_w_0_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_m00_regslice_3' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_m00_regslice_3_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_m00_regslice_3' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_m00_regslice_3_stub.v:5]
+WARNING: [Synth 8-7071] port 'm_axi_awregion' of module 'pfm_dynamic_m00_regslice_3' is unconnected for instance 'm00_regslice' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:1213]
+WARNING: [Synth 8-7071] port 'm_axi_arregion' of module 'pfm_dynamic_m00_regslice_3' is unconnected for instance 'm00_regslice' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:1213]
+WARNING: [Synth 8-7023] instance 'm00_regslice' of module 'pfm_dynamic_m00_regslice_3' has 72 connections declared, but only 70 given [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:1213]
+INFO: [Synth 8-6155] done synthesizing module 'm00_couplers_imp_R2G0XH' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:674]
+INFO: [Synth 8-6157] synthesizing module 's00_couplers_imp_139VRFP' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:7763]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_auto_rs_w_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_auto_rs_w_1_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_auto_rs_w_1' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_auto_rs_w_1_stub.v:5]
+WARNING: [Synth 8-7071] port 'm_axi_awregion' of module 'pfm_dynamic_auto_rs_w_1' is unconnected for instance 'auto_rs_w' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:8120]
+WARNING: [Synth 8-7071] port 'm_axi_arregion' of module 'pfm_dynamic_auto_rs_w_1' is unconnected for instance 'auto_rs_w' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:8120]
+WARNING: [Synth 8-7023] instance 'auto_rs_w' of module 'pfm_dynamic_auto_rs_w_1' has 72 connections declared, but only 70 given [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:8120]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_auto_us_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_auto_us_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_auto_us_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_auto_us_0_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_s00_regslice_35' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_s00_regslice_35_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_s00_regslice_35' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_s00_regslice_35_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 's00_couplers_imp_139VRFP' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:7763]
+INFO: [Synth 8-6157] synthesizing module 's01_couplers_imp_536K3F' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:10538]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_auto_cc_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_auto_cc_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_auto_cc_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_auto_cc_0_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_s01_data_fifo_2' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_s01_data_fifo_2_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_s01_data_fifo_2' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_s01_data_fifo_2_stub.v:5]
+WARNING: [Synth 8-7071] port 'm_axi_awregion' of module 'pfm_dynamic_s01_data_fifo_2' is unconnected for instance 's01_data_fifo' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:10786]
+WARNING: [Synth 8-7023] instance 's01_data_fifo' of module 'pfm_dynamic_s01_data_fifo_2' has 40 connections declared, but only 39 given [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:10786]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_s01_regslice_2' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_s01_regslice_2_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_s01_regslice_2' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_s01_regslice_2_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 's01_couplers_imp_536K3F' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:10538]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_xbar_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_xbar_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_xbar_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_xbar_0_stub.v:5]
+WARNING: [Synth 8-689] width (1) of port connection 's_axi_arready' does not match port width (2) of module 'pfm_dynamic_xbar_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:5127]
+WARNING: [Synth 8-689] width (512) of port connection 's_axi_rdata' does not match port width (1024) of module 'pfm_dynamic_xbar_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:5144]
+WARNING: [Synth 8-689] width (1) of port connection 's_axi_rlast' does not match port width (2) of module 'pfm_dynamic_xbar_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:5145]
+WARNING: [Synth 8-689] width (2) of port connection 's_axi_rresp' does not match port width (4) of module 'pfm_dynamic_xbar_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:5147]
+WARNING: [Synth 8-689] width (1) of port connection 's_axi_rvalid' does not match port width (2) of module 'pfm_dynamic_xbar_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:5148]
+WARNING: [Synth 8-7071] port 's_axi_bid' of module 'pfm_dynamic_xbar_0' is unconnected for instance 'xbar' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:5077]
+WARNING: [Synth 8-7071] port 's_axi_rid' of module 'pfm_dynamic_xbar_0' is unconnected for instance 'xbar' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:5077]
+WARNING: [Synth 8-7023] instance 'xbar' of module 'pfm_dynamic_xbar_0' has 78 connections declared, but only 76 given [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:5077]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_axi_interconnect_0_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4412]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_axi_interconnect_1_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:5156]
+INFO: [Synth 8-6157] synthesizing module 's00_couplers_imp_B3UQP7' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:9319]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_s00_regslice_36' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_s00_regslice_36_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_s00_regslice_36' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_s00_regslice_36_stub.v:5]
+WARNING: [Synth 8-7071] port 'm_axi_awregion' of module 'pfm_dynamic_s00_regslice_36' is unconnected for instance 's00_regslice' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:9606]
+WARNING: [Synth 8-7071] port 'm_axi_arregion' of module 'pfm_dynamic_s00_regslice_36' is unconnected for instance 's00_regslice' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:9606]
+WARNING: [Synth 8-7023] instance 's00_regslice' of module 'pfm_dynamic_s00_regslice_36' has 72 connections declared, but only 70 given [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:9606]
+INFO: [Synth 8-6155] done synthesizing module 's00_couplers_imp_B3UQP7' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:9319]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_axi_interconnect_1_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:5156]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_axi_interconnect_hpm0fpd_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:5526]
+INFO: [Synth 8-6157] synthesizing module 's00_couplers_imp_2LVM1Y' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:8909]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_s00_regslice_37' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_s00_regslice_37_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_s00_regslice_37' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_s00_regslice_37_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 's00_couplers_imp_2LVM1Y' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:8909]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_axi_interconnect_hpm0fpd_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:5526]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_axi_mmu_2_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_axi_mmu_2_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_axi_mmu_2_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_axi_mmu_2_0_stub.v:5]
+WARNING: [Synth 8-7071] port 's_axi_bid' of module 'pfm_dynamic_axi_mmu_2_0' is unconnected for instance 'axi_mmu_2' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3413]
+WARNING: [Synth 8-7071] port 's_axi_rid' of module 'pfm_dynamic_axi_mmu_2_0' is unconnected for instance 'axi_mmu_2' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3413]
+WARNING: [Synth 8-7023] instance 'axi_mmu_2' of module 'pfm_dynamic_axi_mmu_2_0' has 76 connections declared, but only 74 given [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3413]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_axi_mmu_3_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_axi_mmu_3_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_axi_mmu_3_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_axi_mmu_3_0_stub.v:5]
+WARNING: [Synth 8-7071] port 's_axi_bid' of module 'pfm_dynamic_axi_mmu_3_0' is unconnected for instance 'axi_mmu_3' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3488]
+WARNING: [Synth 8-7071] port 's_axi_rid' of module 'pfm_dynamic_axi_mmu_3_0' is unconnected for instance 'axi_mmu_3' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3488]
+WARNING: [Synth 8-7023] instance 'axi_mmu_3' of module 'pfm_dynamic_axi_mmu_3_0' has 76 connections declared, but only 74 given [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3488]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_axi_mmu_4_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_axi_mmu_4_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_axi_mmu_4_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_axi_mmu_4_0_stub.v:5]
+WARNING: [Synth 8-7071] port 's_axi_bid' of module 'pfm_dynamic_axi_mmu_4_0' is unconnected for instance 'axi_mmu_4' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3563]
+WARNING: [Synth 8-7071] port 's_axi_rid' of module 'pfm_dynamic_axi_mmu_4_0' is unconnected for instance 'axi_mmu_4' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3563]
+WARNING: [Synth 8-7023] instance 'axi_mmu_4' of module 'pfm_dynamic_axi_mmu_4_0' has 76 connections declared, but only 74 given [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3563]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_axi_mmu_5_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_axi_mmu_5_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_axi_mmu_5_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_axi_mmu_5_0_stub.v:5]
+WARNING: [Synth 8-7071] port 's_axi_bid' of module 'pfm_dynamic_axi_mmu_5_0' is unconnected for instance 'axi_mmu_5' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3638]
+WARNING: [Synth 8-7071] port 's_axi_rid' of module 'pfm_dynamic_axi_mmu_5_0' is unconnected for instance 'axi_mmu_5' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3638]
+WARNING: [Synth 8-7023] instance 'axi_mmu_5' of module 'pfm_dynamic_axi_mmu_5_0' has 76 connections declared, but only 74 given [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3638]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_axi_register_slice_hpm0fpd_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_axi_register_slice_hpm0fpd_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_axi_register_slice_hpm0fpd_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_axi_register_slice_hpm0fpd_0_stub.v:5]
+WARNING: [Synth 8-7071] port 'm_axi_awid' of module 'pfm_dynamic_axi_register_slice_hpm0fpd_0' is unconnected for instance 'axi_register_slice_hpm0fpd' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3713]
+WARNING: [Synth 8-7071] port 'm_axi_awaddr' of module 'pfm_dynamic_axi_register_slice_hpm0fpd_0' is unconnected for instance 'axi_register_slice_hpm0fpd' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3713]
+WARNING: [Synth 8-7071] port 'm_axi_awlen' of module 'pfm_dynamic_axi_register_slice_hpm0fpd_0' is unconnected for instance 'axi_register_slice_hpm0fpd' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3713]
+WARNING: [Synth 8-7071] port 'm_axi_awsize' of module 'pfm_dynamic_axi_register_slice_hpm0fpd_0' is unconnected for instance 'axi_register_slice_hpm0fpd' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3713]
+WARNING: [Synth 8-7071] port 'm_axi_awburst' of module 'pfm_dynamic_axi_register_slice_hpm0fpd_0' is unconnected for instance 'axi_register_slice_hpm0fpd' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3713]
+WARNING: [Synth 8-7071] port 'm_axi_awlock' of module 'pfm_dynamic_axi_register_slice_hpm0fpd_0' is unconnected for instance 'axi_register_slice_hpm0fpd' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3713]
+WARNING: [Synth 8-7071] port 'm_axi_awcache' of module 'pfm_dynamic_axi_register_slice_hpm0fpd_0' is unconnected for instance 'axi_register_slice_hpm0fpd' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3713]
+WARNING: [Synth 8-7071] port 'm_axi_awprot' of module 'pfm_dynamic_axi_register_slice_hpm0fpd_0' is unconnected for instance 'axi_register_slice_hpm0fpd' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3713]
+WARNING: [Synth 8-7071] port 'm_axi_awregion' of module 'pfm_dynamic_axi_register_slice_hpm0fpd_0' is unconnected for instance 'axi_register_slice_hpm0fpd' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3713]
+WARNING: [Synth 8-7071] port 'm_axi_awqos' of module 'pfm_dynamic_axi_register_slice_hpm0fpd_0' is unconnected for instance 'axi_register_slice_hpm0fpd' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3713]
+WARNING: [Synth 8-7071] port 'm_axi_awvalid' of module 'pfm_dynamic_axi_register_slice_hpm0fpd_0' is unconnected for instance 'axi_register_slice_hpm0fpd' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3713]
+WARNING: [Synth 8-7071] port 'm_axi_wdata' of module 'pfm_dynamic_axi_register_slice_hpm0fpd_0' is unconnected for instance 'axi_register_slice_hpm0fpd' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3713]
+WARNING: [Synth 8-7071] port 'm_axi_wstrb' of module 'pfm_dynamic_axi_register_slice_hpm0fpd_0' is unconnected for instance 'axi_register_slice_hpm0fpd' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3713]
+WARNING: [Synth 8-7071] port 'm_axi_wlast' of module 'pfm_dynamic_axi_register_slice_hpm0fpd_0' is unconnected for instance 'axi_register_slice_hpm0fpd' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3713]
+WARNING: [Synth 8-7071] port 'm_axi_wvalid' of module 'pfm_dynamic_axi_register_slice_hpm0fpd_0' is unconnected for instance 'axi_register_slice_hpm0fpd' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3713]
+WARNING: [Synth 8-7071] port 'm_axi_bready' of module 'pfm_dynamic_axi_register_slice_hpm0fpd_0' is unconnected for instance 'axi_register_slice_hpm0fpd' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3713]
+WARNING: [Synth 8-7071] port 'm_axi_arid' of module 'pfm_dynamic_axi_register_slice_hpm0fpd_0' is unconnected for instance 'axi_register_slice_hpm0fpd' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3713]
+WARNING: [Synth 8-7071] port 'm_axi_araddr' of module 'pfm_dynamic_axi_register_slice_hpm0fpd_0' is unconnected for instance 'axi_register_slice_hpm0fpd' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3713]
+WARNING: [Synth 8-7071] port 'm_axi_arlen' of module 'pfm_dynamic_axi_register_slice_hpm0fpd_0' is unconnected for instance 'axi_register_slice_hpm0fpd' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3713]
+WARNING: [Synth 8-7071] port 'm_axi_arsize' of module 'pfm_dynamic_axi_register_slice_hpm0fpd_0' is unconnected for instance 'axi_register_slice_hpm0fpd' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3713]
+WARNING: [Synth 8-7071] port 'm_axi_arburst' of module 'pfm_dynamic_axi_register_slice_hpm0fpd_0' is unconnected for instance 'axi_register_slice_hpm0fpd' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3713]
+WARNING: [Synth 8-7071] port 'm_axi_arlock' of module 'pfm_dynamic_axi_register_slice_hpm0fpd_0' is unconnected for instance 'axi_register_slice_hpm0fpd' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3713]
+WARNING: [Synth 8-7071] port 'm_axi_arcache' of module 'pfm_dynamic_axi_register_slice_hpm0fpd_0' is unconnected for instance 'axi_register_slice_hpm0fpd' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3713]
+WARNING: [Synth 8-7071] port 'm_axi_arprot' of module 'pfm_dynamic_axi_register_slice_hpm0fpd_0' is unconnected for instance 'axi_register_slice_hpm0fpd' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3713]
+WARNING: [Synth 8-7071] port 'm_axi_arregion' of module 'pfm_dynamic_axi_register_slice_hpm0fpd_0' is unconnected for instance 'axi_register_slice_hpm0fpd' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3713]
+WARNING: [Synth 8-7071] port 'm_axi_arqos' of module 'pfm_dynamic_axi_register_slice_hpm0fpd_0' is unconnected for instance 'axi_register_slice_hpm0fpd' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3713]
+WARNING: [Synth 8-7071] port 'm_axi_arvalid' of module 'pfm_dynamic_axi_register_slice_hpm0fpd_0' is unconnected for instance 'axi_register_slice_hpm0fpd' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3713]
+WARNING: [Synth 8-7071] port 'm_axi_rready' of module 'pfm_dynamic_axi_register_slice_hpm0fpd_0' is unconnected for instance 'axi_register_slice_hpm0fpd' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3713]
+WARNING: [Synth 8-7023] instance 'axi_register_slice_hpm0fpd' of module 'pfm_dynamic_axi_register_slice_hpm0fpd_0' has 80 connections declared, but only 52 given [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:3713]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_axi_vip_2_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_axi_vip_2_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_axi_vip_2_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_axi_vip_2_0_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_axi_vip_3_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_axi_vip_3_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_axi_vip_3_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_axi_vip_3_0_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_axi_vip_4_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_axi_vip_4_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_axi_vip_4_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_axi_vip_4_0_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_axi_vip_5_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_axi_vip_5_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_axi_vip_5_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_axi_vip_5_0_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_axi_vip_ctrl_userpf_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_axi_vip_ctrl_userpf_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_axi_vip_ctrl_userpf_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_axi_vip_ctrl_userpf_0_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_axi_vip_hpm0fpd_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_axi_vip_hpm0fpd_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_axi_vip_hpm0fpd_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_axi_vip_hpm0fpd_0_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_debug_bridge_xsdbm_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_debug_bridge_xsdbm_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_debug_bridge_xsdbm_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_debug_bridge_xsdbm_0_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_digitcaps_accel_1_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_digitcaps_accel_1_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_digitcaps_accel_1_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_digitcaps_accel_1_0_stub.v:5]
+WARNING: [Synth 8-7071] port 'm_axi_gmem0_AWADDR' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem0_AWLEN' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem0_AWSIZE' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem0_AWBURST' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem0_AWLOCK' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem0_AWREGION' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem0_AWCACHE' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem0_AWPROT' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem0_AWQOS' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem0_AWVALID' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem0_WDATA' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem0_WSTRB' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem0_WLAST' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem0_WVALID' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem0_BREADY' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem1_AWADDR' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem1_AWLEN' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem1_AWSIZE' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem1_AWBURST' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem1_AWLOCK' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem1_AWREGION' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem1_AWCACHE' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem1_AWPROT' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem1_AWQOS' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem1_AWVALID' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem1_WDATA' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem1_WSTRB' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem1_WLAST' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem1_WVALID' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem1_BREADY' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem2_ARADDR' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem2_ARLEN' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem2_ARSIZE' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem2_ARBURST' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem2_ARLOCK' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem2_ARREGION' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem2_ARCACHE' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem2_ARPROT' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem2_ARQOS' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem2_ARVALID' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7071] port 'm_axi_gmem2_RREADY' of module 'pfm_dynamic_digitcaps_accel_1_0' is unconnected for instance 'digitcaps_accel_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+WARNING: [Synth 8-7023] instance 'digitcaps_accel_1' of module 'pfm_dynamic_digitcaps_accel_1_0' has 125 connections declared, but only 84 given [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4056]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_interconnect_axifull_1_user_slr1_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:5946]
+INFO: [Synth 8-6157] synthesizing module 's00_couplers_imp_1HPK08H' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:8549]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_s00_regslice_38' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_s00_regslice_38_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_s00_regslice_38' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_s00_regslice_38_stub.v:5]
+WARNING: [Synth 8-7071] port 'm_axi_awregion' of module 'pfm_dynamic_s00_regslice_38' is unconnected for instance 's00_regslice' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:8836]
+WARNING: [Synth 8-7071] port 'm_axi_arregion' of module 'pfm_dynamic_s00_regslice_38' is unconnected for instance 's00_regslice' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:8836]
+WARNING: [Synth 8-7023] instance 's00_regslice' of module 'pfm_dynamic_s00_regslice_38' has 72 connections declared, but only 70 given [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:8836]
+INFO: [Synth 8-6155] done synthesizing module 's00_couplers_imp_1HPK08H' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:8549]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_interconnect_axifull_1_user_slr1_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:5946]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_interconnect_axifull_2_user_slr1_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:6316]
+INFO: [Synth 8-6157] synthesizing module 'm00_couplers_imp_1A4N1A0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:62]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_auto_ds_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_auto_ds_1_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_auto_ds_1' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_auto_ds_1_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_auto_rs_w_2' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_auto_rs_w_2_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_auto_rs_w_2' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_auto_rs_w_2_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_m00_regslice_4' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_m00_regslice_4_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_m00_regslice_4' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_m00_regslice_4_stub.v:5]
+WARNING: [Synth 8-7071] port 'm_axi_awregion' of module 'pfm_dynamic_m00_regslice_4' is unconnected for instance 'm00_regslice' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:601]
+WARNING: [Synth 8-7071] port 'm_axi_arregion' of module 'pfm_dynamic_m00_regslice_4' is unconnected for instance 'm00_regslice' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:601]
+WARNING: [Synth 8-7023] instance 'm00_regslice' of module 'pfm_dynamic_m00_regslice_4' has 72 connections declared, but only 70 given [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:601]
+INFO: [Synth 8-6155] done synthesizing module 'm00_couplers_imp_1A4N1A0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:62]
+INFO: [Synth 8-6157] synthesizing module 's00_couplers_imp_KLQFC8' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:9679]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_auto_rs_w_3' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_auto_rs_w_3_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_auto_rs_w_3' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_auto_rs_w_3_stub.v:5]
+WARNING: [Synth 8-7071] port 'm_axi_awregion' of module 'pfm_dynamic_auto_rs_w_3' is unconnected for instance 'auto_rs_w' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:10036]
+WARNING: [Synth 8-7071] port 'm_axi_arregion' of module 'pfm_dynamic_auto_rs_w_3' is unconnected for instance 'auto_rs_w' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:10036]
+WARNING: [Synth 8-7023] instance 'auto_rs_w' of module 'pfm_dynamic_auto_rs_w_3' has 72 connections declared, but only 70 given [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:10036]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_auto_us_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_auto_us_1_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_auto_us_1' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_auto_us_1_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_s00_regslice_39' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_s00_regslice_39_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_s00_regslice_39' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_s00_regslice_39_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 's00_couplers_imp_KLQFC8' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:9679]
+INFO: [Synth 8-6157] synthesizing module 's01_couplers_imp_1N9NPO6' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:10255]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_auto_cc_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_auto_cc_1_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_auto_cc_1' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_auto_cc_1_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_s01_data_fifo_3' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_s01_data_fifo_3_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_s01_data_fifo_3' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_s01_data_fifo_3_stub.v:5]
+WARNING: [Synth 8-7071] port 'm_axi_arregion' of module 'pfm_dynamic_s01_data_fifo_3' is unconnected for instance 's01_data_fifo' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:10467]
+WARNING: [Synth 8-7023] instance 's01_data_fifo' of module 'pfm_dynamic_s01_data_fifo_3' has 34 connections declared, but only 33 given [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:10467]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_s01_regslice_3' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_s01_regslice_3_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_s01_regslice_3' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_s01_regslice_3_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 's01_couplers_imp_1N9NPO6' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:10255]
+INFO: [Synth 8-6157] synthesizing module 's02_couplers_imp_1CF9C2D' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:10869]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_auto_cc_2' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_auto_cc_2_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_auto_cc_2' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_auto_cc_2_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_s02_data_fifo_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_s02_data_fifo_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_s02_data_fifo_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_s02_data_fifo_0_stub.v:5]
+WARNING: [Synth 8-7071] port 'm_axi_arregion' of module 'pfm_dynamic_s02_data_fifo_0' is unconnected for instance 's02_data_fifo' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:11081]
+WARNING: [Synth 8-7023] instance 's02_data_fifo' of module 'pfm_dynamic_s02_data_fifo_0' has 34 connections declared, but only 33 given [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:11081]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_s02_regslice_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_s02_regslice_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_s02_regslice_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_s02_regslice_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 's02_couplers_imp_1CF9C2D' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:10869]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_xbar_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_xbar_1_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_xbar_1' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_xbar_1_stub.v:5]
+WARNING: [Synth 8-689] width (1) of port connection 's_axi_awready' does not match port width (3) of module 'pfm_dynamic_xbar_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:7144]
+WARNING: [Synth 8-689] width (2) of port connection 's_axi_bresp' does not match port width (6) of module 'pfm_dynamic_xbar_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:7148]
+WARNING: [Synth 8-689] width (1) of port connection 's_axi_bvalid' does not match port width (3) of module 'pfm_dynamic_xbar_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:7149]
+WARNING: [Synth 8-689] width (1) of port connection 's_axi_wready' does not match port width (3) of module 'pfm_dynamic_xbar_1' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:7157]
+WARNING: [Synth 8-7071] port 's_axi_bid' of module 'pfm_dynamic_xbar_1' is unconnected for instance 'xbar' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:7083]
+WARNING: [Synth 8-7071] port 's_axi_rid' of module 'pfm_dynamic_xbar_1' is unconnected for instance 'xbar' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:7083]
+WARNING: [Synth 8-7023] instance 'xbar' of module 'pfm_dynamic_xbar_1' has 78 connections declared, but only 76 given [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:7083]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_interconnect_axifull_2_user_slr1_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:6316]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_interconnect_axilite_user_slr1_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:7162]
+INFO: [Synth 8-6157] synthesizing module 'm00_couplers_imp_XZDQE6' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:1286]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_m00_regslice_5' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_m00_regslice_5_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_m00_regslice_5' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_m00_regslice_5_stub.v:5]
+WARNING: [Synth 8-7071] port 'm_axi_awprot' of module 'pfm_dynamic_m00_regslice_5' is unconnected for instance 'm00_regslice' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:1445]
+WARNING: [Synth 8-7071] port 'm_axi_arprot' of module 'pfm_dynamic_m00_regslice_5' is unconnected for instance 'm00_regslice' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:1445]
+INFO: [Common 17-14] Message 'Synth 8-7071' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+WARNING: [Synth 8-7023] instance 'm00_regslice' of module 'pfm_dynamic_m00_regslice_5' has 40 connections declared, but only 38 given [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:1445]
+INFO: [Synth 8-6155] done synthesizing module 'm00_couplers_imp_XZDQE6' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:1286]
+INFO: [Synth 8-6157] synthesizing module 'm01_couplers_imp_1RPSKZK' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:1486]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_auto_cc_3' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_auto_cc_3_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_auto_cc_3' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_auto_cc_3_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_m01_regslice_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_m01_regslice_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_m01_regslice_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_m01_regslice_0_stub.v:5]
+WARNING: [Synth 8-7023] instance 'm01_regslice' of module 'pfm_dynamic_m01_regslice_0' has 40 connections declared, but only 38 given [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:1711]
+INFO: [Synth 8-6155] done synthesizing module 'm01_couplers_imp_1RPSKZK' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:1486]
+INFO: [Synth 8-6157] synthesizing module 's00_couplers_imp_15R05HQ' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:8339]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_s00_regslice_40' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_s00_regslice_40_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_s00_regslice_40' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_s00_regslice_40_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 's00_couplers_imp_15R05HQ' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:8339]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_xbar_2' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_xbar_2_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_xbar_2' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_xbar_2_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_interconnect_axilite_user_slr1_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:7162]
+INFO: [Synth 8-6157] synthesizing module 'interrupt_concat_imp_1SXQM3I' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:12]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_xlconcat_interrupt_0_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_xlconcat_interrupt_0_0/synth/pfm_dynamic_xlconcat_interrupt_0_0.v:53]
+INFO: [Synth 8-6157] synthesizing module 'xlconcat_v2_1_4_xlconcat' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ipshared/4b67/hdl/xlconcat_v2_1_vl_rfs.v:14]
+INFO: [Synth 8-6155] done synthesizing module 'xlconcat_v2_1_4_xlconcat' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ipshared/4b67/hdl/xlconcat_v2_1_vl_rfs.v:14]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_xlconcat_interrupt_0_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_xlconcat_interrupt_0_0/synth/pfm_dynamic_xlconcat_interrupt_0_0.v:53]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_xlconstant_gnd_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_xlconstant_gnd_0/synth/pfm_dynamic_xlconstant_gnd_0.v:53]
+INFO: [Synth 8-6157] synthesizing module 'xlconstant_v1_1_7_xlconstant' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ipshared/fcfc/hdl/xlconstant_v1_1_vl_rfs.v:23]
+INFO: [Synth 8-6155] done synthesizing module 'xlconstant_v1_1_7_xlconstant' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ipshared/fcfc/hdl/xlconstant_v1_1_vl_rfs.v:23]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_xlconstant_gnd_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_xlconstant_gnd_0/synth/pfm_dynamic_xlconstant_gnd_0.v:53]
+INFO: [Synth 8-6155] done synthesizing module 'interrupt_concat_imp_1SXQM3I' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:12]
+INFO: [Synth 8-6157] synthesizing module 'reset_controllers_imp_UJLAET' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:7634]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_psreset_gate_pr_control_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_psreset_gate_pr_control_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_psreset_gate_pr_control_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_psreset_gate_pr_control_0_stub.v:5]
+WARNING: [Synth 8-7023] instance 'psreset_gate_pr_control' of module 'pfm_dynamic_psreset_gate_pr_control_0' has 10 connections declared, but only 7 given [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:7710]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_psreset_gate_pr_kernel_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_psreset_gate_pr_kernel_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_psreset_gate_pr_kernel_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_psreset_gate_pr_kernel_0_stub.v:5]
+WARNING: [Synth 8-7023] instance 'psreset_gate_pr_kernel' of module 'pfm_dynamic_psreset_gate_pr_kernel_0' has 10 connections declared, but only 7 given [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:7718]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_psreset_gate_pr_kernel2_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_psreset_gate_pr_kernel2_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_psreset_gate_pr_kernel2_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_psreset_gate_pr_kernel2_0_stub.v:5]
+WARNING: [Synth 8-7023] instance 'psreset_gate_pr_kernel2' of module 'pfm_dynamic_psreset_gate_pr_kernel2_0' has 10 connections declared, but only 6 given [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:7726]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_psreset_gate_pr_kernel3_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_psreset_gate_pr_kernel3_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_psreset_gate_pr_kernel3_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_psreset_gate_pr_kernel3_0_stub.v:5]
+WARNING: [Synth 8-7023] instance 'psreset_gate_pr_kernel3' of module 'pfm_dynamic_psreset_gate_pr_kernel3_0' has 10 connections declared, but only 6 given [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:7733]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_psreset_gate_pr_kernel4_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_psreset_gate_pr_kernel4_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_psreset_gate_pr_kernel4_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_psreset_gate_pr_kernel4_0_stub.v:5]
+WARNING: [Synth 8-7023] instance 'psreset_gate_pr_kernel4' of module 'pfm_dynamic_psreset_gate_pr_kernel4_0' has 10 connections declared, but only 6 given [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:7740]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_psreset_gate_pr_kernel5_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_psreset_gate_pr_kernel5_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_psreset_gate_pr_kernel5_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_psreset_gate_pr_kernel5_0_stub.v:5]
+WARNING: [Synth 8-7023] instance 'psreset_gate_pr_kernel5' of module 'pfm_dynamic_psreset_gate_pr_kernel5_0' has 10 connections declared, but only 6 given [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:7747]
+INFO: [Synth 8-6157] synthesizing module 'pfm_dynamic_psreset_gate_pr_kernel6_0' [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_psreset_gate_pr_kernel6_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic_psreset_gate_pr_kernel6_0' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/.Xil/Vivado-7161-tonny-ASUS-TUF-Dash-F15-FX516PE-FX516PE/realtime/pfm_dynamic_psreset_gate_pr_kernel6_0_stub.v:5]
+WARNING: [Synth 8-7023] instance 'psreset_gate_pr_kernel6' of module 'pfm_dynamic_psreset_gate_pr_kernel6_0' has 10 connections declared, but only 6 given [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:7754]
+INFO: [Synth 8-6155] done synthesizing module 'reset_controllers_imp_UJLAET' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:7634]
+WARNING: [Synth 8-7023] instance 'reset_controllers' of module 'reset_controllers_imp_UJLAET' has 20 connections declared, but only 15 given [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:4394]
+INFO: [Synth 8-6155] done synthesizing module 'pfm_dynamic' (0#1) [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/synth/pfm_dynamic.v:1752]
+WARNING: [Synth 8-7129] Port In32[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In33[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In34[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In35[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In36[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In37[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In38[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In39[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In40[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In41[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In42[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In43[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In44[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In45[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In46[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In47[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In48[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In49[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In50[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In51[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In52[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In53[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In54[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In55[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In56[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In57[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In58[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In59[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In60[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In61[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In62[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In63[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In64[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In65[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In66[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In67[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In68[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In69[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In70[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In71[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In72[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In73[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In74[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In75[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In76[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In77[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In78[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In79[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In80[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In81[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In82[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In83[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In84[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In85[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In86[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In87[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In88[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In89[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In90[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In91[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In92[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In93[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In94[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In95[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In96[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In97[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In98[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In99[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In100[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In101[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In102[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In103[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In104[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In105[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In106[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In107[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In108[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In109[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In110[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In111[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In112[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In113[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In114[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In115[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In116[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In117[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In118[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In119[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In120[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In121[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In122[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In123[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In124[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In125[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In126[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In127[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_ACLK in module s00_couplers_imp_15R05HQ is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_ARESETN in module s00_couplers_imp_15R05HQ is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[31] in module m01_couplers_imp_1RPSKZK is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[30] in module m01_couplers_imp_1RPSKZK is either unconnected or has no load
+INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2952.051 ; gain = 307.734 ; free physical = 4692 ; free virtual = 12755
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2969.863 ; gain = 325.547 ; free physical = 4683 ; free virtual = 12746
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2969.863 ; gain = 325.547 ; free physical = 4683 ; free virtual = 12746
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00.08 ; elapsed = 00:00:00.08 . Memory (MB): peak = 2969.863 ; gain = 0.000 ; free physical = 4737 ; free virtual = 12800
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_axi_gpio_null_0/pfm_dynamic_axi_gpio_null_0/pfm_dynamic_axi_gpio_null_0_in_context.xdc] for cell 'axi_gpio_null'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_axi_gpio_null_0/pfm_dynamic_axi_gpio_null_0/pfm_dynamic_axi_gpio_null_0_in_context.xdc] for cell 'axi_gpio_null'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_axi_mmu_2_0/pfm_dynamic_axi_mmu_2_0/pfm_dynamic_axi_mmu_4_0_in_context.xdc] for cell 'axi_mmu_2'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_axi_mmu_2_0/pfm_dynamic_axi_mmu_2_0/pfm_dynamic_axi_mmu_4_0_in_context.xdc] for cell 'axi_mmu_2'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_axi_mmu_3_0/pfm_dynamic_axi_mmu_3_0/pfm_dynamic_axi_mmu_3_0_in_context.xdc] for cell 'axi_mmu_3'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_axi_mmu_3_0/pfm_dynamic_axi_mmu_3_0/pfm_dynamic_axi_mmu_3_0_in_context.xdc] for cell 'axi_mmu_3'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_axi_mmu_4_0/pfm_dynamic_axi_mmu_4_0/pfm_dynamic_axi_mmu_3_0_in_context.xdc] for cell 'axi_mmu_4'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_axi_mmu_4_0/pfm_dynamic_axi_mmu_4_0/pfm_dynamic_axi_mmu_3_0_in_context.xdc] for cell 'axi_mmu_4'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_axi_mmu_5_0/pfm_dynamic_axi_mmu_5_0/pfm_dynamic_axi_mmu_4_0_in_context.xdc] for cell 'axi_mmu_5'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_axi_mmu_5_0/pfm_dynamic_axi_mmu_5_0/pfm_dynamic_axi_mmu_4_0_in_context.xdc] for cell 'axi_mmu_5'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_axi_register_slice_hpm0fpd_0/pfm_dynamic_axi_register_slice_hpm0fpd_0/pfm_dynamic_axi_register_slice_hpm0fpd_0_in_context.xdc] for cell 'axi_register_slice_hpm0fpd'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_axi_register_slice_hpm0fpd_0/pfm_dynamic_axi_register_slice_hpm0fpd_0/pfm_dynamic_axi_register_slice_hpm0fpd_0_in_context.xdc] for cell 'axi_register_slice_hpm0fpd'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_axi_vip_2_0/pfm_dynamic_axi_vip_2_0/pfm_dynamic_axi_vip_2_0_in_context.xdc] for cell 'axi_vip_2'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_axi_vip_2_0/pfm_dynamic_axi_vip_2_0/pfm_dynamic_axi_vip_2_0_in_context.xdc] for cell 'axi_vip_2'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_axi_vip_3_0/pfm_dynamic_axi_vip_3_0/pfm_dynamic_axi_vip_2_0_in_context.xdc] for cell 'axi_vip_3'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_axi_vip_3_0/pfm_dynamic_axi_vip_3_0/pfm_dynamic_axi_vip_2_0_in_context.xdc] for cell 'axi_vip_3'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_axi_vip_4_0/pfm_dynamic_axi_vip_4_0/pfm_dynamic_axi_vip_2_0_in_context.xdc] for cell 'axi_vip_4'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_axi_vip_4_0/pfm_dynamic_axi_vip_4_0/pfm_dynamic_axi_vip_2_0_in_context.xdc] for cell 'axi_vip_4'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_axi_vip_5_0/pfm_dynamic_axi_vip_5_0/pfm_dynamic_axi_vip_2_0_in_context.xdc] for cell 'axi_vip_5'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_axi_vip_5_0/pfm_dynamic_axi_vip_5_0/pfm_dynamic_axi_vip_2_0_in_context.xdc] for cell 'axi_vip_5'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_axi_vip_ctrl_userpf_0/pfm_dynamic_axi_vip_ctrl_userpf_0/pfm_dynamic_axi_vip_ctrl_userpf_0_in_context.xdc] for cell 'axi_vip_ctrl_userpf'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_axi_vip_ctrl_userpf_0/pfm_dynamic_axi_vip_ctrl_userpf_0/pfm_dynamic_axi_vip_ctrl_userpf_0_in_context.xdc] for cell 'axi_vip_ctrl_userpf'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_axi_vip_hpm0fpd_0/pfm_dynamic_axi_vip_hpm0fpd_0/pfm_dynamic_axi_vip_hpm0fpd_0_in_context.xdc] for cell 'axi_vip_hpm0fpd'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_axi_vip_hpm0fpd_0/pfm_dynamic_axi_vip_hpm0fpd_0/pfm_dynamic_axi_vip_hpm0fpd_0_in_context.xdc] for cell 'axi_vip_hpm0fpd'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_debug_bridge_xsdbm_0/pfm_dynamic_debug_bridge_xsdbm_0/pfm_dynamic_debug_bridge_xsdbm_0_in_context.xdc] for cell 'debug_bridge_xsdbm'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_debug_bridge_xsdbm_0/pfm_dynamic_debug_bridge_xsdbm_0/pfm_dynamic_debug_bridge_xsdbm_0_in_context.xdc] for cell 'debug_bridge_xsdbm'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_psreset_gate_pr_control_0/pfm_dynamic_psreset_gate_pr_control_0/pfm_dynamic_psreset_gate_pr_control_0_in_context.xdc] for cell 'reset_controllers/psreset_gate_pr_control'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_psreset_gate_pr_control_0/pfm_dynamic_psreset_gate_pr_control_0/pfm_dynamic_psreset_gate_pr_control_0_in_context.xdc] for cell 'reset_controllers/psreset_gate_pr_control'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_psreset_gate_pr_kernel_0/pfm_dynamic_psreset_gate_pr_kernel_0/pfm_dynamic_psreset_gate_pr_kernel_0_in_context.xdc] for cell 'reset_controllers/psreset_gate_pr_kernel'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_psreset_gate_pr_kernel_0/pfm_dynamic_psreset_gate_pr_kernel_0/pfm_dynamic_psreset_gate_pr_kernel_0_in_context.xdc] for cell 'reset_controllers/psreset_gate_pr_kernel'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_psreset_gate_pr_kernel2_0/pfm_dynamic_psreset_gate_pr_kernel2_0/pfm_top_psreset_regslice_data_pr_0_in_context.xdc] for cell 'reset_controllers/psreset_gate_pr_kernel2'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_psreset_gate_pr_kernel2_0/pfm_dynamic_psreset_gate_pr_kernel2_0/pfm_top_psreset_regslice_data_pr_0_in_context.xdc] for cell 'reset_controllers/psreset_gate_pr_kernel2'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_psreset_gate_pr_kernel3_0/pfm_dynamic_psreset_gate_pr_kernel3_0/pfm_dynamic_psreset_gate_pr_kernel3_0_in_context.xdc] for cell 'reset_controllers/psreset_gate_pr_kernel3'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_psreset_gate_pr_kernel3_0/pfm_dynamic_psreset_gate_pr_kernel3_0/pfm_dynamic_psreset_gate_pr_kernel3_0_in_context.xdc] for cell 'reset_controllers/psreset_gate_pr_kernel3'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_psreset_gate_pr_kernel4_0/pfm_dynamic_psreset_gate_pr_kernel4_0/pfm_dynamic_psreset_gate_pr_kernel4_0_in_context.xdc] for cell 'reset_controllers/psreset_gate_pr_kernel4'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_psreset_gate_pr_kernel4_0/pfm_dynamic_psreset_gate_pr_kernel4_0/pfm_dynamic_psreset_gate_pr_kernel4_0_in_context.xdc] for cell 'reset_controllers/psreset_gate_pr_kernel4'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_psreset_gate_pr_kernel5_0/pfm_dynamic_psreset_gate_pr_kernel5_0/pfm_dynamic_psreset_gate_pr_kernel5_0_in_context.xdc] for cell 'reset_controllers/psreset_gate_pr_kernel5'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_psreset_gate_pr_kernel5_0/pfm_dynamic_psreset_gate_pr_kernel5_0/pfm_dynamic_psreset_gate_pr_kernel5_0_in_context.xdc] for cell 'reset_controllers/psreset_gate_pr_kernel5'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_psreset_gate_pr_kernel6_0/pfm_dynamic_psreset_gate_pr_kernel6_0/pfm_dynamic_psreset_gate_pr_kernel6_0_in_context.xdc] for cell 'reset_controllers/psreset_gate_pr_kernel6'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_psreset_gate_pr_kernel6_0/pfm_dynamic_psreset_gate_pr_kernel6_0/pfm_dynamic_psreset_gate_pr_kernel6_0_in_context.xdc] for cell 'reset_controllers/psreset_gate_pr_kernel6'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_xbar_0/pfm_dynamic_xbar_0/pfm_dynamic_xbar_0_in_context.xdc] for cell 'axi_interconnect_0/xbar'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_xbar_0/pfm_dynamic_xbar_0/pfm_dynamic_xbar_0_in_context.xdc] for cell 'axi_interconnect_0/xbar'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_s00_regslice_35/pfm_dynamic_s00_regslice_35/pfm_dynamic_s00_regslice_19_in_context.xdc] for cell 'axi_interconnect_0/s00_couplers/s00_regslice'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_s00_regslice_35/pfm_dynamic_s00_regslice_35/pfm_dynamic_s00_regslice_19_in_context.xdc] for cell 'axi_interconnect_0/s00_couplers/s00_regslice'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_auto_us_0/pfm_dynamic_auto_us_0/pfm_dynamic_auto_us_0_in_context.xdc] for cell 'axi_interconnect_0/s00_couplers/auto_us'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_auto_us_0/pfm_dynamic_auto_us_0/pfm_dynamic_auto_us_0_in_context.xdc] for cell 'axi_interconnect_0/s00_couplers/auto_us'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_auto_rs_w_1/pfm_dynamic_auto_rs_w_1/pfm_dynamic_auto_rs_w_1_in_context.xdc] for cell 'axi_interconnect_0/s00_couplers/auto_rs_w'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_auto_rs_w_1/pfm_dynamic_auto_rs_w_1/pfm_dynamic_auto_rs_w_1_in_context.xdc] for cell 'axi_interconnect_0/s00_couplers/auto_rs_w'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_s01_regslice_2/pfm_dynamic_s01_regslice_2/pfm_dynamic_s01_regslice_2_in_context.xdc] for cell 'axi_interconnect_0/s01_couplers/s01_regslice'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_s01_regslice_2/pfm_dynamic_s01_regslice_2/pfm_dynamic_s01_regslice_2_in_context.xdc] for cell 'axi_interconnect_0/s01_couplers/s01_regslice'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_s01_data_fifo_2/pfm_dynamic_s01_data_fifo_2/pfm_dynamic_s01_data_fifo_2_in_context.xdc] for cell 'axi_interconnect_0/s01_couplers/s01_data_fifo'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_s01_data_fifo_2/pfm_dynamic_s01_data_fifo_2/pfm_dynamic_s01_data_fifo_2_in_context.xdc] for cell 'axi_interconnect_0/s01_couplers/s01_data_fifo'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_auto_cc_0/pfm_dynamic_auto_cc_0/pfm_dynamic_auto_cc_0_in_context.xdc] for cell 'axi_interconnect_0/s01_couplers/auto_cc'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_auto_cc_0/pfm_dynamic_auto_cc_0/pfm_dynamic_auto_cc_0_in_context.xdc] for cell 'axi_interconnect_0/s01_couplers/auto_cc'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_m00_regslice_3/pfm_dynamic_m00_regslice_3/pfm_dynamic_m00_regslice_3_in_context.xdc] for cell 'axi_interconnect_0/m00_couplers/m00_regslice'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_m00_regslice_3/pfm_dynamic_m00_regslice_3/pfm_dynamic_m00_regslice_3_in_context.xdc] for cell 'axi_interconnect_0/m00_couplers/m00_regslice'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_auto_ds_0/pfm_dynamic_auto_ds_0/pfm_dynamic_auto_ds_0_in_context.xdc] for cell 'axi_interconnect_0/m00_couplers/auto_ds'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_auto_ds_0/pfm_dynamic_auto_ds_0/pfm_dynamic_auto_ds_0_in_context.xdc] for cell 'axi_interconnect_0/m00_couplers/auto_ds'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_auto_rs_w_0/pfm_dynamic_auto_rs_w_0/pfm_dynamic_auto_rs_w_0_in_context.xdc] for cell 'axi_interconnect_0/m00_couplers/auto_rs_w'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_auto_rs_w_0/pfm_dynamic_auto_rs_w_0/pfm_dynamic_auto_rs_w_0_in_context.xdc] for cell 'axi_interconnect_0/m00_couplers/auto_rs_w'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_s00_regslice_36/pfm_dynamic_s00_regslice_36/pfm_dynamic_s00_regslice_19_in_context.xdc] for cell 'axi_interconnect_1/s00_couplers/s00_regslice'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_s00_regslice_36/pfm_dynamic_s00_regslice_36/pfm_dynamic_s00_regslice_19_in_context.xdc] for cell 'axi_interconnect_1/s00_couplers/s00_regslice'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_s00_regslice_37/pfm_dynamic_s00_regslice_37/pfm_dynamic_axi_register_slice_hpm0fpd_0_in_context.xdc] for cell 'axi_interconnect_hpm0fpd/s00_couplers/s00_regslice'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_s00_regslice_37/pfm_dynamic_s00_regslice_37/pfm_dynamic_axi_register_slice_hpm0fpd_0_in_context.xdc] for cell 'axi_interconnect_hpm0fpd/s00_couplers/s00_regslice'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_s00_regslice_38/pfm_dynamic_s00_regslice_38/pfm_dynamic_s00_regslice_19_in_context.xdc] for cell 'interconnect_axifull_1_user_slr1/s00_couplers/s00_regslice'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_s00_regslice_38/pfm_dynamic_s00_regslice_38/pfm_dynamic_s00_regslice_19_in_context.xdc] for cell 'interconnect_axifull_1_user_slr1/s00_couplers/s00_regslice'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_xbar_1/pfm_dynamic_xbar_1/pfm_dynamic_xbar_1_in_context.xdc] for cell 'interconnect_axifull_2_user_slr1/xbar'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_xbar_1/pfm_dynamic_xbar_1/pfm_dynamic_xbar_1_in_context.xdc] for cell 'interconnect_axifull_2_user_slr1/xbar'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_s00_regslice_39/pfm_dynamic_s00_regslice_39/pfm_dynamic_s00_regslice_19_in_context.xdc] for cell 'interconnect_axifull_2_user_slr1/s00_couplers/s00_regslice'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_s00_regslice_39/pfm_dynamic_s00_regslice_39/pfm_dynamic_s00_regslice_19_in_context.xdc] for cell 'interconnect_axifull_2_user_slr1/s00_couplers/s00_regslice'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_auto_us_1/pfm_dynamic_auto_us_1/pfm_dynamic_auto_us_0_in_context.xdc] for cell 'interconnect_axifull_2_user_slr1/s00_couplers/auto_us'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_auto_us_1/pfm_dynamic_auto_us_1/pfm_dynamic_auto_us_0_in_context.xdc] for cell 'interconnect_axifull_2_user_slr1/s00_couplers/auto_us'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_auto_rs_w_3/pfm_dynamic_auto_rs_w_3/pfm_dynamic_auto_rs_w_1_in_context.xdc] for cell 'interconnect_axifull_2_user_slr1/s00_couplers/auto_rs_w'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_auto_rs_w_3/pfm_dynamic_auto_rs_w_3/pfm_dynamic_auto_rs_w_1_in_context.xdc] for cell 'interconnect_axifull_2_user_slr1/s00_couplers/auto_rs_w'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_s01_regslice_3/pfm_dynamic_s01_regslice_3/pfm_dynamic_s02_regslice_0_in_context.xdc] for cell 'interconnect_axifull_2_user_slr1/s01_couplers/s01_regslice'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_s01_regslice_3/pfm_dynamic_s01_regslice_3/pfm_dynamic_s02_regslice_0_in_context.xdc] for cell 'interconnect_axifull_2_user_slr1/s01_couplers/s01_regslice'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_s01_data_fifo_3/pfm_dynamic_s01_data_fifo_3/pfm_dynamic_s02_data_fifo_0_in_context.xdc] for cell 'interconnect_axifull_2_user_slr1/s01_couplers/s01_data_fifo'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_s01_data_fifo_3/pfm_dynamic_s01_data_fifo_3/pfm_dynamic_s02_data_fifo_0_in_context.xdc] for cell 'interconnect_axifull_2_user_slr1/s01_couplers/s01_data_fifo'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_auto_cc_1/pfm_dynamic_auto_cc_1/pfm_dynamic_auto_cc_1_in_context.xdc] for cell 'interconnect_axifull_2_user_slr1/s01_couplers/auto_cc'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_auto_cc_1/pfm_dynamic_auto_cc_1/pfm_dynamic_auto_cc_1_in_context.xdc] for cell 'interconnect_axifull_2_user_slr1/s01_couplers/auto_cc'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_s02_regslice_0/pfm_dynamic_s02_regslice_0/pfm_dynamic_s02_regslice_0_in_context.xdc] for cell 'interconnect_axifull_2_user_slr1/s02_couplers/s02_regslice'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_s02_regslice_0/pfm_dynamic_s02_regslice_0/pfm_dynamic_s02_regslice_0_in_context.xdc] for cell 'interconnect_axifull_2_user_slr1/s02_couplers/s02_regslice'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_s02_data_fifo_0/pfm_dynamic_s02_data_fifo_0/pfm_dynamic_s02_data_fifo_0_in_context.xdc] for cell 'interconnect_axifull_2_user_slr1/s02_couplers/s02_data_fifo'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_s02_data_fifo_0/pfm_dynamic_s02_data_fifo_0/pfm_dynamic_s02_data_fifo_0_in_context.xdc] for cell 'interconnect_axifull_2_user_slr1/s02_couplers/s02_data_fifo'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_auto_cc_2/pfm_dynamic_auto_cc_2/pfm_dynamic_auto_cc_1_in_context.xdc] for cell 'interconnect_axifull_2_user_slr1/s02_couplers/auto_cc'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_auto_cc_2/pfm_dynamic_auto_cc_2/pfm_dynamic_auto_cc_1_in_context.xdc] for cell 'interconnect_axifull_2_user_slr1/s02_couplers/auto_cc'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_m00_regslice_4/pfm_dynamic_m00_regslice_4/pfm_dynamic_m00_regslice_3_in_context.xdc] for cell 'interconnect_axifull_2_user_slr1/m00_couplers/m00_regslice'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_m00_regslice_4/pfm_dynamic_m00_regslice_4/pfm_dynamic_m00_regslice_3_in_context.xdc] for cell 'interconnect_axifull_2_user_slr1/m00_couplers/m00_regslice'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_auto_ds_1/pfm_dynamic_auto_ds_1/pfm_dynamic_auto_ds_1_in_context.xdc] for cell 'interconnect_axifull_2_user_slr1/m00_couplers/auto_ds'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_auto_ds_1/pfm_dynamic_auto_ds_1/pfm_dynamic_auto_ds_1_in_context.xdc] for cell 'interconnect_axifull_2_user_slr1/m00_couplers/auto_ds'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_auto_rs_w_2/pfm_dynamic_auto_rs_w_2/pfm_dynamic_auto_rs_w_2_in_context.xdc] for cell 'interconnect_axifull_2_user_slr1/m00_couplers/auto_rs_w'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_auto_rs_w_2/pfm_dynamic_auto_rs_w_2/pfm_dynamic_auto_rs_w_2_in_context.xdc] for cell 'interconnect_axifull_2_user_slr1/m00_couplers/auto_rs_w'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_xbar_2/pfm_dynamic_xbar_2/pfm_dynamic_xbar_2_in_context.xdc] for cell 'interconnect_axilite_user_slr1/xbar'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_xbar_2/pfm_dynamic_xbar_2/pfm_dynamic_xbar_2_in_context.xdc] for cell 'interconnect_axilite_user_slr1/xbar'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_s00_regslice_40/pfm_dynamic_s00_regslice_40/pfm_top_regslice_control_userpf_0_in_context.xdc] for cell 'interconnect_axilite_user_slr1/s00_couplers/s00_regslice'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_s00_regslice_40/pfm_dynamic_s00_regslice_40/pfm_top_regslice_control_userpf_0_in_context.xdc] for cell 'interconnect_axilite_user_slr1/s00_couplers/s00_regslice'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_m00_regslice_5/pfm_dynamic_m00_regslice_5/pfm_dynamic_s00_regslice_23_in_context.xdc] for cell 'interconnect_axilite_user_slr1/m00_couplers/m00_regslice'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_m00_regslice_5/pfm_dynamic_m00_regslice_5/pfm_dynamic_s00_regslice_23_in_context.xdc] for cell 'interconnect_axilite_user_slr1/m00_couplers/m00_regslice'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_m01_regslice_0/pfm_dynamic_m01_regslice_0/pfm_dynamic_m01_regslice_0_in_context.xdc] for cell 'interconnect_axilite_user_slr1/m01_couplers/m01_regslice'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_m01_regslice_0/pfm_dynamic_m01_regslice_0/pfm_dynamic_m01_regslice_0_in_context.xdc] for cell 'interconnect_axilite_user_slr1/m01_couplers/m01_regslice'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_auto_cc_3/pfm_dynamic_auto_cc_3/pfm_dynamic_auto_cc_3_in_context.xdc] for cell 'interconnect_axilite_user_slr1/m01_couplers/auto_cc'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_auto_cc_3/pfm_dynamic_auto_cc_3/pfm_dynamic_auto_cc_3_in_context.xdc] for cell 'interconnect_axilite_user_slr1/m01_couplers/auto_cc'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_digitcaps_accel_1_0/pfm_dynamic_digitcaps_accel_1_0/pfm_dynamic_digitcaps_accel_1_0_in_context.xdc] for cell 'digitcaps_accel_1'
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/ip/pfm_dynamic_digitcaps_accel_1_0/pfm_dynamic_digitcaps_accel_1_0/pfm_dynamic_digitcaps_accel_1_0_in_context.xdc] for cell 'digitcaps_accel_1'
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/pfm_dynamic_ooc.xdc]
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.gen/my_rm/bd/pfm_dynamic/pfm_dynamic_ooc.xdc]
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/dont_touch.xdc]
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/dont_touch.xdc]
+Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/output/pfm_dynamic_ooc_copy.xdc]
+WARNING: [Constraints 18-619] A clock with name 'clkwiz_kernel2_clk_out1' already exists, overwriting the previous clock with the same name. [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/output/pfm_dynamic_ooc_copy.xdc:9]
+WARNING: [Constraints 18-619] A clock with name 'clkwiz_kernel3_clk_out' already exists, overwriting the previous clock with the same name. [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/output/pfm_dynamic_ooc_copy.xdc:10]
+WARNING: [Constraints 18-619] A clock with name 'clkwiz_kernel4_clk_out' already exists, overwriting the previous clock with the same name. [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/output/pfm_dynamic_ooc_copy.xdc:11]
+WARNING: [Constraints 18-619] A clock with name 'clkwiz_kernel5_clk_out' already exists, overwriting the previous clock with the same name. [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/output/pfm_dynamic_ooc_copy.xdc:12]
+WARNING: [Constraints 18-619] A clock with name 'clkwiz_kernel6_clk_out' already exists, overwriting the previous clock with the same name. [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/output/pfm_dynamic_ooc_copy.xdc:13]
+WARNING: [Constraints 18-619] A clock with name 'clkwiz_kernel_clk_out1' already exists, overwriting the previous clock with the same name. [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/output/pfm_dynamic_ooc_copy.xdc:14]
+WARNING: [Constraints 18-619] A clock with name 'clkwiz_sysclks_clk_out2' already exists, overwriting the previous clock with the same name. [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/output/pfm_dynamic_ooc_copy.xdc:15]
+Finished Parsing XDC File [/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/output/pfm_dynamic_ooc_copy.xdc]
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2998.613 ; gain = 0.000 ; free physical = 4618 ; free virtual = 12682
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.07 ; elapsed = 00:00:00.07 . Memory (MB): peak = 2998.613 ; gain = 0.000 ; free physical = 4617 ; free virtual = 12682
+INFO: [Designutils 20-5008] Incremental synthesis strategy off
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2998.613 ; gain = 354.297 ; free physical = 4719 ; free virtual = 12784
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xczu9eg-ffvb1156-2-e
+INFO: [Synth 8-6742] Reading net delay rules and data
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2998.613 ; gain = 354.297 ; free physical = 4719 ; free virtual = 12784
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+Applied set_property KEEP_HIERARCHY = SOFT for axi_gpio_null. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for axi_mmu_2. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for axi_mmu_3. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for axi_mmu_4. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for axi_mmu_5. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for axi_register_slice_hpm0fpd. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for axi_vip_2. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for axi_vip_3. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for axi_vip_4. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for axi_vip_5. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for axi_vip_ctrl_userpf. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for axi_vip_hpm0fpd. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for debug_bridge_xsdbm. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for interrupt_concat/xlconcat_interrupt_0. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for interrupt_concat/xlconstant_gnd. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for reset_controllers/psreset_gate_pr_control. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for reset_controllers/psreset_gate_pr_kernel. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for reset_controllers/psreset_gate_pr_kernel2. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for reset_controllers/psreset_gate_pr_kernel3. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for reset_controllers/psreset_gate_pr_kernel4. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for reset_controllers/psreset_gate_pr_kernel5. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for reset_controllers/psreset_gate_pr_kernel6. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for axi_interconnect_0/xbar. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for axi_interconnect_0/s00_couplers/s00_regslice. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for axi_interconnect_0/s00_couplers/auto_us. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for axi_interconnect_0/s00_couplers/auto_rs_w. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for axi_interconnect_0/s01_couplers/s01_regslice. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for axi_interconnect_0/s01_couplers/s01_data_fifo. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for axi_interconnect_0/s01_couplers/auto_cc. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for axi_interconnect_0/m00_couplers/m00_regslice. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for axi_interconnect_0/m00_couplers/auto_ds. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for axi_interconnect_0/m00_couplers/auto_rs_w. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for axi_interconnect_0. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for axi_interconnect_1/s00_couplers/s00_regslice. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for axi_interconnect_1. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for axi_interconnect_hpm0fpd/s00_couplers/s00_regslice. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for axi_interconnect_hpm0fpd. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for interconnect_axifull_1_user_slr1/s00_couplers/s00_regslice. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for interconnect_axifull_1_user_slr1. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for interconnect_axifull_2_user_slr1/xbar. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for interconnect_axifull_2_user_slr1/s00_couplers/s00_regslice. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for interconnect_axifull_2_user_slr1/s00_couplers/auto_us. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for interconnect_axifull_2_user_slr1/s00_couplers/auto_rs_w. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for interconnect_axifull_2_user_slr1/s01_couplers/s01_regslice. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for interconnect_axifull_2_user_slr1/s01_couplers/s01_data_fifo. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for interconnect_axifull_2_user_slr1/s01_couplers/auto_cc. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for interconnect_axifull_2_user_slr1/s02_couplers/s02_regslice. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for interconnect_axifull_2_user_slr1/s02_couplers/s02_data_fifo. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for interconnect_axifull_2_user_slr1/s02_couplers/auto_cc. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for interconnect_axifull_2_user_slr1/m00_couplers/m00_regslice. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for interconnect_axifull_2_user_slr1/m00_couplers/auto_ds. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for interconnect_axifull_2_user_slr1/m00_couplers/auto_rs_w. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for interconnect_axifull_2_user_slr1. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for interconnect_axilite_user_slr1/xbar. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for interconnect_axilite_user_slr1/s00_couplers/s00_regslice. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for interconnect_axilite_user_slr1/m00_couplers/m00_regslice. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for interconnect_axilite_user_slr1/m01_couplers/m01_regslice. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for interconnect_axilite_user_slr1/m01_couplers/auto_cc. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for interconnect_axilite_user_slr1. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for digitcaps_accel_1. (constraint file  auto generated constraint).
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2998.613 ; gain = 354.297 ; free physical = 4719 ; free virtual = 12784
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2998.613 ; gain = 354.297 ; free physical = 4725 ; free virtual = 12791
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 2520 (col length:168)
+BRAMs: 1824 (col length: RAMB18 168 RAMB36 84)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2998.613 ; gain = 354.297 ; free physical = 4710 ; free virtual = 12786
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-565] redefining clock 'clkwiz_kernel2_clk_out1'
+WARNING: [Synth 8-565] redefining clock 'clkwiz_kernel3_clk_out'
+WARNING: [Synth 8-565] redefining clock 'clkwiz_kernel4_clk_out'
+WARNING: [Synth 8-565] redefining clock 'clkwiz_kernel5_clk_out'
+WARNING: [Synth 8-565] redefining clock 'clkwiz_kernel6_clk_out'
+WARNING: [Synth 8-565] redefining clock 'clkwiz_kernel_clk_out1'
+WARNING: [Synth 8-565] redefining clock 'clkwiz_sysclks_clk_out2'
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:19 ; elapsed = 00:00:20 . Memory (MB): peak = 3418.223 ; gain = 773.906 ; free physical = 4156 ; free virtual = 12231
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:19 ; elapsed = 00:00:20 . Memory (MB): peak = 3422.223 ; gain = 777.906 ; free physical = 4152 ; free virtual = 12227
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:19 ; elapsed = 00:00:21 . Memory (MB): peak = 3449.262 ; gain = 804.945 ; free physical = 4140 ; free virtual = 12215
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 3449.262 ; gain = 804.945 ; free physical = 4138 ; free virtual = 12213
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 3449.262 ; gain = 804.945 ; free physical = 4138 ; free virtual = 12213
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 3449.262 ; gain = 804.945 ; free physical = 4138 ; free virtual = 12213
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 3449.262 ; gain = 804.945 ; free physical = 4138 ; free virtual = 12213
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 3449.262 ; gain = 804.945 ; free physical = 4138 ; free virtual = 12213
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 3449.262 ; gain = 804.945 ; free physical = 4138 ; free virtual = 12213
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++------+-----------------------------------------+----------+
+|      |BlackBox name                            |Instances |
++------+-----------------------------------------+----------+
+|1     |pfm_dynamic_xbar_0                       |         1|
+|2     |pfm_dynamic_auto_ds_0                    |         1|
+|3     |pfm_dynamic_auto_rs_w_0                  |         1|
+|4     |pfm_dynamic_m00_regslice_3               |         1|
+|5     |pfm_dynamic_auto_rs_w_1                  |         1|
+|6     |pfm_dynamic_auto_us_0                    |         1|
+|7     |pfm_dynamic_s00_regslice_35              |         1|
+|8     |pfm_dynamic_auto_cc_0                    |         1|
+|9     |pfm_dynamic_s01_data_fifo_2              |         1|
+|10    |pfm_dynamic_s01_regslice_2               |         1|
+|11    |pfm_dynamic_s00_regslice_36              |         1|
+|12    |pfm_dynamic_s00_regslice_37              |         1|
+|13    |pfm_dynamic_s00_regslice_38              |         1|
+|14    |pfm_dynamic_xbar_1                       |         1|
+|15    |pfm_dynamic_auto_ds_1                    |         1|
+|16    |pfm_dynamic_auto_rs_w_2                  |         1|
+|17    |pfm_dynamic_m00_regslice_4               |         1|
+|18    |pfm_dynamic_auto_rs_w_3                  |         1|
+|19    |pfm_dynamic_auto_us_1                    |         1|
+|20    |pfm_dynamic_s00_regslice_39              |         1|
+|21    |pfm_dynamic_auto_cc_1                    |         1|
+|22    |pfm_dynamic_s01_data_fifo_3              |         1|
+|23    |pfm_dynamic_s01_regslice_3               |         1|
+|24    |pfm_dynamic_auto_cc_2                    |         1|
+|25    |pfm_dynamic_s02_data_fifo_0              |         1|
+|26    |pfm_dynamic_s02_regslice_0               |         1|
+|27    |pfm_dynamic_xbar_2                       |         1|
+|28    |pfm_dynamic_m00_regslice_5               |         1|
+|29    |pfm_dynamic_auto_cc_3                    |         1|
+|30    |pfm_dynamic_m01_regslice_0               |         1|
+|31    |pfm_dynamic_s00_regslice_40              |         1|
+|32    |pfm_dynamic_axi_gpio_null_0              |         1|
+|33    |pfm_dynamic_axi_mmu_2_0                  |         1|
+|34    |pfm_dynamic_axi_mmu_3_0                  |         1|
+|35    |pfm_dynamic_axi_mmu_4_0                  |         1|
+|36    |pfm_dynamic_axi_mmu_5_0                  |         1|
+|37    |pfm_dynamic_axi_register_slice_hpm0fpd_0 |         1|
+|38    |pfm_dynamic_axi_vip_2_0                  |         1|
+|39    |pfm_dynamic_axi_vip_3_0                  |         1|
+|40    |pfm_dynamic_axi_vip_4_0                  |         1|
+|41    |pfm_dynamic_axi_vip_5_0                  |         1|
+|42    |pfm_dynamic_axi_vip_ctrl_userpf_0        |         1|
+|43    |pfm_dynamic_axi_vip_hpm0fpd_0            |         1|
+|44    |pfm_dynamic_debug_bridge_xsdbm_0         |         1|
+|45    |pfm_dynamic_digitcaps_accel_1_0          |         1|
+|46    |pfm_dynamic_psreset_gate_pr_control_0    |         1|
+|47    |pfm_dynamic_psreset_gate_pr_kernel_0     |         1|
+|48    |pfm_dynamic_psreset_gate_pr_kernel2_0    |         1|
+|49    |pfm_dynamic_psreset_gate_pr_kernel3_0    |         1|
+|50    |pfm_dynamic_psreset_gate_pr_kernel4_0    |         1|
+|51    |pfm_dynamic_psreset_gate_pr_kernel5_0    |         1|
+|52    |pfm_dynamic_psreset_gate_pr_kernel6_0    |         1|
++------+-----------------------------------------+----------+
+
+Report Cell Usage: 
++------+---------------------------------------+------+
+|      |Cell                                   |Count |
++------+---------------------------------------+------+
+|1     |pfm_dynamic_auto_cc                    |     4|
+|5     |pfm_dynamic_auto_ds                    |     2|
+|7     |pfm_dynamic_auto_rs_w                  |     4|
+|11    |pfm_dynamic_auto_us                    |     2|
+|13    |pfm_dynamic_axi_gpio_null              |     1|
+|14    |pfm_dynamic_axi_mmu_2                  |     1|
+|15    |pfm_dynamic_axi_mmu_3                  |     1|
+|16    |pfm_dynamic_axi_mmu_4                  |     1|
+|17    |pfm_dynamic_axi_mmu_5                  |     1|
+|18    |pfm_dynamic_axi_register_slice_hpm0fpd |     1|
+|19    |pfm_dynamic_axi_vip_2                  |     1|
+|20    |pfm_dynamic_axi_vip_3                  |     1|
+|21    |pfm_dynamic_axi_vip_4                  |     1|
+|22    |pfm_dynamic_axi_vip_5                  |     1|
+|23    |pfm_dynamic_axi_vip_ctrl_userpf        |     1|
+|24    |pfm_dynamic_axi_vip_hpm0fpd            |     1|
+|25    |pfm_dynamic_debug_bridge_xsdbm         |     1|
+|26    |pfm_dynamic_digitcaps_accel_1          |     1|
+|27    |pfm_dynamic_m00_regslice               |     3|
+|30    |pfm_dynamic_m01_regslice               |     1|
+|31    |pfm_dynamic_psreset_gate_pr_control    |     1|
+|32    |pfm_dynamic_psreset_gate_pr_kernel2    |     1|
+|33    |pfm_dynamic_psreset_gate_pr_kernel3    |     1|
+|34    |pfm_dynamic_psreset_gate_pr_kernel4    |     1|
+|35    |pfm_dynamic_psreset_gate_pr_kernel5    |     1|
+|36    |pfm_dynamic_psreset_gate_pr_kernel6    |     1|
+|37    |pfm_dynamic_psreset_gate_pr_kernel     |     1|
+|38    |pfm_dynamic_s00_regslice               |     6|
+|44    |pfm_dynamic_s01_data_fifo              |     2|
+|46    |pfm_dynamic_s01_regslice               |     2|
+|48    |pfm_dynamic_s02_data_fifo              |     1|
+|49    |pfm_dynamic_s02_regslice               |     1|
+|50    |pfm_dynamic_xbar                       |     3|
++------+---------------------------------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 3449.262 ; gain = 804.945 ; free physical = 4138 ; free virtual = 12213
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 23 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 3449.262 ; gain = 776.195 ; free physical = 4178 ; free virtual = 12253
+Synthesis Optimization Complete : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 3449.270 ; gain = 804.945 ; free physical = 4178 ; free virtual = 12253
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00.08 ; elapsed = 00:00:00.08 . Memory (MB): peak = 3449.270 ; gain = 0.000 ; free physical = 4256 ; free virtual = 12331
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3522.887 ; gain = 0.000 ; free physical = 4163 ; free virtual = 12238
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Synth Design complete, checksum: 8d65c2a8
+INFO: [Common 17-83] Releasing license: Synthesis
+178 Infos, 259 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:30 ; elapsed = 00:00:28 . Memory (MB): peak = 3536.824 ; gain = 897.508 ; free physical = 4373 ; free virtual = 12448
+INFO: [Common 17-600] The following parameters have non-default value.
+general.maxThreads
+INFO: [Coretcl 2-1174] Renamed 15 cell refs.
+INFO: [Common 17-1381] The checkpoint '/home/tonny/p4p/P23CapsuleNetworkFPGA/accel/lib/digit_caps_accel/pl/standalone/build/link/temp/link/vivado/vpl/prj/prj.runs/my_rm_synth_1/pfm_dynamic.dcp' has been generated.
+INFO: [Common 17-206] Exiting Vivado at Tue Jul  7 21:07:06 2026...

@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="digitcaps_accel">
+  <platform vendor="xilinx" boardid="zcu102" name="dynamic" featureRomTime="0">
+    <version major="1" minor="0"/>
+    <description/>
+    <board name="xilinx.com:zcu102:3.4" vendor="xilinx.com" fpga="xczu9eg-ffvb1156-2-e">
+      <interfaces/>
+      <memories>
+        <memory name="mem0" type="ddr4" size="2GB"/>
+      </memories>
+      <images>
+        <image name="zcu102_board.jpeg" type="HDPI"/>
+        <image name="" type="MDPI"/>
+        <image name="" type="LDPI"/>
+      </images>
+      <id>
+        <vendor/>
+        <device/>
+        <subsystem/>
+      </id>
+    </board>
+    <build_flow/>
+    <host architecture="x86_64"/>
+    <device name="fpga0" fpgaDevice="zynquplus:xczu9eg:ffvb1156:-2:e" addrWidth="0">
+      <core name="OCL_REGION_0" target="bitstream" type="clc_region" clockFreq="0MHz" numComputeUnits="60">
+        <kernel name="digitcaps_accel" language="c" vlnv="xilinx.com:hls:digitcaps_accel:1.0" preferredWorkGroupSizeMultiple="0" workGroupSize="1" debug="false" interrupt="true" hwControlProtocol="ap_ctrl_chain" countedAutoRestart="0" deadlockDetection="local" mailbox="none" swReset="false">
+          <module name="digitcaps_accel">
+            <module name="digitcaps_accel_Pipeline_VITIS_LOOP_132_1" instName="grp_digitcaps_accel_Pipeline_VITIS_LOOP_132_1_fu_1659" type="NonDataflowHS">
+              <rtlPort name="trunc_ln12" object="trunc_ln12" protocol="ap_none"/>
+              <rtlPort name="input_local_V_7_d0" object="input_local_V_7" protocol="ap_memory"/>
+              <rtlPort name="zext_ln131_1" object="zext_ln131_1" protocol="ap_none"/>
+              <rtlPort name="input_local_V_6_d0" object="input_local_V_6" protocol="ap_memory"/>
+              <rtlPort name="input_local_V_5_d0" object="input_local_V_5" protocol="ap_memory"/>
+              <rtlPort name="input_local_V_4_d0" object="input_local_V_4" protocol="ap_memory"/>
+              <rtlPort name="input_local_V_3_d0" object="input_local_V_3" protocol="ap_memory"/>
+              <rtlPort name="input_local_V_2_d0" object="input_local_V_2" protocol="ap_memory"/>
+              <rtlPort name="input_local_V_1_d0" object="input_local_V_1" protocol="ap_memory"/>
+              <rtlPort name="input_local_V_d0" object="input_local_V" protocol="ap_memory"/>
+            </module>
+            <module name="digitcaps_accel_Pipeline_init_routing_VITIS_LOOP_154_5" instName="grp_digitcaps_accel_Pipeline_init_routing_VITIS_LOOP_154_5_fu_1673" type="NonDataflowHS">
+              <rtlPort name="b_ij_V_d0" object="b_ij_V" protocol="ap_memory"/>
+              <rtlPort name="c_ij_V_d0" object="c_ij_V" protocol="ap_memory"/>
+            </module>
+            <module name="digitcaps_accel_Pipeline_init_output_VITIS_LOOP_163_6" instName="grp_digitcaps_accel_Pipeline_init_output_VITIS_LOOP_163_6_fu_1679" type="NonDataflowHS">
+              <rtlPort name="v_j_V_d0" object="v_j_V" protocol="ap_memory"/>
+              <rtlPort name="v_j_V_1_d0" object="v_j_V_1" protocol="ap_memory"/>
+              <rtlPort name="v_j_V_2_d0" object="v_j_V_2" protocol="ap_memory"/>
+              <rtlPort name="v_j_V_3_d0" object="v_j_V_3" protocol="ap_memory"/>
+              <rtlPort name="v_j_V_4_d0" object="v_j_V_4" protocol="ap_memory"/>
+              <rtlPort name="v_j_V_5_d0" object="v_j_V_5" protocol="ap_memory"/>
+              <rtlPort name="v_j_V_6_d0" object="v_j_V_6" protocol="ap_memory"/>
+              <rtlPort name="v_j_V_7_d0" object="v_j_V_7" protocol="ap_memory"/>
+              <rtlPort name="v_j_V_8_d0" object="v_j_V_8" protocol="ap_memory"/>
+              <rtlPort name="v_j_V_9_d0" object="v_j_V_9" protocol="ap_memory"/>
+              <rtlPort name="v_j_V_10_d0" object="v_j_V_10" protocol="ap_memory"/>
+              <rtlPort name="v_j_V_11_d0" object="v_j_V_11" protocol="ap_memory"/>
+              <rtlPort name="v_j_V_12_d0" object="v_j_V_12" protocol="ap_memory"/>
+              <rtlPort name="v_j_V_13_d0" object="v_j_V_13" protocol="ap_memory"/>
+              <rtlPort name="v_j_V_14_d0" object="v_j_V_14" protocol="ap_memory"/>
+              <rtlPort name="v_j_V_15_d0" object="v_j_V_15" protocol="ap_memory"/>
+            </module>
+            <module name="digitcaps_accel_Pipeline_VITIS_LOOP_143_4" instName="grp_digitcaps_accel_Pipeline_VITIS_LOOP_143_4_fu_1699" type="NonDataflowHS">
+              <rtlPort name="trunc_ln13" object="trunc_ln13" protocol="ap_none"/>
+              <rtlPort name="input_local_V_load" object="input_local_V_load" protocol="ap_none"/>
+              <rtlPort name="input_local_V_1_load" object="input_local_V_1_load" protocol="ap_none"/>
+              <rtlPort name="input_local_V_2_load" object="input_local_V_2_load" protocol="ap_none"/>
+              <rtlPort name="input_local_V_3_load" object="input_local_V_3_load" protocol="ap_none"/>
+              <rtlPort name="input_local_V_4_load" object="input_local_V_4_load" protocol="ap_none"/>
+              <rtlPort name="input_local_V_5_load" object="input_local_V_5_load" protocol="ap_none"/>
+              <rtlPort name="input_local_V_6_load" object="input_local_V_6_load" protocol="ap_none"/>
+              <rtlPort name="input_local_V_7_load" object="input_local_V_7_load" protocol="ap_none"/>
+            </module>
+            <module name="digitcaps_accel_Pipeline_clear_s_VITIS_LOOP_194_9" instName="grp_digitcaps_accel_Pipeline_clear_s_VITIS_LOOP_194_9_fu_1713" type="NonDataflowHS">
+              <rtlPort name="s_j_V_d0" object="s_j_V" protocol="ap_memory"/>
+              <rtlPort name="s_j_V_1_d0" object="s_j_V_1" protocol="ap_memory"/>
+              <rtlPort name="s_j_V_2_d0" object="s_j_V_2" protocol="ap_memory"/>
+              <rtlPort name="s_j_V_3_d0" object="s_j_V_3" protocol="ap_memory"/>
+              <rtlPort name="s_j_V_4_d0" object="s_j_V_4" protocol="ap_memory"/>
+              <rtlPort name="s_j_V_5_d0" object="s_j_V_5" protocol="ap_memory"/>
+              <rtlPort name="s_j_V_6_d0" object="s_j_V_6" protocol="ap_memory"/>
+              <rtlPort name="s_j_V_7_d0" object="s_j_V_7" protocol="ap_memory"/>
+              <rtlPort name="s_j_V_8_d0" object="s_j_V_8" protocol="ap_memory"/>
+              <rtlPort name="s_j_V_9_d0" object="s_j_V_9" protocol="ap_memory"/>
+              <rtlPort name="s_j_V_10_d0" object="s_j_V_10" protocol="ap_memory"/>
+              <rtlPort name="s_j_V_11_d0" object="s_j_V_11" protocol="ap_memory"/>
+              <rtlPort name="s_j_V_12_d0" object="s_j_V_12" protocol="ap_memory"/>
+              <rtlPort name="s_j_V_13_d0" object="s_j_V_13" protocol="ap_memory"/>
+              <rtlPort name="s_j_V_14_d0" object="s_j_V_14" protocol="ap_memory"/>
+              <rtlPort name="s_j_V_15_d0" object="s_j_V_15" protocol="ap_memory"/>
+            </module>
+            <module name="softmax_one" instName="grp_softmax_one_fu_1733" type="NonDataflowHS">
+              <rtlPort name="p_read" object="p_read" protocol="ap_none"/>
+              <rtlPort name="p_read1" object="p_read1" protocol="ap_none"/>
+              <rtlPort name="p_read2" object="p_read2" protocol="ap_none"/>
+              <rtlPort name="p_read3" object="p_read3" protocol="ap_none"/>
+              <rtlPort name="p_read4" object="p_read4" protocol="ap_none"/>
+              <rtlPort name="p_read5" object="p_read5" protocol="ap_none"/>
+              <rtlPort name="p_read6" object="p_read6" protocol="ap_none"/>
+              <rtlPort name="p_read7" object="p_read7" protocol="ap_none"/>
+              <rtlPort name="p_read8" object="p_read8" protocol="ap_none"/>
+              <rtlPort name="p_read9" object="p_read9" protocol="ap_none"/>
+              <rtlPort name="p_read10" object="p_read10" protocol="ap_none"/>
+              <rtlPort name="p_read11" object="p_read11" protocol="ap_none"/>
+              <rtlPort name="p_read12" object="p_read12" protocol="ap_none"/>
+              <rtlPort name="p_read13" object="p_read13" protocol="ap_none"/>
+              <rtlPort name="p_read14" object="p_read14" protocol="ap_none"/>
+              <rtlPort name="p_read15" object="p_read15" protocol="ap_none"/>
+              <rtlPort name="p_read16" object="p_read16" protocol="ap_none"/>
+              <rtlPort name="p_read17" object="p_read17" protocol="ap_none"/>
+              <rtlPort name="p_read18" object="p_read18" protocol="ap_none"/>
+              <rtlPort name="p_read19" object="p_read19" protocol="ap_none"/>
+              <module name="softmax_one_Pipeline_softmax_max" instName="grp_softmax_one_Pipeline_softmax_max_fu_308" type="NonDataflowHS">
+                <rtlPort name="p_read" object="p_read" protocol="ap_none"/>
+                <rtlPort name="p_read1" object="p_read1" protocol="ap_none"/>
+                <rtlPort name="p_read2" object="p_read2" protocol="ap_none"/>
+                <rtlPort name="p_read3" object="p_read3" protocol="ap_none"/>
+                <rtlPort name="p_read4" object="p_read4" protocol="ap_none"/>
+                <rtlPort name="p_read5" object="p_read5" protocol="ap_none"/>
+                <rtlPort name="p_read6" object="p_read6" protocol="ap_none"/>
+                <rtlPort name="p_read7" object="p_read7" protocol="ap_none"/>
+                <rtlPort name="p_read8" object="p_read8" protocol="ap_none"/>
+                <rtlPort name="p_read9" object="p_read9" protocol="ap_none"/>
+              </module>
+              <module name="softmax_one_Pipeline_softmax_exp" instName="grp_softmax_one_Pipeline_softmax_exp_fu_333" type="NonDataflowHS">
+                <rtlPort name="p_read" object="p_read" protocol="ap_none"/>
+                <rtlPort name="p_read1" object="p_read1" protocol="ap_none"/>
+                <rtlPort name="p_read2" object="p_read2" protocol="ap_none"/>
+                <rtlPort name="p_read3" object="p_read3" protocol="ap_none"/>
+                <rtlPort name="p_read4" object="p_read4" protocol="ap_none"/>
+                <rtlPort name="p_read5" object="p_read5" protocol="ap_none"/>
+                <rtlPort name="p_read6" object="p_read6" protocol="ap_none"/>
+                <rtlPort name="p_read7" object="p_read7" protocol="ap_none"/>
+                <rtlPort name="p_read8" object="p_read8" protocol="ap_none"/>
+                <rtlPort name="p_read9" object="p_read9" protocol="ap_none"/>
+                <rtlPort name="rhs" object="rhs" protocol="ap_none"/>
+                <module name="exp_32_16_s" instName="grp_exp_32_16_s_fu_317" type="NonDataflowHS">
+                  <rtlPort name="x" object="x" protocol="ap_none"/>
+                </module>
+              </module>
+              <module name="softmax_one_Pipeline_softmax_div" instName="grp_softmax_one_Pipeline_softmax_div_fu_365" type="NonDataflowHS">
+                <rtlPort name="exps_V_reload" object="exps_V_reload" protocol="ap_none"/>
+                <rtlPort name="exps_V_1_reload" object="exps_V_1_reload" protocol="ap_none"/>
+                <rtlPort name="exps_V_2_reload" object="exps_V_2_reload" protocol="ap_none"/>
+                <rtlPort name="exps_V_3_reload" object="exps_V_3_reload" protocol="ap_none"/>
+                <rtlPort name="exps_V_4_reload" object="exps_V_4_reload" protocol="ap_none"/>
+                <rtlPort name="exps_V_5_reload" object="exps_V_5_reload" protocol="ap_none"/>
+                <rtlPort name="exps_V_6_reload" object="exps_V_6_reload" protocol="ap_none"/>
+                <rtlPort name="exps_V_7_reload" object="exps_V_7_reload" protocol="ap_none"/>
+                <rtlPort name="exps_V_8_reload" object="exps_V_8_reload" protocol="ap_none"/>
+                <rtlPort name="exps_V_9_reload" object="exps_V_9_reload" protocol="ap_none"/>
+                <rtlPort name="conv_i" object="conv_i" protocol="ap_none"/>
+              </module>
+            </module>
+            <module name="digitcaps_accel_Pipeline_VITIS_LOOP_202_10_VITIS_LOOP_204_11" instName="grp_digitcaps_accel_Pipeline_VITIS_LOOP_202_10_VITIS_LOOP_204_11_fu_1765" type="NonDataflowHS">
+              <rtlPort name="s_j_V_15_load" object="s_j_V_15_load" protocol="ap_none"/>
+              <rtlPort name="s_j_V_14_load" object="s_j_V_14_load" protocol="ap_none"/>
+              <rtlPort name="s_j_V_13_load" object="s_j_V_13_load" protocol="ap_none"/>
+              <rtlPort name="s_j_V_12_load" object="s_j_V_12_load" protocol="ap_none"/>
+              <rtlPort name="s_j_V_11_load" object="s_j_V_11_load" protocol="ap_none"/>
+              <rtlPort name="s_j_V_10_load" object="s_j_V_10_load" protocol="ap_none"/>
+              <rtlPort name="s_j_V_9_load" object="s_j_V_9_load" protocol="ap_none"/>
+              <rtlPort name="s_j_V_8_load" object="s_j_V_8_load" protocol="ap_none"/>
+              <rtlPort name="s_j_V_7_load" object="s_j_V_7_load" protocol="ap_none"/>
+              <rtlPort name="s_j_V_6_load" object="s_j_V_6_load" protocol="ap_none"/>
+              <rtlPort name="s_j_V_5_load" object="s_j_V_5_load" protocol="ap_none"/>
+              <rtlPort name="s_j_V_4_load" object="s_j_V_4_load" protocol="ap_none"/>
+              <rtlPort name="s_j_V_3_load" object="s_j_V_3_load" protocol="ap_none"/>
+              <rtlPort name="s_j_V_2_load" object="s_j_V_2_load" protocol="ap_none"/>
+              <rtlPort name="s_j_V_1_load" object="s_j_V_1_load" protocol="ap_none"/>
+              <rtlPort name="s_j_V_load" object="s_j_V_load" protocol="ap_none"/>
+              <rtlPort name="add_ln883" object="add_ln883" protocol="ap_none"/>
+              <rtlPort name="zext_ln201" object="zext_ln201" protocol="ap_none"/>
+              <rtlPort name="c_ij_V_q0" object="c_ij_V" protocol="ap_memory"/>
+              <rtlPort name="u_hat_V_q0" object="u_hat_V" protocol="ap_memory"/>
+            </module>
+            <module name="squash_capsule" instName="grp_squash_capsule_fu_1822" type="NonDataflowHS">
+              <rtlPort name="p_read" object="p_read" protocol="ap_none"/>
+              <rtlPort name="p_read1" object="p_read1" protocol="ap_none"/>
+              <rtlPort name="p_read2" object="p_read2" protocol="ap_none"/>
+              <rtlPort name="p_read3" object="p_read3" protocol="ap_none"/>
+              <rtlPort name="p_read4" object="p_read4" protocol="ap_none"/>
+              <rtlPort name="p_read5" object="p_read5" protocol="ap_none"/>
+              <rtlPort name="p_read6" object="p_read6" protocol="ap_none"/>
+              <rtlPort name="p_read7" object="p_read7" protocol="ap_none"/>
+              <rtlPort name="p_read8" object="p_read8" protocol="ap_none"/>
+              <rtlPort name="p_read9" object="p_read9" protocol="ap_none"/>
+              <rtlPort name="p_read10" object="p_read10" protocol="ap_none"/>
+              <rtlPort name="p_read11" object="p_read11" protocol="ap_none"/>
+              <rtlPort name="p_read12" object="p_read12" protocol="ap_none"/>
+              <rtlPort name="p_read13" object="p_read13" protocol="ap_none"/>
+              <rtlPort name="p_read14" object="p_read14" protocol="ap_none"/>
+              <rtlPort name="p_read15" object="p_read15" protocol="ap_none"/>
+              <rtlPort name="p_read16" object="p_read16" protocol="ap_none"/>
+              <rtlPort name="p_read17" object="p_read17" protocol="ap_none"/>
+              <rtlPort name="p_read18" object="p_read18" protocol="ap_none"/>
+              <rtlPort name="p_read19" object="p_read19" protocol="ap_none"/>
+              <rtlPort name="p_read20" object="p_read20" protocol="ap_none"/>
+              <rtlPort name="p_read21" object="p_read21" protocol="ap_none"/>
+              <rtlPort name="p_read22" object="p_read22" protocol="ap_none"/>
+              <rtlPort name="p_read23" object="p_read23" protocol="ap_none"/>
+              <rtlPort name="p_read24" object="p_read24" protocol="ap_none"/>
+              <rtlPort name="p_read25" object="p_read25" protocol="ap_none"/>
+              <rtlPort name="p_read26" object="p_read26" protocol="ap_none"/>
+              <rtlPort name="p_read27" object="p_read27" protocol="ap_none"/>
+              <rtlPort name="p_read28" object="p_read28" protocol="ap_none"/>
+              <rtlPort name="p_read29" object="p_read29" protocol="ap_none"/>
+              <rtlPort name="p_read30" object="p_read30" protocol="ap_none"/>
+              <rtlPort name="p_read31" object="p_read31" protocol="ap_none"/>
+              <module name="squash_capsule_Pipeline_squash_norm" instName="grp_squash_capsule_Pipeline_squash_norm_fu_480" type="NonDataflowHS">
+                <rtlPort name="p_read" object="p_read" protocol="ap_none"/>
+                <rtlPort name="p_read1" object="p_read1" protocol="ap_none"/>
+                <rtlPort name="p_read2" object="p_read2" protocol="ap_none"/>
+                <rtlPort name="p_read3" object="p_read3" protocol="ap_none"/>
+                <rtlPort name="p_read4" object="p_read4" protocol="ap_none"/>
+                <rtlPort name="p_read5" object="p_read5" protocol="ap_none"/>
+                <rtlPort name="p_read6" object="p_read6" protocol="ap_none"/>
+                <rtlPort name="p_read7" object="p_read7" protocol="ap_none"/>
+                <rtlPort name="p_read8" object="p_read8" protocol="ap_none"/>
+                <rtlPort name="p_read9" object="p_read9" protocol="ap_none"/>
+                <rtlPort name="p_read10" object="p_read10" protocol="ap_none"/>
+                <rtlPort name="p_read11" object="p_read11" protocol="ap_none"/>
+                <rtlPort name="p_read12" object="p_read12" protocol="ap_none"/>
+                <rtlPort name="p_read13" object="p_read13" protocol="ap_none"/>
+                <rtlPort name="p_read14" object="p_read14" protocol="ap_none"/>
+                <rtlPort name="p_read15" object="p_read15" protocol="ap_none"/>
+              </module>
+              <module name="sqrt_fixed_48_24_s" instName="grp_sqrt_fixed_48_24_s_fu_517">
+                <rtlPort name="x" object="x" protocol="ap_none"/>
+              </module>
+              <module name="squash_capsule_Pipeline_squash_apply" instName="grp_squash_capsule_Pipeline_squash_apply_fu_522" type="NonDataflowHS">
+                <rtlPort name="p_read" object="p_read" protocol="ap_none"/>
+                <rtlPort name="p_read1" object="p_read1" protocol="ap_none"/>
+                <rtlPort name="p_read2" object="p_read2" protocol="ap_none"/>
+                <rtlPort name="p_read3" object="p_read3" protocol="ap_none"/>
+                <rtlPort name="p_read4" object="p_read4" protocol="ap_none"/>
+                <rtlPort name="p_read5" object="p_read5" protocol="ap_none"/>
+                <rtlPort name="p_read6" object="p_read6" protocol="ap_none"/>
+                <rtlPort name="p_read7" object="p_read7" protocol="ap_none"/>
+                <rtlPort name="p_read8" object="p_read8" protocol="ap_none"/>
+                <rtlPort name="p_read9" object="p_read9" protocol="ap_none"/>
+                <rtlPort name="p_read10" object="p_read10" protocol="ap_none"/>
+                <rtlPort name="p_read11" object="p_read11" protocol="ap_none"/>
+                <rtlPort name="p_read12" object="p_read12" protocol="ap_none"/>
+                <rtlPort name="p_read13" object="p_read13" protocol="ap_none"/>
+                <rtlPort name="p_read14" object="p_read14" protocol="ap_none"/>
+                <rtlPort name="p_read15" object="p_read15" protocol="ap_none"/>
+                <rtlPort name="conv7_i" object="conv7_i" protocol="ap_none"/>
+              </module>
+            </module>
+            <module name="digitcaps_accel_Pipeline_VITIS_LOOP_236_15" instName="grp_digitcaps_accel_Pipeline_VITIS_LOOP_236_15_fu_1858" type="NonDataflowHS">
+              <rtlPort name="tmp_111" object="tmp_111" protocol="ap_none"/>
+              <rtlPort name="u_hat_V_q0" object="u_hat_V" protocol="ap_memory"/>
+              <rtlPort name="v_j_V_load_1" object="v_j_V_load_1" protocol="ap_none"/>
+              <rtlPort name="v_j_V_1_load_1" object="v_j_V_1_load_1" protocol="ap_none"/>
+              <rtlPort name="v_j_V_2_load_1" object="v_j_V_2_load_1" protocol="ap_none"/>
+              <rtlPort name="v_j_V_3_load_1" object="v_j_V_3_load_1" protocol="ap_none"/>
+              <rtlPort name="v_j_V_4_load_1" object="v_j_V_4_load_1" protocol="ap_none"/>
+              <rtlPort name="v_j_V_5_load_1" object="v_j_V_5_load_1" protocol="ap_none"/>
+              <rtlPort name="v_j_V_6_load_1" object="v_j_V_6_load_1" protocol="ap_none"/>
+              <rtlPort name="v_j_V_7_load_1" object="v_j_V_7_load_1" protocol="ap_none"/>
+              <rtlPort name="v_j_V_8_load_1" object="v_j_V_8_load_1" protocol="ap_none"/>
+              <rtlPort name="v_j_V_9_load_1" object="v_j_V_9_load_1" protocol="ap_none"/>
+              <rtlPort name="v_j_V_10_load_1" object="v_j_V_10_load_1" protocol="ap_none"/>
+              <rtlPort name="v_j_V_11_load_1" object="v_j_V_11_load_1" protocol="ap_none"/>
+              <rtlPort name="v_j_V_12_load_1" object="v_j_V_12_load_1" protocol="ap_none"/>
+              <rtlPort name="v_j_V_13_load_1" object="v_j_V_13_load_1" protocol="ap_none"/>
+              <rtlPort name="v_j_V_14_load_1" object="v_j_V_14_load_1" protocol="ap_none"/>
+              <rtlPort name="v_j_V_15_load_1" object="v_j_V_15_load_1" protocol="ap_none"/>
+            </module>
+            <module name="digitcaps_accel_Pipeline_write_output_VITIS_LOOP_248_16" instName="grp_digitcaps_accel_Pipeline_write_output_VITIS_LOOP_248_16_fu_1897" type="NonDataflowHS">
+              <rtlPort name="m_axi_gmem2_AWVALID" object="gmem2" protocol="m_axi"/>
+              <rtlPort name="sext_ln247" object="sext_ln247" protocol="ap_none"/>
+              <rtlPort name="v_j_V_q0" object="v_j_V" protocol="ap_memory"/>
+              <rtlPort name="v_j_V_1_q0" object="v_j_V_1" protocol="ap_memory"/>
+              <rtlPort name="v_j_V_2_q0" object="v_j_V_2" protocol="ap_memory"/>
+              <rtlPort name="v_j_V_3_q0" object="v_j_V_3" protocol="ap_memory"/>
+              <rtlPort name="v_j_V_4_q0" object="v_j_V_4" protocol="ap_memory"/>
+              <rtlPort name="v_j_V_5_q0" object="v_j_V_5" protocol="ap_memory"/>
+              <rtlPort name="v_j_V_6_q0" object="v_j_V_6" protocol="ap_memory"/>
+              <rtlPort name="v_j_V_7_q0" object="v_j_V_7" protocol="ap_memory"/>
+              <rtlPort name="v_j_V_8_q0" object="v_j_V_8" protocol="ap_memory"/>
+              <rtlPort name="v_j_V_9_q0" object="v_j_V_9" protocol="ap_memory"/>
+              <rtlPort name="v_j_V_10_q0" object="v_j_V_10" protocol="ap_memory"/>
+              <rtlPort name="v_j_V_11_q0" object="v_j_V_11" protocol="ap_memory"/>
+              <rtlPort name="v_j_V_12_q0" object="v_j_V_12" protocol="ap_memory"/>
+              <rtlPort name="v_j_V_13_q0" object="v_j_V_13" protocol="ap_memory"/>
+              <rtlPort name="v_j_V_14_q0" object="v_j_V_14" protocol="ap_memory"/>
+              <rtlPort name="v_j_V_15_q0" object="v_j_V_15" protocol="ap_memory"/>
+            </module>
+          </module>
+          <port name="M_AXI_GMEM0" mode="master" range="0xFFFFFFFF" dataWidth="512" portType="addressable" base="0x0"/>
+          <port name="M_AXI_GMEM1" mode="master" range="0xFFFFFFFF" dataWidth="512" portType="addressable" base="0x0"/>
+          <port name="M_AXI_GMEM2" mode="master" range="0xFFFFFFFF" dataWidth="512" portType="addressable" base="0x0"/>
+          <port name="S_AXI_CONTROL" mode="slave" range="0x34" dataWidth="32" portType="addressable" base="0x0"/>
+          <arg name="input_r" addressQualifier="1" id="0" port="M_AXI_GMEM0" size="0x8" offset="0x10" hostOffset="0x0" hostSize="0x8" type="void*"/>
+          <arg name="weights" addressQualifier="1" id="1" port="M_AXI_GMEM1" size="0x8" offset="0x1C" hostOffset="0x0" hostSize="0x8" type="void*"/>
+          <arg name="prediction" addressQualifier="1" id="2" port="M_AXI_GMEM2" size="0x8" offset="0x28" hostOffset="0x0" hostSize="0x8" type="void*"/>
+          <compileWorkGroupSize x="1" y="1" z="1"/>
+          <maxWorkGroupSize x="1" y="1" z="1"/>
+          <string_table/>
+          <instance name="digitcaps_accel_1"/>
+          <FIFOInformation/>
+        </kernel>
+      </core>
+    </device>
+  </platform>
+</project>

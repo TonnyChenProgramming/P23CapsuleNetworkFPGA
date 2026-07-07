@@ -56,3 +56,5 @@ Xilinx/
 Vitis-AI/
 test/
 compare_dump/
+accel/lib/digit_caps_accel/pl/standalone/package/sd_card.img
+accel/lib/digit_caps_accel/pl/standalone/package/
